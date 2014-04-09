@@ -1,0 +1,876 @@
+# Copyright (C) 2014 Wat kost doodgaan?
+# This file is distributed under the same license as the Wat kost doodgaan? package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Pronamic Reviews and Ratings\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/pronamic-reviews-"
+"ratings\n"
+"POT-Creation-Date: 2014-04-09 07:15:03+00:00\n"
+"PO-Revision-Date: 2014-04-09 09:16+0100\n"
+"Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
+"Language-Team: Pronamic <info@pronamic.nl>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. Plugin Name of the plugin/theme
+msgid "Pronamic Reviews and Ratings"
+msgstr "Pronamic Reviews and Ratings"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.happywp.com/plugins/pronamic-reviews-ratings/"
+msgstr "http://www.happywp.com/plugins/pronamic-reviews-ratings/"
+
+#. Description of the plugin/theme
+msgid ""
+"Pronamic Reviews Ratings is a powerful, extendable reviews and ratings "
+"plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Pronamic"
+msgstr "Pronamic"
+
+#. Author URI of the plugin/theme
+msgid "http://www.pronamic.eu/"
+msgstr "http://www.pronamic.nl/"
+
+#~ msgid "Wat kost doodgaan?"
+#~ msgstr "Wat kost doodgaan?"
+
+#~ msgid "Plugin File"
+#~ msgstr "Plugin bestand"
+
+#~ msgid "Database Version"
+#~ msgstr "Database versie"
+
+#~ msgid "Dir Path"
+#~ msgstr "Dir pad"
+
+#~ msgid "Street"
+#~ msgstr "Straat"
+
+#~ msgid "House Number"
+#~ msgstr "Huisnummer"
+
+#~ msgid "Postal Code"
+#~ msgstr "Postcode"
+
+#~ msgid "City"
+#~ msgstr "Plaats"
+
+#~ msgid "Telephone Number"
+#~ msgstr "Telefoonnummer"
+
+#~ msgid "Latitude"
+#~ msgstr "Breedtegraad"
+
+#~ msgid "Longitude"
+#~ msgstr "Lengtegraad"
+
+#~ msgid "Name"
+#~ msgstr "Naam"
+
+#~ msgid "Address"
+#~ msgstr "Adres"
+
+#~ msgid "E-mail"
+#~ msgstr "E-mailadres"
+
+#~ msgid "In-house"
+#~ msgstr "In eigen beheer"
+
+#~ msgid "Cost ceremony 60 minutes"
+#~ msgstr "Kosten plechtigheid van 60 minuten"
+
+#~ msgid "&mdash; Select Type &mdash;"
+#~ msgstr "&mdash; Selecteer type &mdash;"
+
+#~ msgid "Input"
+#~ msgstr "Input"
+
+#~ msgid "Textarea"
+#~ msgstr "Tekstveld"
+
+#~ msgid "Radio"
+#~ msgstr "Keuzerondjes"
+
+#~ msgid "Price"
+#~ msgstr "Prijs"
+
+#~ msgid "HTML"
+#~ msgstr "HTML"
+
+#~ msgid "Products"
+#~ msgstr "Producten"
+
+#~ msgid "Section"
+#~ msgstr "Sectie"
+
+#~ msgid "&mdash; Select Section &mdash;"
+#~ msgstr "&mdash; Selecteer sectie &mdash;"
+
+#~ msgid "Type"
+#~ msgstr "Type"
+
+#~ msgid "Product"
+#~ msgstr "Product"
+
+#~ msgid "&mdash; Select Product &mdash;"
+#~ msgstr "&mdash; Selecteer product &mdash;"
+
+#~ msgid "Product Category"
+#~ msgstr "Product categorie"
+
+#~ msgid "&mdash; Select Product Category &mdash;"
+#~ msgstr "&mdash; Selecteer product categorie &mdash;"
+
+#~ msgid "Product Class"
+#~ msgstr "Product klasse"
+
+#~ msgid "&mdash; Select Product Class &mdash;"
+#~ msgstr "&mdash; Selecteer product klasse &mdash;"
+
+#~ msgid "Average Price"
+#~ msgstr "Gemiddelde prijs"
+
+#~ msgid "Maximum Price"
+#~ msgstr "Maximumprijs"
+
+#~ msgid "Minimum Price"
+#~ msgstr "Minimumprijs"
+
+#~ msgid "Link"
+#~ msgstr "Link"
+
+#~ msgid "Required"
+#~ msgstr "Vereist"
+
+#~ msgid "Is Required?"
+#~ msgstr "Is vereist"
+
+#~ msgid "Placeholder"
+#~ msgstr "Placeholder"
+
+#~ msgid "Tooltip"
+#~ msgstr "Tooltip"
+
+#~ msgid "Prefix"
+#~ msgstr "Voorvoegsel"
+
+#~ msgid "Suffix"
+#~ msgstr "Achtervoegsel"
+
+#~ msgid "Condition"
+#~ msgstr "Conditie"
+
+#~ msgid "&mdash; Select Input &mdash;"
+#~ msgstr "&mdash; Selecteer input &mdash;"
+
+#~ msgid "Page"
+#~ msgstr "Pagina"
+
+#~ msgid "&mdash; Select Page &mdash;"
+#~ msgstr "&mdash; Selecteer pagina &mdash;"
+
+#~ msgid "&mdash; Select Validator &mdash;"
+#~ msgstr "&mdash; Selecteer validatie &mdash;"
+
+#~ msgid "Number"
+#~ msgstr "Nummer"
+
+#~ msgid "Custom"
+#~ msgstr "Maatwerk"
+
+#~ msgid "Validation"
+#~ msgstr "Validatie"
+
+#~ msgid "Validation Regular Expression"
+#~ msgstr "Validatie reguliere expressie"
+
+#~ msgid "Choose Label"
+#~ msgstr "Kies label"
+
+#~ msgid "Post Types"
+#~ msgstr "Bericht typen"
+
+#~ msgid "Edit Posts"
+#~ msgstr "Bewerk berichten"
+
+#~ msgid "Edit Other Posts"
+#~ msgstr "Bewerk andere berichten"
+
+#~ msgid "Publish Posts"
+#~ msgstr "Publiceer berichten"
+
+#~ msgid "Read Private Post"
+#~ msgstr "Lees privé bericht"
+
+#~ msgid "Delete Posts"
+#~ msgstr "Verwijder berichten"
+
+#~ msgid "Delete Private Posts"
+#~ msgstr "Verwijder privé berichten"
+
+#~ msgid "Delete Published Posts"
+#~ msgstr "Verwijder gepubliceerde berichten"
+
+#~ msgid "Delete Other Posts"
+#~ msgstr "Verwijder andere berichten"
+
+#~ msgid "Edit Private Posts"
+#~ msgstr "Bewerk privé berichten"
+
+#~ msgid "Edit Published Posts"
+#~ msgstr "Bewerk gepubliceerde berichten"
+
+#~ msgid "Save Changes"
+#~ msgstr "Wijzigingen opslaan"
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
+#~ msgid "Order"
+#~ msgstr "Volgorde"
+
+#~ msgid "Date"
+#~ msgstr "Datum"
+
+#~ msgid "Mortician Input Details"
+#~ msgstr "Uitvaartverzorger input details"
+
+#~ msgid "Mortician Details"
+#~ msgstr "Uitvaartverzorger details"
+
+#~ msgid "Mortician Products"
+#~ msgstr "Uitvaartverzorger producten"
+
+#~ msgid "Funeral Homes"
+#~ msgstr "Uitvaartcentra"
+
+#~ msgid "Product Details"
+#~ msgstr "Product details"
+
+#~ msgid "Yes"
+#~ msgstr "Ja"
+
+#~ msgid "No"
+#~ msgstr "Nee"
+
+#~ msgid "Wish List Input Details"
+#~ msgstr "Wensenlijst input details"
+
+#~ msgid "Wish List Input Validation"
+#~ msgstr "Wensenlijst input validatie"
+
+#~ msgid "Label Choose"
+#~ msgstr "Label kies"
+
+#~ msgid "Wish List Section Details"
+#~ msgstr "Wensenlijst sectie details"
+
+#~ msgid "Pages"
+#~ msgstr "Pagina's"
+
+#~ msgid "Login Page"
+#~ msgstr "Inloggen pagina"
+
+#~ msgid "Lost Password Page"
+#~ msgstr "Wachtwoord vergeten pagina"
+
+#~ msgid "Edit Profile Page"
+#~ msgstr "Profiel bewerken pagina"
+
+#~ msgid "Compare Page"
+#~ msgstr "Vergelijken pagina"
+
+#~ msgid "Afford Page"
+#~ msgstr "Kunnen betalen pagina"
+
+#~ msgid "Calculate Page"
+#~ msgstr "Berekenen pagina"
+
+#~ msgid "Edit"
+#~ msgstr "Bewerken"
+
+#~ msgid "View"
+#~ msgstr "Bekijk"
+
+#~ msgid "Wat kost doodgaan? - Settings"
+#~ msgstr "Wat kost doodgaan? - Instellingen"
+
+#~ msgid "Settings"
+#~ msgstr "Instellingen"
+
+#~ msgid "Wat kost doodgaan? - Permissions"
+#~ msgstr "Wat kost doodgaan? - Toegangsrechten"
+
+#~ msgid "Permissions"
+#~ msgstr "Toegangsrechten"
+
+#~ msgid "Wat kost doodgaan? - Documentation"
+#~ msgstr "Wat kost doodgaan? - Documentatie"
+
+#~ msgid "Documentation"
+#~ msgstr "Documentatie"
+
+#~ msgid "Morticians"
+#~ msgstr "Uitvaartverzorgers"
+
+#~ msgid "Add New Mortician"
+#~ msgstr "Nieuwe uitvaartverzorger toevoegen"
+
+#~ msgid "New Mortician"
+#~ msgstr "Nieuwe uitvaartverzorger"
+
+#~ msgid "Edit Mortician"
+#~ msgstr "Uitvaartverzorger bewerken"
+
+#~ msgid "View Mortician"
+#~ msgstr "Uitvaartverzorger bekijken"
+
+#~ msgid "All Morticians"
+#~ msgstr "Alle uitvaartverzorgers"
+
+#~ msgid "Search Morticians"
+#~ msgstr "Uitvaartverzorgers zoeken"
+
+#~ msgid "Parent Mortician:"
+#~ msgstr "Bovenliggende uitvaartverzorger:"
+
+#~ msgid "No morticians found."
+#~ msgstr "Geen uitvaartverzorgers gevonden."
+
+#~ msgid "No morticians found in Trash."
+#~ msgstr "Geen uitvaartverzorgers gevonden in prullenbak."
+
+#~ msgid "Add New Product"
+#~ msgstr "Nieuw product toevoegen"
+
+#~ msgid "New Product"
+#~ msgstr "Nieuw product"
+
+#~ msgid "Edit Product"
+#~ msgstr "Product bewerken"
+
+#~ msgid "View Product"
+#~ msgstr "Product bekijken"
+
+#~ msgid "All Products"
+#~ msgstr "Alle producten"
+
+#~ msgid "Search Products"
+#~ msgstr "Producten zoeken"
+
+#~ msgid "Parent Product:"
+#~ msgstr "Bovenliggend product:"
+
+#~ msgid "No products found."
+#~ msgstr "Geen producten gevonden."
+
+#~ msgid "No products found in Trash."
+#~ msgstr "Geen producten gevonden in prullenbak."
+
+#~ msgid "Wish List Sections"
+#~ msgstr "Wensenlijst secties"
+
+#~ msgid "Add New Wish List Section"
+#~ msgstr "Nieuwe wensenlijst sectie toevoegen"
+
+#~ msgid "New Wish List Section"
+#~ msgstr "Nieuwe wensenlijst sectie"
+
+#~ msgid "Edit Wish List Section"
+#~ msgstr "Wensenlijst sectie bewerken"
+
+#~ msgid "View Wish List Section"
+#~ msgstr "Wensenlijst sectie bekijken"
+
+#~ msgid "All Wish List Sections"
+#~ msgstr "Alle wensenlijst secties"
+
+#~ msgid "Search Wish List Sections"
+#~ msgstr "Wensenlijst secties zoeken"
+
+#~ msgid "Parent Wish List Section:"
+#~ msgstr "Bovenliggende wensenlijst sectie:"
+
+#~ msgid "No wish list sections found."
+#~ msgstr "Geen wensenlijst secties gevonden."
+
+#~ msgid "No wish list sections found in Trash."
+#~ msgstr "Geen wensenlijst secties gevonden in prullenbak."
+
+#~ msgid "Wish List Inputs"
+#~ msgstr "Wensenlijst inputs"
+
+#~ msgid "Add New Wish List Input"
+#~ msgstr "Nieuwe wensenlijst input toevoegen"
+
+#~ msgid "New Wish List Input"
+#~ msgstr "Nieuwe wensenlijst input"
+
+#~ msgid "Edit Wish List Input"
+#~ msgstr "Wensenlijst input bewerken"
+
+#~ msgid "View Wish List Input"
+#~ msgstr "Wensenlijst input bekijken"
+
+#~ msgid "All Wish List Inputs"
+#~ msgstr "Alle wensenlijst inputs"
+
+#~ msgid "Search Wish List Inputs"
+#~ msgstr "Wensenlijst inputs zoeken"
+
+#~ msgid "Parent Wish List Input:"
+#~ msgstr "Bovenliggenden wensenlijst input:"
+
+#~ msgid "No wish list inputs found."
+#~ msgstr "Geen wensenlijst inputs gevonden."
+
+#~ msgid "No wish list inputs found in Trash."
+#~ msgstr "Geen wensenlijst inputs gevonden in prullenbak."
+
+#~ msgid "Mortician Sections"
+#~ msgstr "Uitvaartverzorger secties"
+
+#~ msgid "Add New Mortician Section"
+#~ msgstr "Nieuwe uitvaartverzorger sectie toevoegen"
+
+#~ msgid "New Mortician Section"
+#~ msgstr "Nieuwe uitvaartverzorger sectie"
+
+#~ msgid "Edit Mortician Section"
+#~ msgstr "Uitvaartverzorger sectie bewerken"
+
+#~ msgid "View Mortician Section"
+#~ msgstr "Uitvaartverzorger sectie bekijken"
+
+#~ msgid "All Mortician Sections"
+#~ msgstr "Alle uitvaartverzorger secties"
+
+#~ msgid "Search Mortician Sections"
+#~ msgstr "Uitvaartverzorger secties zoeken"
+
+#~ msgid "Parent Mortician Section:"
+#~ msgstr "Bovenliggende uitvaartverzorger sectie:"
+
+#~ msgid "No mortician sections found."
+#~ msgstr "Geen uitvaartverzorger secties gevonden."
+
+#~ msgid "No mortician sections found in Trash."
+#~ msgstr "Geen uitvaartverzorger secties gevonden in prullenbak."
+
+#~ msgid "Mortician Inputs"
+#~ msgstr "Uitvaartverzorger inputs"
+
+#~ msgid "Add New Mortician Input"
+#~ msgstr "Nieuwe uitvaartverzorger input toevoegen"
+
+#~ msgid "New Mortician Input"
+#~ msgstr "Nieuwe uitvaartverzorger input"
+
+#~ msgid "Edit Mortician Input"
+#~ msgstr "Uitvaartverzorger input bewerken"
+
+#~ msgid "View Mortician Input"
+#~ msgstr "Uitvaartverzorger input bekijken"
+
+#~ msgid "All Mortician Inputs"
+#~ msgstr "Alle uitvaartverzorger inputs"
+
+#~ msgid "Search Mortician Inputs"
+#~ msgstr "Uitvaartverzorger inputs zoeken"
+
+#~ msgid "Parent Mortician Input:"
+#~ msgstr "Bovenliggende uitvaartverzorger input:"
+
+#~ msgid "No mortician inputs found."
+#~ msgstr "Geen uitvaartverzorger inputs gevonden."
+
+#~ msgid "No mortician inputs found in Trash."
+#~ msgstr "Geen uitvaartverzorger inputs gevonden in prullenbak."
+
+#~ msgid "Category"
+#~ msgstr "Categorie"
+
+#~ msgid "Search Categories"
+#~ msgstr "Categorieën zoeken"
+
+#~ msgid "All Categories"
+#~ msgstr "Alle categorieën"
+
+#~ msgid "Parent Category"
+#~ msgstr "Bovenliggende categorie"
+
+#~ msgid "Parent Category:"
+#~ msgstr "Bovenliggende categorie:"
+
+#~ msgid "Edit Category"
+#~ msgstr "Categorie bewerken"
+
+#~ msgid "Update Category"
+#~ msgstr "Categorie bijwerken"
+
+#~ msgid "Add New Category"
+#~ msgstr "Nieuwe categorie toevoegen"
+
+#~ msgid "New Category Name"
+#~ msgstr "Nieuwe categorie naam"
+
+#~ msgid "Categories"
+#~ msgstr "Categorieën"
+
+#~ msgid "Class"
+#~ msgstr "Klasse"
+
+#~ msgid "Search Classes"
+#~ msgstr "Klassen zoeken"
+
+#~ msgid "All Classes"
+#~ msgstr "Alles klassen"
+
+#~ msgid "Parent Class"
+#~ msgstr "Bovenliggende klasse"
+
+#~ msgid "Parent Class:"
+#~ msgstr "Bovenliggende klasse:"
+
+#~ msgid "Edit Class"
+#~ msgstr "Klasse bewerken"
+
+#~ msgid "Update Class"
+#~ msgstr "Klasse bijwerken"
+
+#~ msgid "Add New Class"
+#~ msgstr "Nieuwe klasse toevoegen"
+
+#~ msgid "New Class Name"
+#~ msgstr "Nieuwe klasse naam"
+
+#~ msgid "Classes"
+#~ msgstr "Klassen"
+
+#~ msgid "Property"
+#~ msgstr "Eigenschap"
+
+#~ msgid "Search Properties"
+#~ msgstr "Eigenschappen zoeken"
+
+#~ msgid "All Properties"
+#~ msgstr "Alle eigenschappen"
+
+#~ msgid "Parent Property"
+#~ msgstr "Bovenliggende eigenschap"
+
+#~ msgid "Parent Property:"
+#~ msgstr "Bovenliggende eigenschap:"
+
+#~ msgid "Edit Property"
+#~ msgstr "Eigenschap bewerken"
+
+#~ msgid "Update Property"
+#~ msgstr "Eigenschap bijwerken"
+
+#~ msgid "Add New Property"
+#~ msgstr "Nieuwe eigenschap toevoegen"
+
+#~ msgid "New Property Name"
+#~ msgstr "Nieuwe eigenschap naam"
+
+#~ msgid "Properties"
+#~ msgstr "Eigenschappen"
+
+#~ msgid "Service"
+#~ msgstr "Voorziening"
+
+#~ msgid "Certification Mark"
+#~ msgstr "Keurmerk"
+
+#~ msgid "Catchment Area"
+#~ msgstr "Verzorgingsgebied"
+
+#~ msgid "Next Wish"
+#~ msgstr "Volgende wens"
+
+#~ msgid "close"
+#~ msgstr "sluiten"
+
+#~ msgid "view or edit"
+#~ msgstr "bekijk of wijzig"
+
+#~ msgid "Drop files here to upload"
+#~ msgstr "Sleep hier je bestanden naartoe"
+
+#~ msgid "Your browser does not support drag'n'drop file uploads."
+#~ msgstr "Je browser ondersteunt geen drag'n'drop bestand uploads."
+
+#~ msgid ""
+#~ "Please use the fallback form below to upload your files like in the olden "
+#~ "days."
+#~ msgstr ""
+#~ "Gebruik onderstaande fallback formulier om je bestanden te uploaden, "
+#~ "zoals in de oude dagen."
+
+#~ msgid "You can't upload files of this type."
+#~ msgstr "Je kunt geen bestanden van dit type te uploaden."
+
+#~ msgid "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB."
+#~ msgstr ""
+#~ "Bestand is te groot ({{filesize}} MiB). Max bestandsgrootte: "
+#~ "{{maxFilesize}} MiB."
+
+#~ msgid "Server responded with {{statusCode}} code."
+#~ msgstr "Server reageerde met {{statusCode}} code."
+
+#~ msgid "Cancel upload"
+#~ msgstr "Upload annuleren"
+
+#~ msgid "Are you sure you want to cancel this upload?"
+#~ msgstr "Weet je zeker dat je deze upload wilt annuleren?"
+
+#~ msgid "Remove file"
+#~ msgstr "Verwijder bestand"
+
+#~ msgid "You can not upload any more files."
+#~ msgstr "Je kunt niet meer bestanden uploaden."
+
+#~ msgid "Mobile Number"
+#~ msgstr "Mobielnummer"
+
+#~ msgid "Emergency Number"
+#~ msgstr "Noodnummer"
+
+#~ msgid "Description"
+#~ msgstr "Beschrijving"
+
+#~ msgid "Services"
+#~ msgstr "Voorzieningen"
+
+#~ msgid "Spoken Languages"
+#~ msgstr "Gesproken talen"
+
+#~ msgid "Directions"
+#~ msgstr "Routebeschrijving"
+
+#~ msgid "Public Transport"
+#~ msgstr "Openbaar vervoer"
+
+#~ msgid "Parking"
+#~ msgstr "Parkeren"
+
+#~ msgid "Payment Method"
+#~ msgstr "Betaalwijze"
+
+#~ msgid "Payment Services"
+#~ msgstr "Betalingen dienstverlening"
+
+#~ msgid "Plugin \"Wat kost doodgaan?\" for http://www.watkostdoodgaan.nl/."
+#~ msgstr "Plugin \"Wat kost doodgaan?\" voor http://www.watkostdoodgaan.nl/."
+
+#~ msgctxt "post type general name"
+#~ msgid "Morticians"
+#~ msgstr "Uitvaartverzorgers"
+
+#~ msgctxt "post type general name"
+#~ msgid "Products"
+#~ msgstr "Producten"
+
+#~ msgctxt "post type general name"
+#~ msgid "Wish List Sections"
+#~ msgstr "Wensenlijst secties"
+
+#~ msgctxt "post type general name"
+#~ msgid "Wish List Inputs"
+#~ msgstr "Wensenlijst inputs"
+
+#~ msgctxt "post type general name"
+#~ msgid "Mortician Sections"
+#~ msgstr "Uitvaartverzorger secties"
+
+#~ msgctxt "post type general name"
+#~ msgid "Mortician Inputs"
+#~ msgstr "Uitvaartverzorger inputs"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Mortician"
+#~ msgstr "Uitvaartverzorger"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Product"
+#~ msgstr "Product"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Wish List Section"
+#~ msgstr "Wensenlijst sectie"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Wish List Input"
+#~ msgstr "Wensenlijst input"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Mortician Section"
+#~ msgstr "Uitvaartverzorger sectie"
+
+#~ msgctxt "post type singular name"
+#~ msgid "Mortician Input"
+#~ msgstr "Uitvaartverzorger input"
+
+#~ msgctxt "admin menu"
+#~ msgid "Morticians"
+#~ msgstr "Uitvaartverzorgers"
+
+#~ msgctxt "admin menu"
+#~ msgid "Products"
+#~ msgstr "Producten"
+
+#~ msgctxt "admin menu"
+#~ msgid "Wish List Sections"
+#~ msgstr "Wensenlijst secties"
+
+#~ msgctxt "admin menu"
+#~ msgid "Wish List Inputs"
+#~ msgstr "Wensenlijst inputs"
+
+#~ msgctxt "admin menu"
+#~ msgid "Mortician Sections"
+#~ msgstr "Uitvaartverzorger secties"
+
+#~ msgctxt "admin menu"
+#~ msgid "Mortician Inputs"
+#~ msgstr "Uitvaartverzorger inputs"
+
+#~ msgctxt "add new on admin bar"
+#~ msgid "Mortician"
+#~ msgstr "Uitvaartverzorger"
+
+#~ msgctxt "add new on admin bar"
+#~ msgid "Product"
+#~ msgstr "Product"
+
+#~ msgctxt "add new on admin bar"
+#~ msgid "Wish List Section"
+#~ msgstr "Wensenlijst sectie"
+
+#~ msgctxt "add new on admin bar"
+#~ msgid "Wish List Input"
+#~ msgstr "Wensenlijst input"
+
+#~ msgctxt "add new on admin bar"
+#~ msgid "Mortician Section"
+#~ msgstr "Uitvaartverzorger sectie"
+
+#~ msgctxt "add new on admin bar"
+#~ msgid "Mortician Input"
+#~ msgstr "Uitvaartverzorger input"
+
+#~ msgctxt "mortician"
+#~ msgid "Add New"
+#~ msgstr "Nieuwe uitvaartverzorger"
+
+#~ msgctxt "slug"
+#~ msgid "morticians"
+#~ msgstr "uitvaartverzorgers"
+
+#~ msgctxt "slug"
+#~ msgid "product-category"
+#~ msgstr "product-categorie"
+
+#~ msgctxt "slug"
+#~ msgid "product-class"
+#~ msgstr "product-klasse"
+
+#~ msgctxt "slug"
+#~ msgid "product-property"
+#~ msgstr "product-eigenschap"
+
+#~ msgctxt "product"
+#~ msgid "Add New"
+#~ msgstr "Nieuw product"
+
+#~ msgctxt "wish list section"
+#~ msgid "Add New"
+#~ msgstr "Nieuwe sectie"
+
+#~ msgctxt "wish list input"
+#~ msgid "Add New"
+#~ msgstr "Nieuwe input"
+
+#~ msgctxt "mortician sections"
+#~ msgid "Add New"
+#~ msgstr "Nieuwe sectie"
+
+#~ msgctxt "mortician input"
+#~ msgid "Add New"
+#~ msgstr "Nieuwe input"
+
+#~ msgctxt "taxonomy general name"
+#~ msgid "Categories"
+#~ msgstr "Categorieën"
+
+#~ msgctxt "taxonomy general name"
+#~ msgid "Classes"
+#~ msgstr "Klassen"
+
+#~ msgctxt "taxonomy general name"
+#~ msgid "Properties"
+#~ msgstr "Eigenschappen"
+
+#~ msgctxt "taxonomy singular name"
+#~ msgid "Category"
+#~ msgstr "Categorie"
+
+#~ msgctxt "taxonomy singular name"
+#~ msgid "Class"
+#~ msgstr "Klasse"
+
+#~ msgctxt "taxonomy singular name"
+#~ msgid "Property"
+#~ msgstr "Eigenschap"
+
+#~ msgid "Edit Rates Page"
+#~ msgstr "Tarieven bewerken pagina"
+
+#~ msgid "Edit Funeral Homes Page"
+#~ msgstr "Bewerk uitvaartcentra pagina"
+
+#~ msgid "Company Type "
+#~ msgstr "Type"
+
+#~ msgid "Payment Cancel"
+#~ msgstr "Betalen annuleren"
+
+#~ msgctxt "query_var"
+#~ msgid "wishes"
+#~ msgstr "wensen"
+
+#~ msgid "Group"
+#~ msgstr "Groep"
+
+#~ msgid "&mdash; Select Group &mdash;"
+#~ msgstr "&mdash; Selecteer groep &mdash;"
+
+#~ msgid "No wish list groups found."
+#~ msgstr "Geen wensenlijst groepen gevonden."
+
+#~ msgid "No wish list groups found in Trash."
+#~ msgstr "Geen wensenlijst groepen gevonden in prullenbak."
+
+#~ msgctxt "post type general name"
+#~ msgid "Wish List Groups"
+#~ msgstr "Wensenlijst groepen"
+
+#~ msgctxt "admin menu"
+#~ msgid "Wish List Groups"
+#~ msgstr "Wensenlijst groepen"
+
+#~ msgctxt "wish list group"
+#~ msgid "Add New"
+#~ msgstr "Nieuwe groep"
+
+#~ msgid "ID"
+#~ msgstr "ID"
