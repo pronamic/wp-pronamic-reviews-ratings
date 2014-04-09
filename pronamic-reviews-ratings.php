@@ -57,21 +57,7 @@ function pronamic_get_rating_types() {
  * @see https://github.com/WordPress/WordPress/blob/3.8.1/wp-includes/comment-template.php#L1920
  */
 function pronamic_comment_form_ratings( $fields ) {
-	$types = pronamic_get_rating_types();
-
-	foreach ( $types as $name => $label ) {
-		echo $label;
-
-		echo ' ';
-
-		$input_name = 'scores[' . $name . ']';
-
-		foreach ( range( 1, 5 ) as $value ) {
-			printf( '<input name="%s" value="%d" type="radio" class="star"/>', esc_attr( $input_name ), esc_attr( $value ) );
-		}
-
-		echo '<br />';
-	}
+	include plugin_dir_path( __FILE__ ) . 'templates/comment-form-ratings.php';
 }
 
 // @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment-template.php#L2068
@@ -166,7 +152,54 @@ function pronamic_ratings_comment_post( $comment_id ) {
 
 	$rating = array_sum( $scores ) / count( $scores );
 
-	update_comment_meta( $comment_id, '_pronamic_rating', $rating, true );
+	update_comment_meta( $comment_id, '_pronamic_rating', $rating );
 }
 
 add_action( 'comment_post', 'pronamic_ratings_comment_post', 1 );
+
+/**
+ * Add meta box
+ * 
+ * @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-admin/edit-form-comment.php#L130
+ * @see http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
+ * @see http://shibashake.com/wordpress-theme/add-a-metabox-to-the-edit-comments-screen
+ */
+function pronamic_add_meta_boxes() {
+	add_meta_box( 'pronamic_comment_ratings', __( 'Ratings' ), 'pronamic_ratings_meta_box', 'comment', 'normal' );
+}
+
+add_action( 'add_meta_boxes', 'pronamic_add_meta_boxes' );
+
+function pronamic_ratings_meta_box() {
+	wp_nonce_field( 'pronamic_comment_ratings_save', 'pronamic_comment_ratings_meta_box_nonce' );
+
+	include plugin_dir_path( __FILE__ ) . 'admin/comment-meta-box-ratings.php';
+}
+
+/**
+ * Edit comment
+ * 
+ * @param int $comment_ID
+ */
+function pronamic_ratings_edit_comment( $comment_ID ) {
+	if ( filter_has_var( INPUT_POST, 'pronamic_comment_ratings_meta_box_nonce' ) ) {
+		$nonce = filter_input( INPUT_POST, 'pronamic_comment_ratings_meta_box_nonce', FILTER_SANITIZE_STRING );
+		
+		if ( wp_verify_nonce( $nonce, 'pronamic_comment_ratings_save' ) ) {
+			$ratings = filter_input( INPUT_POST, 'pronamic_comment_ratings', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );
+			
+			foreach ( $ratings as $name => $value ) {
+				$meta_key   = '_pronamic_rating_' . $name;
+				$meta_value = $value;
+				
+				update_comment_meta( $comment_ID, $meta_key, $meta_value );
+			}
+		
+			$rating = array_sum( $ratings ) / count( $ratings );
+		
+			update_comment_meta( $comment_ID, '_pronamic_rating', $rating );
+		}
+	}
+}
+
+add_action( 'edit_comment', 'pronamic_ratings_edit_comment' );
