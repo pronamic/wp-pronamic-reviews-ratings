@@ -19,6 +19,10 @@ add_action( 'pronamic_reviews_ratings_init', 'prefix_reviews_ratings_init' );
 
 ```
 
+## WooCommerce Reviews and Ratings solution
+
+*	https://github.com/woothemes/woocommerce/blob/v2.1.6/includes/class-wc-comments.php
+
 
 ## Other WordPress Reviews and Ratings solutions
 
