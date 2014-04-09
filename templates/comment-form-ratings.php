@@ -11,11 +11,28 @@ $types = pronamic_get_rating_types();
 			<span class="pronamic-comment-rating-label"><?php echo $label; ?></span>
 			
 			<span class="pronamic-comment-rating-control"><?php
-	
+
 			$input_name = 'scores[' . $name . ']';
 
 			foreach ( range( 1, 5 ) as $value ) {
-				printf( '<input name="%s" value="%d" type="radio" class="star"/>', esc_attr( $input_name ), esc_attr( $value ) );
+				$input_id   = 'score-' . $name . '-' . $value;
+
+				printf(
+					'<input id="%s" name="%s" value="%d" type="radio" class="star"/>',
+					esc_attr( $input_id ),
+					esc_attr( $input_name ),
+					esc_attr( $value )
+				);
+				
+				echo ' ';
+
+				printf(
+					'<label for="%s">%s</label>',
+					esc_attr( $input_id ),
+					esc_html( $value )
+				);
+				
+				echo ' ';
 			}
 			
 			?></span>
