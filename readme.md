@@ -19,6 +19,22 @@ add_action( 'pronamic_reviews_ratings_init', 'prefix_reviews_ratings_init' );
 
 ```
 
+
+## Schema.org
+
+*	http://schema.org/reviews
+*	http://schema.org/Review
+*	http://schema.org/Rating
+*	http://schema.org/AggregateRating
+
+
+## Tools for testing Schema.org markup
+
+*	[Google Structured Data Testing Tool](http://www.google.nl/webmasters/tools/richsnippets)
+*	[Structured Data Linter](http://linter.structured-data.org/)
+*	[Stack Overflow question - Tool for testing Schema.org markup](http://stackoverflow.com/q/6496114)
+	
+
 ## WooCommerce Reviews and Ratings solution
 
 *	https://github.com/woothemes/woocommerce/blob/v2.1.6/includes/class-wc-comments.php
