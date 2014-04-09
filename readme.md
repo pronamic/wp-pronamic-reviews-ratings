@@ -38,6 +38,7 @@ add_action( 'pronamic_reviews_ratings_init', 'prefix_reviews_ratings_init' );
 ## WooCommerce Reviews and Ratings solution
 
 *	https://github.com/woothemes/woocommerce/blob/v2.1.6/includes/class-wc-comments.php
+*	https://github.com/woothemes/woocommerce/blob/v2.1.6/templates/single-product-reviews.php#L52
 
 
 ## Other WordPress Reviews and Ratings solutions
@@ -48,4 +49,9 @@ add_action( 'pronamic_reviews_ratings_init', 'prefix_reviews_ratings_init' );
 *	[WordPress Comment Rating Plugin](http://codecanyon.net/item/wordpress-comment-rating-plugin/6582710)
 *	[kk Star Ratings](http://wordpress.org/plugins/kk-star-ratings/)
 *	[10+ Useful WordPress Rating Plugins](http://www.tripwiremagazine.com/2012/10/wordpress-rating-plugins.html)
+*	[Adding Custom Fields In WordPress’ Comment Form](http://wp.smashingmagazine.com/2012/05/08/adding-custom-fields-in-wordpress-comment-form/)
 
+## JavaScript solutions
+
+*	[jQuery Raty - A Star Rating Plugin](http://wbotelhos.com/raty)
+*	[RateIt - a jQuery (star) rating plugin](http://rateit.codeplex.com/)
