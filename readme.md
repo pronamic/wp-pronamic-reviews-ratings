@@ -5,7 +5,9 @@ The Pronamic Reviews Ratings plugin for WordPress is a powerful, extendable revi
 
 ## Register Rating Type
 
-```php
+```
+<?php
+
 function prefix_reviews_ratings_init() {
 	pronamic_register_rating_type( 'trustworthy', __( 'Trustworthy', 'text_domain' ) );
 	pronamic_register_rating_type( 'objective', __( 'Objective', 'text_domain' ) );
@@ -14,6 +16,7 @@ function prefix_reviews_ratings_init() {
 }
 
 add_action( 'pronamic_reviews_ratings_init', 'prefix_reviews_ratings_init' );
+
 ```
 
 
