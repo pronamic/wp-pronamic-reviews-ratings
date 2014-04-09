@@ -14,7 +14,7 @@
 
 		<div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
 			<meta itemprop="worstRating" content="1" />
-			<span itemprop="ratingValue">4</span>/
+			<span itemprop="ratingValue"><?php echo get_comment_meta( get_comment_ID(), '_pronamic_rating', true ); ?></span>/
 			<span itemprop="bestRating">5</span> stars
 		</div>
 		
