@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Pronamic Reviews and Ratings\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/pronamic-reviews-"
 "ratings\n"
-"POT-Creation-Date: 2014-04-09 07:15:03+00:00\n"
-"PO-Revision-Date: 2014-04-09 09:16+0100\n"
+"POT-Creation-Date: 2014-04-09 08:15:39+00:00\n"
+"PO-Revision-Date: 2014-04-09 10:16+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl\n"
@@ -16,6 +16,10 @@ msgstr ""
 "X-Generator: Poedit 1.6.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#: pronamic-reviews-ratings.php:95
+msgid "<strong>ERROR</strong>: please fill in the rating fields."
+msgstr "<strong>MISLUKT</strong>: vul de beoordeling velden in."
 
 #. Plugin Name of the plugin/theme
 msgid "Pronamic Reviews and Ratings"
@@ -27,8 +31,8 @@ msgstr "http://www.happywp.com/plugins/pronamic-reviews-ratings/"
 
 #. Description of the plugin/theme
 msgid ""
-"Pronamic Reviews Ratings is a powerful, extendable reviews and ratings "
-"plugin."
+"The Pronamic Reviews Ratings plugin for WordPress is a powerful, extendable "
+"reviews and ratings plugin."
 msgstr ""
 
 #. Author of the plugin/theme

@@ -5,13 +5,17 @@ msgstr ""
 "Project-Id-Version: Pronamic Reviews and Ratings 1.0.0\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/pronamic-reviews-ratings\n"
-"POT-Creation-Date: 2014-04-09 07:15:03+00:00\n"
+"POT-Creation-Date: 2014-04-09 08:15:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: pronamic-reviews-ratings.php:95
+msgid "<strong>ERROR</strong>: please fill in the rating fields."
+msgstr ""
 
 #. Plugin Name of the plugin/theme
 msgid "Pronamic Reviews and Ratings"
@@ -23,8 +27,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Pronamic Reviews Ratings is a powerful, extendable reviews and ratings "
-"plugin."
+"The Pronamic Reviews Ratings plugin for WordPress is a powerful, extendable "
+"reviews and ratings plugin."
 msgstr ""
 
 #. Author of the plugin/theme
