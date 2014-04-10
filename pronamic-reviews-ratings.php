@@ -220,7 +220,7 @@ function pronamic_ratings_post_update( $post_id ) {
 		;"
 	;
 
-	$query = $wpdb->prepare( $query, '_pronamic_rating%', $post_id );
+	$query = $wpdb->prepare( $query, '_pronamic_rating_value%', $post_id );
 
 	$results = $wpdb->get_results( $query );
 
@@ -245,7 +245,7 @@ function pronamic_ratings_comment_post( $comment_ID ) {
 	$types = pronamic_get_rating_types();
 
 	foreach( $types as $name => $label ) {
-		$meta_key   = '_pronamic_rating_' . $name;
+		$meta_key   = '_pronamic_rating_value_' . $name;
 		$meta_value = $_POST['scores'][ $name ];
 
 		update_comment_meta( $comment_ID, $meta_key, $meta_value );
@@ -253,7 +253,7 @@ function pronamic_ratings_comment_post( $comment_ID ) {
 
 	$rating = array_sum( $scores ) / count( $scores );
 
-	update_comment_meta( $comment_ID, '_pronamic_rating', $rating );
+	update_comment_meta( $comment_ID, '_pronamic_rating_value', $rating );
 	
 	pronamic_ratings_comment_post_update( $comment_ID );
 }
@@ -284,7 +284,7 @@ function pronamic_ratings_edit_comment( $comment_ID ) {
 			$ratings = filter_input( INPUT_POST, 'pronamic_comment_ratings', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );
 			
 			foreach ( $ratings as $name => $value ) {
-				$meta_key   = '_pronamic_rating_' . $name;
+				$meta_key   = '_pronamic_rating_value_' . $name;
 				$meta_value = $value;
 				
 				update_comment_meta( $comment_ID, $meta_key, $meta_value );
@@ -292,7 +292,7 @@ function pronamic_ratings_edit_comment( $comment_ID ) {
 		
 			$rating = array_sum( $ratings ) / count( $ratings );
 		
-			update_comment_meta( $comment_ID, '_pronamic_rating', $rating );
+			update_comment_meta( $comment_ID, '_pronamic_rating_value', $rating );
 			
 			pronamic_ratings_comment_post_update( $comment_ID );
 		}

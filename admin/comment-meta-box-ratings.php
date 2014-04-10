@@ -23,7 +23,7 @@ $types = pronamic_get_rating_types();
 				<?php 
 
 				$input_name = 'pronamic_comment_ratings[' . $name . ']';
-				$meta_key   = '_pronamic_rating_' . $name;
+				$meta_key   = '_pronamic_rating_value_' . $name;
 				$meta_value = get_comment_meta( get_comment_ID(), $meta_key, true );
 
 				foreach ( range( 1, 5 ) as $value ) {
