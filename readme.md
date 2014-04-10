@@ -24,8 +24,10 @@ add_action( 'pronamic_reviews_ratings_init', 'prefix_reviews_ratings_init' );
 
 All the rating values are stored as meta data with the [WordPress metadata API](http://codex.wordpress.org/Metadata_API).
 
-*	_pronamic_rating_value_$name
-*	_pronamic_rating_count_$name
+```
+_pronamic_rating_value_$name
+_pronamic_rating_count_$name
+```
 
 
 ## Schema.org
