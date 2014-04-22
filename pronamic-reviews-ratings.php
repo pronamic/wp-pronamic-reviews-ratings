@@ -201,8 +201,8 @@ function pronamic_ratings_post_update( $post_id ) {
 	$query = "
 		SELECT
 			meta_key,
-			COUNT(meta_value),
-			SUM(meta_value) / COUNT( meta_value ) AS meta_value
+			COUNT(meta_value) AS rating_count,
+			SUM(meta_value) / COUNT( meta_value ) AS rating_value
 		FROM
 			$wpdb->commentmeta
 				LEFT JOIN
@@ -226,7 +226,11 @@ function pronamic_ratings_post_update( $post_id ) {
 	$results = $wpdb->get_results( $query );
 
 	foreach ( $results as $result ) {
-		update_post_meta( $post_id, $result->meta_key, $result->meta_value );
+		$meta_key_value = $result->meta_key;
+		$meta_key_count = str_replace( '_pronamic_rating_value', '_pronamic_rating_count', $meta_key_value );
+
+		update_post_meta( $post_id, $meta_key_value, $result->rating_value );
+		update_post_meta( $post_id, $meta_key_count, $result->rating_count );
 	}
 }
 
@@ -280,21 +284,21 @@ function pronamic_ratings_comment_post_update( $comment_ID ) {
 function pronamic_ratings_edit_comment( $comment_ID ) {
 	if ( filter_has_var( INPUT_POST, 'pronamic_comment_ratings_meta_box_nonce' ) ) {
 		$nonce = filter_input( INPUT_POST, 'pronamic_comment_ratings_meta_box_nonce', FILTER_SANITIZE_STRING );
-		
+
 		if ( wp_verify_nonce( $nonce, 'pronamic_comment_ratings_save' ) ) {
 			$ratings = filter_input( INPUT_POST, 'pronamic_comment_ratings', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );
-			
+
 			foreach ( $ratings as $name => $value ) {
 				$meta_key   = '_pronamic_rating_value_' . $name;
 				$meta_value = $value;
 				
 				update_comment_meta( $comment_ID, $meta_key, $meta_value );
 			}
-		
+
 			$rating = array_sum( $ratings ) / count( $ratings );
-		
+
 			update_comment_meta( $comment_ID, '_pronamic_rating_value', $rating );
-			
+
 			pronamic_ratings_comment_post_update( $comment_ID );
 		}
 	}
