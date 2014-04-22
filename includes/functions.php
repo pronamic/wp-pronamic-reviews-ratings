@@ -23,3 +23,18 @@ function pronamic_get_rating_types() {
 
 	return $pronamic_rating_types;
 }
+
+function pronamic_transform_rating( $from_range, $to_range, $rating ) {
+	$from_count = count( $from_range );
+	$to_count = count( $to_range );
+
+	$delta = $from_count / $to_count;
+
+	$from_i = array_search( $rating, $from_range );
+	
+	$to_i = floor( $from_i / $delta );
+
+	$rating_new = $to_range[ $to_i ];
+
+	return $rating_new;
+}

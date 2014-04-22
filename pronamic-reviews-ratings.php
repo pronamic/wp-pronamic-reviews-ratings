@@ -39,6 +39,7 @@ class Pronamic_WP_ReviewsRatingsPlugin {
 		
 		// Includes
 		include $this->dir_path . 'includes/functions.php';
+		include $this->dir_path . 'includes/gravityforms.php';
 
 		// Actions
 		add_action( 'init', array( $this, 'init' ) );
