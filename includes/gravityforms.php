@@ -12,8 +12,6 @@ function prr_gform_field_advanced_settings( $position, $form_id ) {
 		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
 			<label for="prr_rating_type">
 				<?php _e( 'Rating Type', 'pronamic_reviews_ratings' ); ?>
-				
-				<a href='#' onclick='return false;' class='gf_tooltip tooltip tooltip_form_field_size' title='&lt;h6&gt;Veldgrootte&lt;/h6&gt;Select a form field size from the available options. This will set the width of the field.'><i class='fa fa-question-circle'></i></a>
 			</label>
 
 			<select id="prr_rating_type" name="prr_rating_type" onchange="SetFieldProperty( 'pronamicRatingType', jQuery( this ).val() );">
