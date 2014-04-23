@@ -7,52 +7,11 @@
  * @param int $form_id
  */
 function prr_gform_field_advanced_settings( $position, $form_id ) {
-	if ( $position == 100 ) : ?>
-
-		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
-			<label for="prr_rating_type">
-				<?php _e( 'Rating Type', 'pronamic_reviews_ratings' ); ?>
-			</label>
-
-			<select id="prr_rating_type" name="prr_rating_type" onchange="SetFieldProperty( 'pronamicRatingType', jQuery( this ).val() );">
-				<option value=""></option>
-
-				<?php foreach ( pronamic_get_rating_types() as $name => $label ) : ?>
-					<option value="<?php echo esc_attr( $name ); ?>"><?php echo $label; ?></option>
-				<?php endforeach; ?>
-			</select>
-		</li>
-		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
-			<input type="checkbox" id="prr_is_review_post_id" onchange="var field = GetSelectedField(); window.form.pronamicReviewPostIdFieldId = field.id;" />
-
-			<label for="prr_is_review_post_id" class="inline">
-				<?php _e( 'Is Review Post ID', 'pronamic_reviews_ratings' ); ?>
-			</label>
-		</li>
-		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
-			<input type="checkbox" id="prr_is_review_name" onchange="var field = GetSelectedField(); window.form.pronamicReviewNameFieldId = field.id;" />
-
-			<label for="prr_is_review_name" class="inline">
-				<?php _e( 'Is Review Name', 'pronamic_reviews_ratings' ); ?>
-			</label>
-		</li>
-		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
-			<input type="checkbox" id="prr_is_review_email" onchange="var field = GetSelectedField(); window.form.pronamicReviewEmailFieldId = field.id;" />
-
-			<label for="prr_is_review_email" class="inline">
-				<?php _e( 'Is Review E-mail', 'pronamic_reviews_ratings'); ?>
-			</label>
-		</li>
-		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
-			<input type="checkbox" id="prr_is_review_comment" onchange="var field = GetSelectedField(); window.form.pronamicReviewCommentFieldId = field.id;" />
-
-			<label for="prr_is_review_comment" class="inline">
-				<?php _e( 'Is Review Comment', 'pronamic_reviews_ratings'); ?>
-			</label>
-		</li>
+	if ( $position == 100 ) {
+		global $pronamic_reviews_ratings_plugin;
 		
-
-	<?php endif;
+		include $pronamic_reviews_ratings_plugin->dir_path . '/admin/gravityforms/field-advanced-settings.php';
+	}
 }
 
 add_action( 'gform_field_advanced_settings', 'prr_gform_field_advanced_settings', 10, 2 );
@@ -61,27 +20,20 @@ add_action( 'gform_field_advanced_settings', 'prr_gform_field_advanced_settings'
  * Gravity Forms - Editor JavaScript
  */
 function pronamic_companies_gform_editor_js() {
-	?>
-	<script type="text/javascript">
-		jQuery( document ).bind( 'gform_load_field_settings', function( event, field, form ) {
-			var pronamicRatingType = typeof field.pronamicRatingType == 'undefined' ? '' : field.pronamicRatingType;
-			var pronamicReviewPostIdFieldId = typeof form.pronamicReviewPostIdFieldId == 'undefined' ? '' : form.pronamicReviewPostIdFieldId;
-			var pronamicReviewNameFieldId = typeof form.pronamicReviewNameFieldId == 'undefined' ? '' : form.pronamicReviewNameFieldId;
-			var pronamicReviewEmailFieldId = typeof form.pronamicReviewEmailFieldId == 'undefined' ? '' : form.pronamicReviewEmailFieldId;
-			var pronamicReviewCommentFieldId = typeof form.pronamicReviewCommentFieldId == 'undefined' ? '' : form.pronamicReviewCommentFieldId;
-
-			jQuery( '#prr_rating_type' ).val( pronamicRatingType );
-			jQuery( '#prr_is_review_post_id' ).prop( 'checked', field.id == pronamicReviewPostIdFieldId );
-			jQuery( '#prr_is_review_name' ).prop( 'checked', field.id == pronamicReviewNameFieldId );
-			jQuery( '#prr_is_review_email' ).prop( 'checked', field.id == pronamicReviewEmailFieldId );
-			jQuery( '#prr_is_review_comment' ).prop( 'checked', field.id == pronamicReviewCommentFieldId );
-		} );
-	</script>
-	<?php
+	global $pronamic_reviews_ratings_plugin;
+		
+	include $pronamic_reviews_ratings_plugin->dir_path . '/admin/gravityforms/form-editor-js.php';
 }
 
 add_action( 'gform_editor_js', 'pronamic_companies_gform_editor_js' );
 
+/**
+ * Get score
+ * 
+ * @param array $lead
+ * @param array $field
+ * @return float
+ */
 function prr_gform_get_score( $lead, $field ) {
 	$score = null;
 
@@ -113,124 +65,9 @@ function prr_gform_get_score( $lead, $field ) {
  * @param array $lead
  */
 function prr_gform_entry_detail_sidebar_middle( $form, $lead ) {
-	?>
-	<div class="postbox" id="notifications_container">
-		<h3 style="cursor:default;"><span><?php esc_html_e( 'Review & Ratings', 'pronamic_reviews_ratings' ); ?></span></h3>
-
-		<div class="inside">
-			<?php 
-
-			$review_post_id  = '';
-			if ( isset( $form['pronamicReviewPostIdFieldId'] ) && isset( $lead[ $form['pronamicReviewPostIdFieldId'] ] ) ) {
-				$review_post_id = $lead[ $form['pronamicReviewPostIdFieldId'] ];
-			}
-
-			$review_name  = '';
-			if ( isset( $form['pronamicReviewNameFieldId'] ) && isset( $lead[ $form['pronamicReviewNameFieldId'] ] ) ) {
-				$review_name = $lead[ $form['pronamicReviewNameFieldId'] ];
-			}
-
-			$review_email = '';
-			if ( isset( $form['pronamicReviewEmailFieldId'] ) && isset( $lead[ $form['pronamicReviewEmailFieldId'] ] ) ) {
-				$review_email = $lead[ $form['pronamicReviewEmailFieldId'] ];
-			}
-
-			$review_comment = '';
-			if ( isset( $form['pronamicReviewCommentFieldId'] ) && isset( $lead[ $form['pronamicReviewCommentFieldId'] ] ) ) {
-				$review_comment = $lead[ $form['pronamicReviewCommentFieldId'] ];
-			}
-
-			$rating_types = pronamic_get_rating_types();
-
-			$scores = array();
-			foreach( $rating_types as $type => $label ) {
-				$scores[ $type ] = array();
-			}
-
-			foreach ( $form['fields'] as $field ) {
-				if ( isset( $field['pronamicRatingType'] ) && ! empty( $field['pronamicRatingType'] ) ) {
-					$rating_type = $field['pronamicRatingType'];
-
-					if ( isset( $scores[ $rating_type ] ) ) {
-						$score = prr_gform_get_score( $lead, $field );
-
-						$scores[ $rating_type ][] = $score;
-					}
-				} 
-			}
-			
-			$comment_id = gform_get_meta( $lead['id'], 'pronamic_review_id' );
-			$comment = get_comment( $comment_id );
-
-			if ( ! empty( $comment ) ) : ?>
+	global $pronamic_reviews_ratings_plugin;
 	
-				<p>
-					<a href="<?php echo get_edit_comment_link( $comment ); ?>"><?php _e( 'Edit', 'pronamic_reviews_ratings' ); ?></a> | 
-					<a href="<?php echo get_comment_link( $comment ); ?>"><?php _e( 'View', 'pronamic_reviews_ratings' ); ?></a>
-				</p>
-
-			<?php else : ?>
-	
-				<table>
-					<thead>
-						<tr>
-							<th scope="col" style="text-align: left;"><?php _e( 'Type', 'pronamic_reviews_ratings' ); ?></th>
-							<th scope="col" style="text-align: left;"><?php _e( 'Score', 'pronamic_reviews_ratings' ); ?></th>
-						</tr>
-					</thead>
-					
-					<tbody>
-	
-						<?php foreach ( $rating_types as $type => $label ) : ?>
-	
-							<tr>
-								<?php 
-								
-								$name   = 'scores[' . $type . ']';
-								$values = $scores[ $type ];
-								$sum    = array_sum( $values );
-								$count  = count( $values );
-								$value  = $count > 0 ? $sum / $count : '';
-								$value  = pronamic_transform_rating( range( 1, 10 ), range( 1, 5 ), $value );
-	
-								?>
-								<td><?php echo $label; ?></td>
-								<td>
-									<input type="hidden" name="<?php echo $name; ?>" value="<?php echo $value; ?>" />
-									<?php echo $value; ?>
-								</td>
-							</tr>
-						
-						<?php endforeach; ?>
-	
-					</tbody>
-				</table>
-	
-				<input type="hidden" name="pronamic_review_lead_id" value="<?php echo esc_attr( $lead['id'] ); ?>" />
-	
-				<p>
-					<?php _e( 'Post ID', 'pronamic_reviews_ratings' ); ?><br />
-					<input type="text" name="pronamic_review_post_id" value="<?php echo esc_attr( $review_post_id ); ?>" />
-				</p>
-				<p>
-					<?php _e( 'Name', 'pronamic_reviews_ratings' ); ?><br />
-					<input type="text" name="pronamic_review_name" value="<?php echo esc_attr( $review_name ); ?>" />
-				</p>
-				<p>
-					<?php _e( 'E-Mail', 'pronamic_reviews_ratings' ); ?><br />
-					<input type="text" name="pronamic_review_email" value="<?php echo esc_attr( $review_email ); ?>" />
-				</p>
-				<p>
-					<?php _e( 'Comment', 'pronamic_reviews_ratings' ); ?><br />
-					<textarea name="pronamic_review_comment" rows="10" cols="40"><?php echo esc_textarea( $review_comment ); ?></textarea>
-				</p>
-	
-				<?php submit_button( __( 'Create Review Comment', 'pronamic_reviews_ratings' ), 'secondary', 'pronamic_create_review', false ); ?>
-			
-			<?php endif; ?>
-		</div>
-	</div>
-	<?php
+	include $pronamic_reviews_ratings_plugin->dir_path . '/admin/gravityforms/meta-box-entry-detail-review.php';
 }
 
 add_action( 'gform_entry_detail_sidebar_middle', 'prr_gform_entry_detail_sidebar_middle', 10, 2 );
