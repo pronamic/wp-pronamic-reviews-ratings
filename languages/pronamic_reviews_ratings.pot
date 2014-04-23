@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Pronamic Reviews and Ratings 1.0.0\n"
 "Report-Msgid-Bugs-To: "
 "http://wordpress.org/support/plugin/pronamic-reviews-ratings\n"
-"POT-Creation-Date: 2014-04-22 14:22:46+00:00\n"
+"POT-Creation-Date: 2014-04-23 07:51:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,44 +25,60 @@ msgstr ""
 msgid "Rating Type"
 msgstr ""
 
-#: includes/gravityforms.php:31
+#: includes/gravityforms.php:29
 msgid "Is Review Post ID"
 msgstr ""
 
-#: includes/gravityforms.php:38
+#: includes/gravityforms.php:36
 msgid "Is Review Name"
 msgstr ""
 
-#: includes/gravityforms.php:45
+#: includes/gravityforms.php:43
 msgid "Is Review E-mail"
 msgstr ""
 
-#: includes/gravityforms.php:52
+#: includes/gravityforms.php:50
 msgid "Is Review Comment"
 msgstr ""
 
-#: includes/gravityforms.php:114
+#: includes/gravityforms.php:118
 msgid "Review & Ratings"
 msgstr ""
 
-#: includes/gravityforms.php:163
+#: includes/gravityforms.php:168
 msgid "Edit"
 msgstr ""
 
-#: includes/gravityforms.php:164
+#: includes/gravityforms.php:169
 msgid "View"
 msgstr ""
 
-#: includes/gravityforms.php:172
+#: includes/gravityforms.php:177
 msgid "Type"
 msgstr ""
 
-#: includes/gravityforms.php:173
+#: includes/gravityforms.php:178
 msgid "Score"
 msgstr ""
 
-#: includes/gravityforms.php:223
-msgid "Create Review"
+#: includes/gravityforms.php:212
+msgid "Post ID"
+msgstr ""
+
+#: includes/gravityforms.php:216
+msgid "Name"
+msgstr ""
+
+#: includes/gravityforms.php:220
+msgid "E-Mail"
+msgstr ""
+
+#: includes/gravityforms.php:224
+msgid "Comment"
+msgstr ""
+
+#: includes/gravityforms.php:228
+msgid "Create Review Comment"
 msgstr ""
 
 #: pronamic-reviews-ratings.php:119

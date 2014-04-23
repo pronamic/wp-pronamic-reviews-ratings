@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Pronamic Reviews and Ratings\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/pronamic-reviews-"
 "ratings\n"
-"POT-Creation-Date: 2014-04-22 14:22:46+00:00\n"
-"PO-Revision-Date: 2014-04-22 16:24+0100\n"
+"POT-Creation-Date: 2014-04-23 07:51:09+00:00\n"
+"PO-Revision-Date: 2014-04-23 09:51+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl\n"
@@ -29,45 +29,61 @@ msgstr "Reactie %d"
 msgid "Rating Type"
 msgstr "Ratingtype"
 
-#: includes/gravityforms.php:31
+#: includes/gravityforms.php:29
 msgid "Is Review Post ID"
 msgstr "Is review bericht ID"
 
-#: includes/gravityforms.php:38
+#: includes/gravityforms.php:36
 msgid "Is Review Name"
 msgstr "Is review naam"
 
-#: includes/gravityforms.php:45
+#: includes/gravityforms.php:43
 msgid "Is Review E-mail"
 msgstr "Is review e-mailadres"
 
-#: includes/gravityforms.php:52
+#: includes/gravityforms.php:50
 msgid "Is Review Comment"
 msgstr "Is review reactie"
 
-#: includes/gravityforms.php:114
+#: includes/gravityforms.php:118
 msgid "Review & Ratings"
 msgstr "Review & ratings"
 
-#: includes/gravityforms.php:163
+#: includes/gravityforms.php:168
 msgid "Edit"
 msgstr "Bewerken"
 
-#: includes/gravityforms.php:164
+#: includes/gravityforms.php:169
 msgid "View"
 msgstr "Bekijk"
 
-#: includes/gravityforms.php:172
+#: includes/gravityforms.php:177
 msgid "Type"
 msgstr "Type"
 
-#: includes/gravityforms.php:173
+#: includes/gravityforms.php:178
 msgid "Score"
 msgstr "Score"
 
-#: includes/gravityforms.php:223
-msgid "Create Review"
-msgstr "Maak review"
+#: includes/gravityforms.php:212
+msgid "Post ID"
+msgstr "Bericht ID"
+
+#: includes/gravityforms.php:216
+msgid "Name"
+msgstr "Naam"
+
+#: includes/gravityforms.php:220
+msgid "E-Mail"
+msgstr "E-mailadres"
+
+#: includes/gravityforms.php:224
+msgid "Comment"
+msgstr "Reactie"
+
+#: includes/gravityforms.php:228
+msgid "Create Review Comment"
+msgstr "Maak review reactie"
 
 #: pronamic-reviews-ratings.php:119
 msgid "Ratings"
@@ -101,6 +117,9 @@ msgstr "Pronamic"
 msgid "http://www.pronamic.eu/"
 msgstr "http://www.pronamic.nl/"
 
+#~ msgid "Create Review"
+#~ msgstr "Maak review"
+
 #~ msgid "Wat kost doodgaan?"
 #~ msgstr "Wat kost doodgaan?"
 
@@ -133,9 +152,6 @@ msgstr "http://www.pronamic.nl/"
 
 #~ msgid "Longitude"
 #~ msgstr "Lengtegraad"
-
-#~ msgid "Name"
-#~ msgstr "Naam"
 
 #~ msgid "Address"
 #~ msgstr "Adres"
