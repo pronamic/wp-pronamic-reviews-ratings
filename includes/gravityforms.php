@@ -86,15 +86,21 @@ add_action( 'gform_editor_js', 'pronamic_companies_gform_editor_js' );
 
 function prr_gform_get_score( $lead, $field ) {
 	$score = null;
-	
-	$field_id = $field['id'];
 
-	if ( isset( $lead[ $field_id ] ) ) {
-		$value = $lead[ $field_id ];
-		
-		foreach ( $field['choices'] as $choice ) {
-			if ( $value == $choice['value'] ) {
-				$score = $choice['score'];
+	$field_type = $field['type'];
+
+	if ( 'survey' == $field_type ) {
+		// @see https://github.com/gravityforms/gravityformssurvey/blob/2.1/survey.php#L60
+		if ( method_exists( 'GFSurvey', 'get_instance' ) ) {			
+			$gsurvey = GFSurvey::get_instance();
+
+			// @see https://github.com/gravityforms/gravityformssurvey/blob/2.1/survey.php#L802
+			if ( method_exists( $gsurvey, 'get_field_score' ) ) {
+				$score = $gsurvey->get_field_score( $field, $lead );
+
+				if ( isset( $field['gsurveyLikertEnableMultipleRows'], $field['gsurveyLikertRows'] ) && $field['gsurveyLikertEnableMultipleRows'] ) {
+					$score = $score / count( $field['gsurveyLikertRows'] );
+				}
 			}
 		}
 	}
@@ -156,12 +162,13 @@ function prr_gform_entry_detail_sidebar_middle( $form, $lead ) {
 			}
 			
 			$comment_id = gform_get_meta( $lead['id'], 'pronamic_review_id' );
-			
-			if ( ! empty( $comment_id ) ) : ?>
+			$comment = get_comment( $comment_id );
+
+			if ( ! empty( $comment ) ) : ?>
 	
 				<p>
-					<a href="<?php echo get_edit_comment_link( $comment_id ); ?>"><?php _e( 'Edit', 'pronamic_reviews_ratings' ); ?></a> | 
-					<a href="<?php echo get_comment_link( $comment_id ); ?>"><?php _e( 'View', 'pronamic_reviews_ratings' ); ?></a>
+					<a href="<?php echo get_edit_comment_link( $comment ); ?>"><?php _e( 'Edit', 'pronamic_reviews_ratings' ); ?></a> | 
+					<a href="<?php echo get_comment_link( $comment ); ?>"><?php _e( 'View', 'pronamic_reviews_ratings' ); ?></a>
 				</p>
 
 			<?php else : ?>
@@ -220,7 +227,7 @@ function prr_gform_entry_detail_sidebar_middle( $form, $lead ) {
 					<textarea name="pronamic_review_comment" rows="10" cols="40"><?php echo esc_textarea( $review_comment ); ?></textarea>
 				</p>
 	
-				<?php submit_button( __( 'Create Review', 'pronamic_reviews_ratings' ), 'secondary', 'pronamic_create_review', false ); ?>
+				<?php submit_button( __( 'Create Review Comment', 'pronamic_reviews_ratings' ), 'secondary', 'pronamic_create_review', false ); ?>
 			
 			<?php endif; ?>
 		</div>
