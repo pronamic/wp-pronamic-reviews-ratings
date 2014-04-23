@@ -151,7 +151,7 @@ class Pronamic_WP_ReviewsRatingsCommentProcessor {
 	 * @return array
 	 */
 	public function validate_ratings( $commentdata ) {
-		if ( filter_has_var( INPUT_POST, 'review' ) ) {
+		if ( filter_has_var( INPUT_POST, 'pronamic_review' ) ) {
 			$ratings = filter_input( INPUT_POST, 'scores', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );
 
 			$types = pronamic_get_rating_types();
@@ -177,8 +177,8 @@ class Pronamic_WP_ReviewsRatingsCommentProcessor {
 	 * @return array
 	 */
 	public function update_comment_type( $commentdata ) {
-		if ( filter_has_var( INPUT_POST, 'review' ) ) {
-			$commentdata['comment_type'] = 'review';
+		if ( filter_has_var( INPUT_POST, 'pronamic_review' ) ) {
+			$commentdata['comment_type'] = 'pronamic_review';
 		}
 		
 		return $commentdata;

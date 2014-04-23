@@ -249,7 +249,7 @@ function prr_gform_maybe_create_review() {
 			'comment_author_email' => $email,
 			'comment_author_url'   => '',
 			'comment_content'      => $review,
-			'comment_type'         => 'review',
+			'comment_type'         => 'pronamic_review',
 		);
 
 		$comment_id = wp_new_comment( $data );
