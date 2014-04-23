@@ -209,19 +209,19 @@ function prr_gform_entry_detail_sidebar_middle( $form, $lead ) {
 				<input type="hidden" name="pronamic_review_lead_id" value="<?php echo esc_attr( $lead['id'] ); ?>" />
 	
 				<p>
-					Post ID<br />
+					<?php _e( 'Post ID', 'pronamic_reviews_ratings' ); ?><br />
 					<input type="text" name="pronamic_review_post_id" value="<?php echo esc_attr( $review_post_id ); ?>" />
 				</p>
 				<p>
-					Name<br />
+					<?php _e( 'Name', 'pronamic_reviews_ratings' ); ?><br />
 					<input type="text" name="pronamic_review_name" value="<?php echo esc_attr( $review_name ); ?>" />
 				</p>
 				<p>
-					E-Mail<br />
+					<?php _e( 'E-Mail', 'pronamic_reviews_ratings' ); ?><br />
 					<input type="text" name="pronamic_review_email" value="<?php echo esc_attr( $review_email ); ?>" />
 				</p>
 				<p>
-					Review<br />
+					<?php _e( 'Comment', 'pronamic_reviews_ratings' ); ?><br />
 					<textarea name="pronamic_review_comment" rows="10" cols="40"><?php echo esc_textarea( $review_comment ); ?></textarea>
 				</p>
 	
