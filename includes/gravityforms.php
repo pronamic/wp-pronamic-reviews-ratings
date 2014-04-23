@@ -16,7 +16,7 @@ function prr_gform_field_advanced_settings( $position, $form_id ) {
 				<a href='#' onclick='return false;' class='gf_tooltip tooltip tooltip_form_field_size' title='&lt;h6&gt;Veldgrootte&lt;/h6&gt;Select a form field size from the available options. This will set the width of the field.'><i class='fa fa-question-circle'></i></a>
 			</label>
 
-			<select id="prr_rating_type" name="prr_rating_type" onclick="SetFieldProperty( 'pronamicRatingType', jQuery( this ).val() );">
+			<select id="prr_rating_type" name="prr_rating_type" onchange="SetFieldProperty( 'pronamicRatingType', jQuery( this ).val() );">
 				<option value=""></option>
 
 				<?php foreach ( pronamic_get_rating_types() as $name => $label ) : ?>
@@ -25,28 +25,28 @@ function prr_gform_field_advanced_settings( $position, $form_id ) {
 			</select>
 		</li>
 		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
-			<input type="checkbox" id="prr_is_review_post_id" onclick="var field = GetSelectedField(); window.form.pronamicReviewPostIdFieldId = field.id;" />
+			<input type="checkbox" id="prr_is_review_post_id" onchange="var field = GetSelectedField(); window.form.pronamicReviewPostIdFieldId = field.id;" />
 
 			<label for="prr_is_review_post_id" class="inline">
 				<?php _e( 'Is Review Post ID', 'pronamic_reviews_ratings' ); ?>
 			</label>
 		</li>
 		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
-			<input type="checkbox" id="prr_is_review_name" onclick="var field = GetSelectedField(); window.form.pronamicReviewNameFieldId = field.id;" />
+			<input type="checkbox" id="prr_is_review_name" onchange="var field = GetSelectedField(); window.form.pronamicReviewNameFieldId = field.id;" />
 
 			<label for="prr_is_review_name" class="inline">
 				<?php _e( 'Is Review Name', 'pronamic_reviews_ratings' ); ?>
 			</label>
 		</li>
 		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
-			<input type="checkbox" id="prr_is_review_email" onclick="var field = GetSelectedField(); window.form.pronamicReviewEmailFieldId = field.id;" />
+			<input type="checkbox" id="prr_is_review_email" onchange="var field = GetSelectedField(); window.form.pronamicReviewEmailFieldId = field.id;" />
 
 			<label for="prr_is_review_email" class="inline">
 				<?php _e( 'Is Review E-mail', 'pronamic_reviews_ratings'); ?>
 			</label>
 		</li>
 		<li class="prepopulate_field_setting field_setting" style="display: list-item;">
-			<input type="checkbox" id="prr_is_review_comment" onclick="var field = GetSelectedField(); window.form.pronamicReviewCommentFieldId = field.id;" />
+			<input type="checkbox" id="prr_is_review_comment" onchange="var field = GetSelectedField(); window.form.pronamicReviewCommentFieldId = field.id;" />
 
 			<label for="prr_is_review_comment" class="inline">
 				<?php _e( 'Is Review Comment', 'pronamic_reviews_ratings'); ?>
