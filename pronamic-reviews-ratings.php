@@ -21,7 +21,7 @@ GitHub URI: https://github.com/pronamic/wp-pronamic-reviews-ratings
 class Pronamic_WP_ReviewsRatingsPlugin {
 	/**
 	 * Plugin file
-	 * 
+	 *
 	 * @var string
 	 */
 	public $file;
@@ -29,14 +29,14 @@ class Pronamic_WP_ReviewsRatingsPlugin {
 	//////////////////////////////////////////////////
 
 	/**
-	 * Constructs and initialize an reviews and ratings plugin 
-	 * 
+	 * Constructs and initialize an reviews and ratings plugin
+	 *
 	 * @param string $file
 	 */
 	public function __construct( $file ) {
 		$this->file     = $file;
 		$this->dir_path = plugin_dir_path( $file );
-		
+
 		// Includes
 		include $this->dir_path . 'includes/functions.php';
 		include $this->dir_path . 'includes/gravityforms.php';
@@ -44,7 +44,7 @@ class Pronamic_WP_ReviewsRatingsPlugin {
 		// Actions
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
-		
+
 		// Actions - Comment Form
 		// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment-template.php#L2068
 		// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment-template.php#L2101
@@ -67,9 +67,9 @@ class Pronamic_WP_ReviewsRatingsPlugin {
 	 */
 	public function init() {
 		global $pronamic_rating_types;
-		
+
 		$pronamic_rating_types = array();
-		
+
 		do_action( 'pronamic_reviews_ratings_init' );
 	}
 
@@ -86,7 +86,7 @@ class Pronamic_WP_ReviewsRatingsPlugin {
 
 	/**
 	 * Comment Form expansion
-	 * 
+	 *
 	 *  @see https://github.com/WordPress/WordPress/blob/3.8.1/wp-includes/comment-template.php#L1920
 	 */
 	public function comment_form_expansion() {
@@ -101,7 +101,7 @@ class Pronamic_WP_ReviewsRatingsAdmin {
 
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
-		
+
 		// Actions
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 	}
@@ -134,7 +134,7 @@ class Pronamic_WP_ReviewsRatingsCommentProcessor {
 	 * Construct and initalize comment processor
 	 */
 	public function __construct() {
-		
+
 
 		// Actions
 		// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment.php#L1687
@@ -146,7 +146,7 @@ class Pronamic_WP_ReviewsRatingsCommentProcessor {
 
 	/**
 	 * Validate comment ratings
-	 * 
+	 *
 	 * @param array $commentdata
 	 * @return array
 	 */
@@ -172,7 +172,7 @@ class Pronamic_WP_ReviewsRatingsCommentProcessor {
 
 	/**
 	 * Update comment type
-	 * 
+	 *
 	 * @param array $commentdata
 	 * @return array
 	 */
@@ -180,7 +180,7 @@ class Pronamic_WP_ReviewsRatingsCommentProcessor {
 		if ( filter_has_var( INPUT_POST, 'pronamic_review' ) ) {
 			$commentdata['comment_type'] = 'pronamic_review';
 		}
-		
+
 		return $commentdata;
 	}
 }
@@ -206,7 +206,7 @@ function pronamic_ratings_post_update( $post_id ) {
 		FROM
 			$wpdb->commentmeta
 				LEFT JOIN
-			$wpdb->comments 
+			$wpdb->comments
 					ON $wpdb->commentmeta.comment_id = $wpdb->comments.comment_ID
 		WHERE
 			meta_key LIKE %s
@@ -242,7 +242,7 @@ add_action( 'wp_insert_comment', 'pronamic_insert_comment_ratings_update', 10, 2
 
 /**
  * Comment post
- * 
+ *
  * @param int $comment_id
  */
 function pronamic_ratings_comment_post( $comment_ID ) {
@@ -259,7 +259,7 @@ function pronamic_ratings_comment_post( $comment_ID ) {
 	$rating = array_sum( $scores ) / count( $scores );
 
 	update_comment_meta( $comment_ID, '_pronamic_rating_value', $rating );
-	
+
 	pronamic_ratings_comment_post_update( $comment_ID );
 }
 
@@ -267,18 +267,18 @@ add_action( 'comment_post', 'pronamic_ratings_comment_post', 1 );
 
 /**
  * Ratings comment post update
- * 
+ *
  * @param int $comment_ID
  */
 function pronamic_ratings_comment_post_update( $comment_ID ) {
 	$comment = get_comment( $comment_ID );
-	
+
 	pronamic_ratings_post_update( $comment->comment_post_ID );
 }
 
 /**
  * Edit comment
- * 
+ *
  * @param int $comment_ID
  */
 function pronamic_ratings_edit_comment( $comment_ID ) {
@@ -291,7 +291,7 @@ function pronamic_ratings_edit_comment( $comment_ID ) {
 			foreach ( $ratings as $name => $value ) {
 				$meta_key   = '_pronamic_rating_value_' . $name;
 				$meta_value = $value;
-				
+
 				update_comment_meta( $comment_ID, $meta_key, $meta_value );
 			}
 
