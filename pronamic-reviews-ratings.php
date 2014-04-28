@@ -90,7 +90,12 @@ class Pronamic_WP_ReviewsRatingsPlugin {
 	 *  @see https://github.com/WordPress/WordPress/blob/3.8.1/wp-includes/comment-template.php#L1920
 	 */
 	public function comment_form_expansion() {
-		include $this->dir_path . 'templates/comment-form-ratings.php';
+		$post_id   = get_the_ID();
+		$post_type = get_post_type( $post_id );
+
+		if ( post_type_supports( $post_type, 'pronamic_ratings' ) ) {
+			include $this->dir_path . 'templates/comment-form-ratings.php';
+		}
 	}
 }
 
