@@ -20,6 +20,20 @@ add_action( 'pronamic_reviews_ratings_init', 'prefix_reviews_ratings_init' );
 ```
 
 
+## Post Type Support
+
+```php
+<?php
+
+function prefix_reviews_ratings_init() {
+	add_post_type_support( 'page', 'pronamic_ratings' );
+}
+
+add_action( 'pronamic_reviews_ratings_init', 'prefix_reviews_ratings_init' );
+
+```
+
+
 ## Metadata
 
 All the rating values are stored as meta data with the [WordPress metadata API](http://codex.wordpress.org/Metadata_API).
