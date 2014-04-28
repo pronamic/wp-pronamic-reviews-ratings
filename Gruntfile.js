@@ -13,6 +13,16 @@ module.exports = function( grunt ) {
 			},
 			all: [ '**/*.php' ]
 		},
+		
+		// PHP Code Sniffer
+		phpcs: {
+		    application: {
+		        dir: [ '**/*.php' ]
+		    },
+		    options: {
+		        standard: 'project.ruleset.xml'
+		    }
+		},
 
 		// MakePOT
 		makepot: {
@@ -27,9 +37,10 @@ module.exports = function( grunt ) {
 	} );
 
 	grunt.loadNpmTasks( 'grunt-phplint' );
+	grunt.loadNpmTasks( 'grunt-phpcs' );
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 
 	// Default task(s).
-	grunt.registerTask( 'default', [ 'phplint' ] );
+	grunt.registerTask( 'default', [ 'phplint', 'phpcs' ] );
 	grunt.registerTask( 'pot', [ 'makepot' ] );
 };

@@ -139,8 +139,6 @@ class Pronamic_WP_ReviewsRatingsCommentProcessor {
 	 * Construct and initalize comment processor
 	 */
 	public function __construct() {
-
-
 		// Actions
 		// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment.php#L1687
 		add_filter( 'preprocess_comment', array( $this, 'validate_ratings' ), 0 );
@@ -164,7 +162,8 @@ class Pronamic_WP_ReviewsRatingsCommentProcessor {
 			foreach ( $types as $name => $label ) {
 				if ( ! isset( $ratings[ $name ] ) || empty( $ratings[ $name ] ) ) {
 					// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-comments-post.php#L121
-					wp_die( __('<strong>ERROR</strong>: please fill in the rating fields.', 'pronamic_reviews_ratings' ) );
+					wp_die( __( '<strong>ERROR</strong>: please fill in the rating fields.', 'pronamic_reviews_ratings' ) );
+
 					exit;
 				}
 			}
@@ -254,7 +253,7 @@ function pronamic_ratings_comment_post( $comment_ID ) {
 	$scores = isset( $_POST['scores'] ) ? $_POST['scores'] : array();
 	$types = pronamic_get_rating_types();
 
-	foreach( $types as $name => $label ) {
+	foreach ( $types as $name => $label ) {
 		$meta_key   = '_pronamic_rating_value_' . $name;
 		$meta_value = $_POST['scores'][ $name ];
 

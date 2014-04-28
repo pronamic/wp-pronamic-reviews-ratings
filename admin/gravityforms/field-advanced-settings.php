@@ -29,13 +29,13 @@
 	<input type="checkbox" id="prr_is_review_email" onchange="var field = GetSelectedField(); window.form.pronamicReviewEmailFieldId = field.id;" />
 
 	<label for="prr_is_review_email" class="inline">
-		<?php _e( 'Is Review E-mail', 'pronamic_reviews_ratings'); ?>
+		<?php _e( 'Is Review E-mail', 'pronamic_reviews_ratings' ); ?>
 	</label>
 </li>
 <li class="prepopulate_field_setting field_setting" style="display: list-item;">
 	<input type="checkbox" id="prr_is_review_comment" onchange="var field = GetSelectedField(); window.form.pronamicReviewCommentFieldId = field.id;" />
 
 	<label for="prr_is_review_comment" class="inline">
-		<?php _e( 'Is Review Comment', 'pronamic_reviews_ratings'); ?>
+		<?php _e( 'Is Review Comment', 'pronamic_reviews_ratings' ); ?>
 	</label>
 </li>

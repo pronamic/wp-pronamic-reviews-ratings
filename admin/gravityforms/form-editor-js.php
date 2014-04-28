@@ -1,3 +1,6 @@
+<?php
+
+?>
 <script type="text/javascript">
 	jQuery( document ).bind( 'gform_load_field_settings', function( event, field, form ) {
 		var pronamicRatingType = typeof field.pronamicRatingType == 'undefined' ? '' : field.pronamicRatingType;
