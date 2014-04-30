@@ -75,7 +75,7 @@
 							$sum    = array_sum( $values );
 							$count  = count( $values );
 							$value  = $count > 0 ? $sum / $count : '';
-							$value  = pronamic_transform_rating( range( 1, 10 ), range( 1, 5 ), $value );
+							// $value  = pronamic_transform_rating( range( 1, 10 ), range( 1, 5 ), $value );
 
 							?>
 							<td><?php echo $label; ?></td>

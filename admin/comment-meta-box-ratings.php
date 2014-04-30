@@ -20,13 +20,13 @@ $types = pronamic_get_rating_types();
 				<?php echo $label; ?>
 			</td>
 			<td>
-				<?php 
+				<?php
 
 				$input_name = 'pronamic_comment_ratings[' . $name . ']';
 				$meta_key   = '_pronamic_rating_value_' . $name;
 				$meta_value = get_comment_meta( get_comment_ID(), $meta_key, true );
 
-				foreach ( range( 1, 5 ) as $value ) {
+				foreach ( range( 1, 10 ) as $value ) {
 					printf(
 						'<input name="%s" value="%d" type="radio" class="star" %s />',
 						esc_attr( $input_name ),
@@ -38,7 +38,7 @@ $types = pronamic_get_rating_types();
 				?>
 			</td>
 		</tr>
-	
+
 	<?php endforeach; ?>
 
 </table>

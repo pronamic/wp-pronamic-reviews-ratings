@@ -14,7 +14,7 @@ $types = pronamic_get_rating_types();
 
 			$input_name = 'scores[' . $name . ']';
 
-			foreach ( range( 1, 5 ) as $value ) {
+			foreach ( range( 1, 10 ) as $value ) {
 				$input_id   = 'score-' . $name . '-' . $value;
 
 				printf(

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // @see http://schema.org/Review
 // @see http://schema.org/Rating
@@ -15,9 +15,9 @@
 		<div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
 			<meta itemprop="worstRating" content="1" />
 			<span itemprop="ratingValue"><?php echo get_comment_meta( get_comment_ID(), '_pronamic_rating_value', true ); ?></span>/
-			<span itemprop="bestRating">5</span> stars
+			<span itemprop="bestRating">10</span> stars
 		</div>
-		
+
 		<div class="comment-content" itemprop="description">
 			<?php comment_text(); ?>
 		</div>
