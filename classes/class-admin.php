@@ -14,6 +14,8 @@ class Pronamic_WP_ReviewsRatingsAdmin {
 		// Actions
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 
+		add_action( 'admin_init', array( $this, 'update' ), 5 );
+
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
 		add_action( 'save_post', array( $this, 'save_post' ) );
@@ -34,6 +36,35 @@ class Pronamic_WP_ReviewsRatingsAdmin {
 				add_action( 'manage_' . $screen_id . '_sortable_columns', array( $this, 'post_sortable_columns' ), 10 );
 			}
 		}
+	}
+
+	//////////////////////////////////////////////////
+
+	/**
+	 * Update
+	 */
+	public function update() {
+		$option = 'pronamic_reviews_ratings_db_version';
+
+		if ( get_option( $option ) != Pronamic_WP_ReviewsRatingsPlugin::DB_VERSION ) {
+			$this->install();
+
+			update_option( $option, Pronamic_WP_ReviewsRatingsPlugin::DB_VERSION );
+		}
+	}
+
+	/**
+	 * Install
+	 */
+	public function install() {
+		pronamic_ratings_install_table( 'pronamic_post_ratings', '
+			rating_id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+			post_id BIGINT(20) UNSIGNED NOT NULL,
+			rating_value FLOAT NOT NULL,
+			rating_count BIGINT(20) UNSIGNED DEFAULT 0,
+			PRIMARY KEY  (rating_id),
+			UNIQUE KEY post_id (post_id)
+		' );
 	}
 
 	//////////////////////////////////////////////////
@@ -66,9 +97,11 @@ class Pronamic_WP_ReviewsRatingsAdmin {
 	 * @param int $post_id
 	 */
 	public function save_post( $post_id ) {
-		// For now we save the ratings for every post (type), this allows us
-		// to orderby on every post (type).
-		pronamic_ratings_post_update( $post_id );
+		$post_type = get_post_type( $post_id );
+
+		if ( post_type_supports( $post_type, 'pronamic_ratings' ) ) {
+			pronamic_ratings_post_update( $post_id );
+		}
 	}
 
 	//////////////////////////////////////////////////

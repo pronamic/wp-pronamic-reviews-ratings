@@ -66,8 +66,8 @@ function pronamic_ratings_post_update( $post_id ) {
 	$results = $wpdb->get_results( $query );
 
 	if ( empty( $results ) ) {
-		update_post_meta( $post_id, '_pronamic_rating_value', '' );
-		update_post_meta( $post_id, '_pronamic_rating_count', '' );
+		update_post_meta( $post_id, '_pronamic_rating_value', 0 );
+		update_post_meta( $post_id, '_pronamic_rating_count', 0 );
 	} else {
 		foreach ( $results as $result ) {
 			$meta_key_value = $result->meta_key;
@@ -77,6 +77,8 @@ function pronamic_ratings_post_update( $post_id ) {
 			update_post_meta( $post_id, $meta_key_count, $result->rating_count );
 		}
 	}
+
+	pronamic_sync_rating_to_table( $post_id );
 }
 
 function pronamic_insert_comment_ratings_update( $id, $comment ) {
@@ -92,20 +94,25 @@ add_action( 'wp_insert_comment', 'pronamic_insert_comment_ratings_update', 10, 2
  */
 function pronamic_ratings_comment_post( $comment_ID ) {
 	$scores = isset( $_POST['scores'] ) ? $_POST['scores'] : array();
-	$types = pronamic_get_rating_types();
 
-	foreach ( $types as $name => $label ) {
-		$meta_key   = '_pronamic_rating_value_' . $name;
-		$meta_value = $_POST['scores'][ $name ];
+	if ( ! empty( $scores ) ) {
+		$types = pronamic_get_rating_types();
 
-		update_comment_meta( $comment_ID, $meta_key, $meta_value );
+		foreach ( $types as $name => $label ) {
+			if ( isset( $scores[ $name ] ) ) {
+				$meta_key   = '_pronamic_rating_value_' . $name;
+				$meta_value = $scores[ $name ];
+
+				update_comment_meta( $comment_ID, $meta_key, $meta_value );
+			}
+		}
+
+		$rating = array_sum( $scores ) / count( $scores );
+
+		update_comment_meta( $comment_ID, '_pronamic_rating_value', $rating );
+
+		pronamic_ratings_comment_post_update( $comment_ID );
 	}
-
-	$rating = array_sum( $scores ) / count( $scores );
-
-	update_comment_meta( $comment_ID, '_pronamic_rating_value', $rating );
-
-	pronamic_ratings_comment_post_update( $comment_ID );
 }
 
 add_action( 'comment_post', 'pronamic_ratings_comment_post', 1 );
@@ -118,7 +125,9 @@ add_action( 'comment_post', 'pronamic_ratings_comment_post', 1 );
 function pronamic_ratings_comment_post_update( $comment_ID ) {
 	$comment = get_comment( $comment_ID );
 
-	pronamic_ratings_post_update( $comment->comment_post_ID );
+	if ( $comment ) {
+		pronamic_ratings_post_update( $comment->comment_post_ID );
+	}
 }
 
 /**

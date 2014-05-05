@@ -5,6 +5,15 @@
  */
 class Pronamic_WP_ReviewsRatingsPlugin {
 	/**
+	 * Database version
+	 *
+	 * @var string
+	 */
+	const DB_VERSION = '1.0.0';
+
+	//////////////////////////////////////////////////
+
+	/**
 	 * Plugin file
 	 *
 	 * @var string
@@ -25,6 +34,10 @@ class Pronamic_WP_ReviewsRatingsPlugin {
 		// Includes
 		include $this->dir_path . 'includes/functions.php';
 		include $this->dir_path . 'includes/gravityforms.php';
+		include $this->dir_path . 'includes/query.php';
+
+		// Tables
+		pronamic_ratings_register_table( 'pronamic_post_ratings' );
 
 		// Actions
 		add_action( 'init', array( $this, 'init' ) );
@@ -35,9 +48,6 @@ class Pronamic_WP_ReviewsRatingsPlugin {
 		// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment-template.php#L2101
 		add_action( 'comment_form_logged_in_after', array( $this, 'comment_form_expansion' ) );
 		add_action( 'comment_form_after_fields', array( $this, 'comment_form_expansion' ) );
-
-		// Filters
-		add_filter( 'request', array( $this, 'request_orderby_rating' ) );
 
 		// Comment Processor
 		$this->comment_processor = new Pronamic_WP_ReviewsRatingsCommentProcessor();
@@ -84,23 +94,5 @@ class Pronamic_WP_ReviewsRatingsPlugin {
 		if ( post_type_supports( $post_type, 'pronamic_ratings' ) ) {
 			include $this->dir_path . 'templates/comment-form-ratings.php';
 		}
-	}
-
-	//////////////////////////////////////////////////
-
-	/**
-	 * Request order by rating
-	 *
-	 * @param array $vars
-	 */
-	function request_orderby_rating( $vars ) {
-		if ( isset( $vars['orderby'] ) && 'rating' == $vars['orderby'] ) {
-			$vars = array_merge( $vars, array(
-					'meta_key' => '_pronamic_rating_value',
-					'orderby'  => 'meta_value_num',
-			) );
-		}
-
-		return $vars;
 	}
 }
