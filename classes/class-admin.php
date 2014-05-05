@@ -66,11 +66,9 @@ class Pronamic_WP_ReviewsRatingsAdmin {
 	 * @param int $post_id
 	 */
 	public function save_post( $post_id ) {
-		$post_type = get_post_type( $post_id );
-
-		if ( post_type_supports( $post_type, 'pronamic_ratings' ) ) {
-			pronamic_ratings_post_update( $post_id );
-		}
+		// For now we save the ratings for every post (type), this allows us
+		// to orderby on every post (type).
+		pronamic_ratings_post_update( $post_id );
 	}
 
 	//////////////////////////////////////////////////
