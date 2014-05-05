@@ -18,175 +18,11 @@ License: GPL
 GitHub URI: https://github.com/pronamic/wp-pronamic-reviews-ratings
 */
 
-class Pronamic_WP_ReviewsRatingsPlugin {
-	/**
-	 * Plugin file
-	 *
-	 * @var string
-	 */
-	public $file;
-
-	//////////////////////////////////////////////////
-
-	/**
-	 * Constructs and initialize an reviews and ratings plugin
-	 *
-	 * @param string $file
-	 */
-	public function __construct( $file ) {
-		$this->file     = $file;
-		$this->dir_path = plugin_dir_path( $file );
-
-		// Includes
-		include $this->dir_path . 'includes/functions.php';
-		include $this->dir_path . 'includes/gravityforms.php';
-
-		// Actions
-		add_action( 'init', array( $this, 'init' ) );
-		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
-
-		// Actions - Comment Form
-		// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment-template.php#L2068
-		// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment-template.php#L2101
-		add_action( 'comment_form_logged_in_after', array( $this, 'comment_form_expansion' ) );
-		add_action( 'comment_form_after_fields', array( $this, 'comment_form_expansion' ) );
-
-		// Comment Processor
-		$this->comment_processor = new Pronamic_WP_ReviewsRatingsCommentProcessor();
-
-		// Admin
-		if ( is_admin() ) {
-			$this->admin = new Pronamic_WP_ReviewsRatingsAdmin( $this );
-		}
-	}
-
-	//////////////////////////////////////////////////
-
-	/**
-	 * Initialize
-	 */
-	public function init() {
-		global $pronamic_rating_types;
-
-		$pronamic_rating_types = array();
-
-		do_action( 'pronamic_reviews_ratings_init' );
-	}
-
-	//////////////////////////////////////////////////
-
-	/**
-	 * Plugins loaded
-	 */
-	public function plugins_loaded() {
-		load_plugin_textdomain( 'pronamic_reviews_ratings', false, dirname( plugin_basename( $this->file ) ) . '/languages/' );
-	}
-
-	//////////////////////////////////////////////////
-
-	/**
-	 * Comment Form expansion
-	 *
-	 *  @see https://github.com/WordPress/WordPress/blob/3.8.1/wp-includes/comment-template.php#L1920
-	 */
-	public function comment_form_expansion() {
-		$post_id   = get_the_ID();
-		$post_type = get_post_type( $post_id );
-
-		if ( post_type_supports( $post_type, 'pronamic_ratings' ) ) {
-			include $this->dir_path . 'templates/comment-form-ratings.php';
-		}
-	}
-}
-
-class Pronamic_WP_ReviewsRatingsAdmin {
-	private $plugin;
-
-	//////////////////////////////////////////////////
-
-	public function __construct( $plugin ) {
-		$this->plugin = $plugin;
-
-		// Actions
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-	}
-
-	//////////////////////////////////////////////////
-
-	/**
-	 * Add meta boxes
-	 *
-	 * @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-admin/edit-form-comment.php#L130
-	 * @see http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
-	 * @see http://shibashake.com/wordpress-theme/add-a-metabox-to-the-edit-comments-screen
-	 */
-	function add_meta_boxes() {
-		add_meta_box( 'pronamic_comment_ratings', __( 'Ratings', 'pronamic_reviews_ratings' ), array( $this, 'comment_meta_box_ratings' ), 'comment', 'normal' );
-	}
-
-	/**
-	 * Comment meta box ratings
-	 */
-	public function comment_meta_box_ratings() {
-		wp_nonce_field( 'pronamic_comment_ratings_save', 'pronamic_comment_ratings_meta_box_nonce' );
-
-		include $this->plugin->dir_path . 'admin/comment-meta-box-ratings.php';
-	}
-}
-
-class Pronamic_WP_ReviewsRatingsCommentProcessor {
-	/**
-	 * Construct and initalize comment processor
-	 */
-	public function __construct() {
-		// Actions
-		// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment.php#L1687
-		add_filter( 'preprocess_comment', array( $this, 'validate_ratings' ), 0 );
-		add_action( 'preprocess_comment', array( $this, 'update_comment_type' ) );
-	}
-
-	//////////////////////////////////////////////////
-
-	/**
-	 * Validate comment ratings
-	 *
-	 * @param array $commentdata
-	 * @return array
-	 */
-	public function validate_ratings( $commentdata ) {
-		if ( filter_has_var( INPUT_POST, 'pronamic_review' ) ) {
-			$ratings = filter_input( INPUT_POST, 'scores', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );
-
-			$types = pronamic_get_rating_types();
-
-			foreach ( $types as $name => $label ) {
-				if ( ! isset( $ratings[ $name ] ) || empty( $ratings[ $name ] ) ) {
-					// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-comments-post.php#L121
-					wp_die( __( '<strong>ERROR</strong>: please fill in the rating fields.', 'pronamic_reviews_ratings' ) );
-
-					exit;
-				}
-			}
-		}
-
-		return $commentdata;
-	}
-
-	//////////////////////////////////////////////////
-
-	/**
-	 * Update comment type
-	 *
-	 * @param array $commentdata
-	 * @return array
-	 */
-	public function update_comment_type( $commentdata ) {
-		if ( filter_has_var( INPUT_POST, 'pronamic_review' ) ) {
-			$commentdata['comment_type'] = 'pronamic_review';
-		}
-
-		return $commentdata;
-	}
+/**
+ * Require classes
+ */
+foreach ( glob( plugin_dir_path( __FILE__ ) . 'classes/*.php' ) as $file ) {
+    require_once $file;
 }
 
 /**
@@ -229,12 +65,17 @@ function pronamic_ratings_post_update( $post_id ) {
 
 	$results = $wpdb->get_results( $query );
 
-	foreach ( $results as $result ) {
-		$meta_key_value = $result->meta_key;
-		$meta_key_count = str_replace( '_pronamic_rating_value', '_pronamic_rating_count', $meta_key_value );
+	if ( empty( $results ) ) {
+		update_post_meta( $post_id, '_pronamic_rating_value', '' );
+		update_post_meta( $post_id, '_pronamic_rating_count', '' );
+	} else {
+		foreach ( $results as $result ) {
+			$meta_key_value = $result->meta_key;
+			$meta_key_count = str_replace( '_pronamic_rating_value', '_pronamic_rating_count', $meta_key_value );
 
-		update_post_meta( $post_id, $meta_key_value, $result->rating_value );
-		update_post_meta( $post_id, $meta_key_count, $result->rating_count );
+			update_post_meta( $post_id, $meta_key_value, $result->rating_value );
+			update_post_meta( $post_id, $meta_key_count, $result->rating_count );
+		}
 	}
 }
 
