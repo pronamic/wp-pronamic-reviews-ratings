@@ -19,7 +19,7 @@ function pronamic_sync_rating_to_table( $post_id ) {
 	);
 
 	if ( $rating_id ) {
-		$result = $wpdb->update( $wpdb->pronamic_post_ratings, $data, array( 'rating_id' => $id ), $format );
+		$result = $wpdb->update( $wpdb->pronamic_post_ratings, $data, array( 'rating_id' => $rating_id ), $format );
 	} else {
 		$result = $wpdb->insert( $wpdb->pronamic_post_ratings, $data, $format );
 
