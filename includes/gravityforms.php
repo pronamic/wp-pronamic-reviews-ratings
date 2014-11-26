@@ -19,13 +19,13 @@ add_action( 'gform_field_advanced_settings', 'prr_gform_field_advanced_settings'
 /**
  * Gravity Forms - Editor JavaScript
  */
-function pronamic_companies_gform_editor_js() {
+function prr_gform_editor_js() {
 	global $pronamic_reviews_ratings_plugin;
 		
 	include $pronamic_reviews_ratings_plugin->dir_path . '/admin/gravityforms/form-editor-js.php';
 }
 
-add_action( 'gform_editor_js', 'pronamic_companies_gform_editor_js' );
+add_action( 'gform_editor_js', 'prr_gform_editor_js' );
 
 /**
  * Get score
