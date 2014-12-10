@@ -45,11 +45,13 @@ function pronamic_ratings_posts_clauses( $pieces, $query ) {
 	global $wpdb;
 
 	// Fields
-	$fields = ',
-		rating.rating_id AS rating_id,
-		rating.rating_value AS rating_value,
-		rating.rating_count AS rating_count
-	';
+	if ( '' == $query->get( 'fields' ) ) {
+		$fields = ',
+			rating.rating_id AS rating_id,
+			rating.rating_value AS rating_value,
+			rating.rating_count AS rating_count
+		';
+	}
 
 	// Join
 	$join = "
