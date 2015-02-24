@@ -18,10 +18,25 @@ function pronamic_register_rating_type( $name, $args ) {
 	$pronamic_rating_types[ $name ] = $args;
 }
 
-function pronamic_get_rating_types() {
+function pronamic_get_rating_types( $post_type = null ) {
 	global $pronamic_rating_types;
 
-	return $pronamic_rating_types;
+	// Rating types
+	$rating_types = $pronamic_rating_types;
+
+	// Post type
+	if ( ! empty( $post_type ) ) {
+		global $wp_post_types;
+
+		if ( isset( $wp_post_types[ $post_type ], $wp_post_types[ $post_type ]->pronamic_rating_types ) ) {
+			$post_rating_types = $wp_post_types[ $post_type ]->pronamic_rating_types;
+
+			$rating_types = array_intersect_key( $rating_types, array_flip( $post_rating_types ) );
+		}
+	}
+
+	// Return
+	return $rating_types;
 }
 
 function pronamic_transform_rating( $from_range, $to_range, $rating ) {
