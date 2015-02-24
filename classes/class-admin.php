@@ -83,7 +83,7 @@ class Pronamic_WP_ReviewsRatingsAdmin {
 	/**
 	 * Comment meta box ratings
 	 */
-	public function comment_meta_box_ratings() {
+	public function comment_meta_box_ratings( $comment ) {
 		wp_nonce_field( 'pronamic_comment_ratings_save', 'pronamic_comment_ratings_meta_box_nonce' );
 
 		include $this->plugin->dir_path . 'admin/comment-meta-box-ratings.php';

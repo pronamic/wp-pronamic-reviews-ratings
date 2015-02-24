@@ -1,6 +1,8 @@
 <?php
 
-$types = pronamic_get_rating_types();
+$post_type = get_post_type( $comment->comment_post_ID );
+
+$types = pronamic_get_rating_types( $post_type );
 
 ?>
 <table>
@@ -9,7 +11,7 @@ $types = pronamic_get_rating_types();
 			<?php _e( 'Rating', 'pronamic_reviews_ratings' ); ?>
 		</td>
 		<td>
-			<?php echo get_comment_meta( get_comment_ID(), '_pronamic_rating', true ); ?>
+			<?php echo get_comment_meta( $comment->comment_ID, '_pronamic_rating', true ); ?>
 		</td>
 	</tr>
 
@@ -24,7 +26,7 @@ $types = pronamic_get_rating_types();
 
 				$input_name = 'pronamic_comment_ratings[' . $name . ']';
 				$meta_key   = '_pronamic_rating_value_' . $name;
-				$meta_value = get_comment_meta( get_comment_ID(), $meta_key, true );
+				$meta_value = get_comment_meta( $comment->comment_ID, $meta_key, true );
 
 				foreach ( range( 1, 10 ) as $value ) {
 					printf(
