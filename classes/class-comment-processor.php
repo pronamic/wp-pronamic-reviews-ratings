@@ -24,9 +24,11 @@ class Pronamic_WP_ReviewsRatingsCommentProcessor {
 	 */
 	public function validate_ratings( $commentdata ) {
 		if ( filter_has_var( INPUT_POST, 'pronamic_review' ) ) {
+			$post_id = $commentdata['comment_post_ID'];
+
 			$ratings = filter_input( INPUT_POST, 'scores', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );
 
-			$types = pronamic_get_rating_types();
+			$types = pronamic_get_rating_types( get_post_type( $post_id ) );
 
 			foreach ( $types as $name => $label ) {
 				if ( ! isset( $ratings[ $name ] ) || empty( $ratings[ $name ] ) ) {

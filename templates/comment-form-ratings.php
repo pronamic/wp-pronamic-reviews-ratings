@@ -1,6 +1,8 @@
 <?php
 
-$types = pronamic_get_rating_types();
+$post_type = get_post_type();
+
+$types = pronamic_get_rating_types( $post_type );
 
 ?>
 <div class="pronamic-comment-ratings">
