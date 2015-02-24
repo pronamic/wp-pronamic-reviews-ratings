@@ -34,6 +34,38 @@ add_action( 'pronamic_reviews_ratings_init', 'prefix_reviews_ratings_init' );
 ```
 
 
+## Post Type Rating Types Support
+
+```php
+<?php
+
+function prefix_init() {
+	register_post_type( 'book', array(
+		'public'                => true,
+		'label'                 => __( 'Books', 'text_domain' ),
+		'pronamic_rating_types' => array(
+			'trustworthy',
+			'objective',
+			'complete',
+			'well_written',
+		),
+	) );
+
+	register_post_type( 'magazine', array(
+		'public'                => true,
+		'label'                 => __( 'Magazines', 'text_domain' ),
+		'pronamic_rating_types' => array(
+			'trustworthy',
+			'well_written',
+		),
+	) );
+}
+
+add_action( 'init', 'prefix_init' );
+
+```
+
+
 ## Metadata
 
 All the rating values are stored as meta data with the [WordPress metadata API](http://codex.wordpress.org/Metadata_API).
