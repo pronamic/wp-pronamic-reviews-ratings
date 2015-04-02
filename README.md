@@ -66,6 +66,22 @@ add_action( 'init', 'prefix_init' );
 ```
 
 
+## Reviews Ratings Scores
+
+```php
+<?php
+
+function prefix_pronamic_reviews_ratings_scores( $scores ) {
+	$scores = array( 10, 8, 6, 4, 2 );
+
+	return $scores;
+}
+
+add_filter( 'pronamic_reviews_ratings_scores', 'prefix_pronamic_reviews_ratings_scores' );
+
+```
+
+
 ## Metadata
 
 All the rating values are stored as meta data with the [WordPress metadata API](http://codex.wordpress.org/Metadata_API).

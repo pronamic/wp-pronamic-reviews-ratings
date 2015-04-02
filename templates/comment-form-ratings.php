@@ -2,7 +2,8 @@
 
 $post_type = get_post_type();
 
-$types = pronamic_get_rating_types( $post_type );
+$types  = pronamic_get_rating_types( $post_type );
+$scores = apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
 
 ?>
 <div class="pronamic-comment-ratings">
@@ -16,7 +17,7 @@ $types = pronamic_get_rating_types( $post_type );
 
 			$input_name = 'scores[' . $name . ']';
 
-			foreach ( range( 1, 10 ) as $value ) {
+			foreach ( $scores as $value ) {
 				$input_id   = 'score-' . $name . '-' . $value;
 
 				printf(
