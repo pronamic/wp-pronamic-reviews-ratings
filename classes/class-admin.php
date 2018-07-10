@@ -108,7 +108,7 @@ class Pronamic_WP_ReviewsRatingsAdmin {
 	// Admin columns
 	//////////////////////////////////////////////////
 
-	public function manage_posts_columns( $columns, $post_type ) {
+	public function manage_posts_columns( $columns ) {
 		$columns['pronamic_rating'] = __( 'Rating', 'pronamic_reviews_ratings' );
 
 		$new_columns = array();
