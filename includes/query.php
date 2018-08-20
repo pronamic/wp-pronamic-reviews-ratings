@@ -45,6 +45,8 @@ function pronamic_ratings_posts_clauses( $pieces, $query ) {
 	global $wpdb;
 
 	// Fields
+	$fields = '';
+
 	if ( '' == $query->get( 'fields' ) ) {
 		$fields = ',
 			rating.rating_id AS rating_id,
