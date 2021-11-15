@@ -69,6 +69,7 @@ class Plugin {
 		// Actions.
 		\add_action( 'init', array( $this, 'init' ) );
 		\add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+		\add_action( 'save_post', array( $this, 'save_post' ) );
 
 		// Comments module.
 		$this->comments_module = new CommentsModule( $this );
@@ -99,5 +100,23 @@ class Plugin {
 	 */
 	public function plugins_loaded() {
 		\load_plugin_textdomain( 'pronamic_reviews_ratings', false, \dirname( \plugin_basename( $this->file ) ) . '/languages/' );
+	}
+
+	/**
+	 * Save post.
+	 *
+	 * @param int $post_id Post ID.
+	 * @return void
+	 */
+	public function save_post( $post_id ) {
+		// Check post type support.
+		$post_type = \get_post_type( $post_id );
+
+		if ( ! \post_type_supports( $post_type, 'pronamic_ratings' ) ) {
+			return;
+		}
+
+		// Update post.
+		\pronamic_ratings_post_update( $post_id );
 	}
 }

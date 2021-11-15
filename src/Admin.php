@@ -40,7 +40,6 @@ class Admin {
 		\add_action( 'admin_init', array( $this, 'admin_init' ) );
 		\add_action( 'admin_init', array( $this, 'update_db_version' ), 5 );
 		\add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
-		\add_action( 'save_post', array( $this, 'save_post' ) );
 	}
 
 	/**
@@ -102,7 +101,13 @@ class Admin {
 	 * @return void
 	 */
 	public function add_meta_boxes() {
-		\add_meta_box( 'pronamic_comment_ratings', __( 'Ratings', 'pronamic_reviews_ratings' ), array( $this, 'comment_meta_box_ratings' ), 'comment', 'normal' );
+		\add_meta_box(
+			'pronamic_comment_ratings',
+			__( 'Ratings', 'pronamic_reviews_ratings' ),
+			array( $this, 'comment_meta_box_ratings' ),
+			'comment',
+			'normal'
+		);
 	}
 
 	/**
@@ -115,24 +120,6 @@ class Admin {
 		\wp_nonce_field( 'pronamic_comment_ratings_save', 'pronamic_comment_ratings_meta_box_nonce' );
 
 		require_once $this->plugin->dir_path . 'admin/comment-meta-box-ratings.php';
-	}
-
-	/**
-	 * Save post.
-	 *
-	 * @param int $post_id Post ID.
-	 * @return void
-	 */
-	public function save_post( $post_id ) {
-		// Check post type support.
-		$post_type = \get_post_type( $post_id );
-
-		if ( ! \post_type_supports( $post_type, 'pronamic_ratings' ) ) {
-			return;
-		}
-
-		// Update post.
-		\pronamic_ratings_post_update( $post_id );
 	}
 
 	/**
