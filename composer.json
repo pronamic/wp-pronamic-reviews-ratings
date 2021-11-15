@@ -1,0 +1,40 @@
+{
+    "name": "pronamic/wp-pronamic-reviews-ratings",
+    "description": "The Pronamic Reviews Ratings plugin for WordPress is a powerful, extendable reviews and ratings plugin.",
+    "type": "wp-plugin",
+    "license": "GPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Pronamic\\WordPress\\ReviewsRatings\\": "src/"
+        },
+		"files": [
+			"includes/functions.php"
+		]
+    },
+    "authors": [
+        {
+            "name": "Pronamic",
+            "email": "info@pronamic.nl"
+        }
+    ],
+    "require-dev": {
+        "pronamic/wp-coding-standards": "^1.0",
+        "bamarni/composer-bin-plugin": "^1.4",
+        "roots/wordpress": "^5.8"
+    },
+	"scripts": {
+		"phpcbf":"vendor/bin/phpcbf",
+		"phpcs": "XDEBUG_MODE=off vendor/bin/phpcs -s -v",
+		"phplint": "find admin classes examples includes src templates -name '*.php' | xargs -n 1 -P 4 php -l",
+		"phpstan": "vendor/bin/phpstan analyse",
+		"post-install-cmd": "echo 'Optionally run: composer bin all install'",
+		"post-update-cmd": "echo 'Optionally run: composer bin all update'",
+		"psalm": "vendor/bin/psalm",
+		"make-pot": "wp i18n make-pot . languages/pronamic_reviews_ratings.pot --slug='pronamic_reviews_ratings'",
+		"update-po": "find languages/*.po -type f -exec msgmerge --update --backup=off {} languages/pronamic_reviews_ratings.pot \\;",
+		"build": [
+		    "@make-pot",
+		    "@update-po"
+		]
+	}
+}

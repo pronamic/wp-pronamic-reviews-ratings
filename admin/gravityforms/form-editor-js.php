@@ -1,8 +1,16 @@
 <?php
+/**
+ * Gravity Forms editor script.
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2021 Pronamic
+ * @license   GPL-3.0-or-later
+ * @package   Pronamic\WordPress\ReviewsRatings
+ */
 
 ?>
 <script type="text/javascript">
-	jQuery( document ).bind( 'gform_load_field_settings', function( event, field, form ) {
+	jQuery( document ).on( 'gform_load_field_settings', function( event, field, form ) {
 		var pronamicRatingType = typeof field.pronamicRatingType == 'undefined' ? '' : field.pronamicRatingType;
 		var pronamicReviewPostIdFieldId = typeof form.pronamicReviewPostIdFieldId == 'undefined' ? '' : form.pronamicReviewPostIdFieldId;
 		var pronamicReviewNameFieldId = typeof form.pronamicReviewNameFieldId == 'undefined' ? '' : form.pronamicReviewNameFieldId;

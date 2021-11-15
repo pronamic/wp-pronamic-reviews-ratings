@@ -1,19 +1,17 @@
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
-Thumbs.db
+# PhpStorm
+/.idea/
 
-# Grunt #
-#########
-node_modules
-release
+# Composer
+/vendor
 
-# Git FTP #
-###########
-.gitftppass
+# Composer bin plugin
+/vendor-bin/**/vendor/
+
+# Node
+/node_modules/
+
+# Build
+/release/
+
+# WordPress
+/wordpress/
