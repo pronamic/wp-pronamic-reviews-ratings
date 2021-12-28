@@ -28,65 +28,17 @@ require_once 'vendor/autoload.php';
 /**
  * Init plugin.
  */
-global $pronamic_reviews_ratings_plugin;
+function pronamic_reviews_ratings() {
+	global $pronamic_reviews_ratings_plugin;
 
-$pronamic_reviews_ratings_plugin = new Pronamic\WordPress\ReviewsRatings\Plugin( __FILE__ );
-
-
-/**
- * Ratings post update.
- *
- * @param int $post_id Post ID.
- * @return void
- * @link https://github.com/woothemes/woocommerce/blob/v2.1.6/includes/abstracts/abstract-wc-product.php#L964
- * @link https://github.com/woothemes/woocommerce/blob/v2.1.6/includes/abstracts/abstract-wc-product.php#L999
- */
-function pronamic_ratings_post_update( $post_id ) {
-	global $wpdb;
-
-	$results = $wpdb->get_results(
-		$wpdb->prepare(
-			"
-			SELECT
-				meta_key,
-				COUNT(meta_value) AS rating_count,
-				SUM(meta_value) / COUNT( meta_value ) AS rating_value
-			FROM
-				$wpdb->commentmeta
-					LEFT JOIN
-				$wpdb->comments
-						ON $wpdb->commentmeta.comment_id = $wpdb->comments.comment_ID
-			WHERE
-				meta_key LIKE %s
-					AND
-				comment_post_ID = %d
-					AND
-				comment_approved = '1'
-					AND
-				meta_value > 0
-			GROUP BY
-				meta_key
-			;",
-			'_pronamic_rating_value%',
-			$post_id
-		)
-	);
-
-	if ( empty( $results ) ) {
-		\update_post_meta( $post_id, '_pronamic_rating_value', 0 );
-		\update_post_meta( $post_id, '_pronamic_rating_count', 0 );
-	} else {
-		foreach ( $results as $result ) {
-			$meta_key_value = $result->meta_key;
-			$meta_key_count = str_replace( '_pronamic_rating_value', '_pronamic_rating_count', $meta_key_value );
-
-			\update_post_meta( $post_id, $meta_key_value, $result->rating_value );
-			\update_post_meta( $post_id, $meta_key_count, $result->rating_count );
-		}
+	if ( null === $pronamic_reviews_ratings_plugin ) {
+		$pronamic_reviews_ratings_plugin = new Pronamic\WordPress\ReviewsRatings\Plugin( __FILE__ );
 	}
 
-	\pronamic_sync_rating_to_table( $post_id );
+	return $pronamic_reviews_ratings_plugin;
 }
+
+\pronamic_reviews_ratings();
 
 /**
  * Update ratings on insert comment.

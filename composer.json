@@ -8,7 +8,8 @@
             "Pronamic\\WordPress\\ReviewsRatings\\": "src/"
         },
 		"files": [
-			"includes/functions.php"
+			"includes/functions.php",
+			"includes/gravityforms.php"
 		]
     },
     "authors": [

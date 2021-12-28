@@ -1,6 +1,6 @@
 <?php
 /**
- * Comments Module
+ * Comments controller
  *
  * @author    Pronamic <info@pronamic.eu>
  * @copyright 2005-2021 Pronamic
@@ -11,13 +11,13 @@
 namespace Pronamic\WordPress\ReviewsRatings;
 
 /**
- * Comments Module
+ * Comments controller
  *
  * @author  Remco Tolsma
  * @version 2.0.0
  * @since   1.0.0
  */
-class CommentsModule {
+class CommentsController {
 	/**
 	 * Plugin.
 	 *
@@ -63,19 +63,22 @@ class CommentsModule {
 			return $commentdata;
 		}
 
-		$post_id = $commentdata['comment_post_ID'];
-
 		$ratings = \filter_input( \INPUT_POST, 'scores', \FILTER_VALIDATE_INT, \FILTER_REQUIRE_ARRAY );
 
-		$types = \pronamic_get_rating_types( \get_post_type( $post_id ) );
+		$post_type = \get_post_type( $commentdata['comment_post_ID'] );
+
+		$types = \pronamic_get_rating_types( $post_type );
 
 		foreach ( $types as $name => $label ) {
-			if ( ! isset( $ratings[ $name ] ) || empty( $ratings[ $name ] ) ) {
-				// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-comments-post.php#L121
-				\wp_die( \wp_kses_post( \__( '<strong>ERROR</strong>: please fill in the rating fields.', 'pronamic_reviews_ratings' ) ) );
-
-				exit;
+			// Check ratings.
+			if ( isset( $ratings[ $name ] ) && ! empty( $ratings[ $name ] ) ) {
+				continue;
 			}
+
+			// @see https://github.com/WordPress/WordPress/blob/3.8.2/wp-comments-post.php#L121
+			\wp_die( \wp_kses_post( \__( '<strong>ERROR</strong>: please fill in the rating fields.', 'pronamic_reviews_ratings' ) ) );
+
+			exit;
 		}
 
 		return $commentdata;
@@ -104,8 +107,11 @@ class CommentsModule {
 		$post_id   = \get_the_ID();
 		$post_type = \get_post_type( $post_id );
 
-		if ( \post_type_supports( $post_type, 'pronamic_ratings' ) ) {
-			require_once $this->plugin->dir_path . 'templates/comment-form-ratings.php';
+		// Check post type support.
+		if ( ! \post_type_supports( $post_type, 'pronamic_ratings' ) ) {
+			return;
 		}
+
+		require_once $this->plugin->dir_path . 'templates/comment-form-ratings.php';
 	}
 }

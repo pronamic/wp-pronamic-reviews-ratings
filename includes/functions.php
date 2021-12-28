@@ -17,42 +17,67 @@
  * _pronamic_rating_count_$name
  *
  * @param string $name Rating type name.
- * @param string $args Arguments.
+ * @param array  $args Arguments.
  * @return void
+ * @throws \InvalidArgumentException Throws exception for empty rating type name.
  */
 function pronamic_register_rating_type( $name, $args ) {
-	global $pronamic_rating_types;
+	if ( ! \is_array( $args ) ) {
+		$label = (string) $args;
 
-	$pronamic_rating_types[ $name ] = $args;
+		$args = array(
+			'edit_name_disabled' => true,
+			'label'              => $label,
+		);
+	}
+
+	pronamic_reviews_ratings()->register_rating_type( $name, $args );
 }
 
 /**
  * Get rating types.
  *
- * @param string|null $post_type Post type.
+ * @param string|null $type (Post) type to get rating types for.
  * @return array
  */
-function pronamic_get_rating_types( $post_type = null ) {
-	global $pronamic_rating_types;
+function pronamic_get_rating_types( $type = null ) {
+	$rating_types = pronamic_reviews_ratings()->get_rating_types();
 
-	// Rating types.
-	$rating_types = $pronamic_rating_types;
+	switch ( $type ) {
+		// Global.
+		case 'global':
+			foreach ( $rating_types as $key => $rating_type ) {
+				if ( empty( $rating_type['post_types'] ) ) {
+					continue;
+				}
 
-	// Post type.
-	if ( ! empty( $post_type ) ) {
-		global $wp_post_types;
+				unset( $rating_types[ $key ] );
+			}
 
-		if ( isset( $wp_post_types[ $post_type ], $wp_post_types[ $post_type ]->pronamic_rating_types ) ) {
-			$post_rating_types = $wp_post_types[ $post_type ]->pronamic_rating_types;
+			break;
 
-			$rating_types = \array_intersect_key(
-				$rating_types,
-				\array_flip( $post_rating_types )
-			);
-		}
+		// Post type.
+		default:
+			if ( ! empty( $type ) ) {
+				$post_type_object = get_post_type_object( $type );
+
+				if ( null !== $post_type_object ) {
+					$result = array();
+
+					if ( property_exists( $post_type_object, 'pronamic_rating_types' ) ) {
+						$result = \array_intersect_key(
+							$rating_types,
+							\array_flip( $post_type_object->pronamic_rating_types )
+						);
+					}
+
+					$rating_types = $result;
+				}
+			}
+
+			break;
 	}
 
-	// Return.
 	return $rating_types;
 }
 
@@ -101,7 +126,7 @@ function pronamic_ratings_register_table( $key, $name = false, $prefix = false )
  * Install table.
  *
  * @param string $key     Database table key.
- * @param array  $columns Columns.
+ * @param string $columns Columns.
  * @return void
  */
 function pronamic_ratings_install_table( $key, $columns ) {

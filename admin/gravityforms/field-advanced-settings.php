@@ -17,8 +17,8 @@
 	<select id="prr_rating_type" name="prr_rating_type" onchange="SetFieldProperty( 'pronamicRatingType', jQuery( this ).val() );">
 		<option value=""></option>
 
-		<?php foreach ( \pronamic_get_rating_types() as $name => $label ) : ?>
-			<option value="<?php echo \esc_attr( $name ); ?>"><?php echo \esc_html( $label ); ?></option>
+		<?php foreach ( pronamic_reviews_ratings()->get_rating_types() as $rating_type ) : ?>
+			<option value="<?php echo \esc_attr( $rating_type['name'] ); ?>"><?php echo \esc_html( $rating_type['label'] ); ?></option>
 		<?php endforeach; ?>
 	</select>
 </li>

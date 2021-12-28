@@ -18,38 +18,34 @@
 		// Review post ID.
 		$review_post_id = '';
 
-		if ( isset( $form['pronamicReviewPostIdFieldId'] ) && isset( $lead[ $form['pronamicReviewPostIdFieldId'] ] ) ) {
-			$review_post_id = $lead[ $form['pronamicReviewPostIdFieldId'] ];
+		if ( isset( $form['pronamicReviewPostIdFieldId'] ) && isset( $entry[ $form['pronamicReviewPostIdFieldId'] ] ) ) {
+			$review_post_id = $entry[ $form['pronamicReviewPostIdFieldId'] ];
 		}
 
 		// Review name.
 		$review_name = '';
 
-		if ( isset( $form['pronamicReviewNameFieldId'] ) && isset( $lead[ $form['pronamicReviewNameFieldId'] ] ) ) {
-			$review_name = $lead[ $form['pronamicReviewNameFieldId'] ];
+		if ( isset( $form['pronamicReviewNameFieldId'] ) && isset( $entry[ $form['pronamicReviewNameFieldId'] ] ) ) {
+			$review_name = $entry[ $form['pronamicReviewNameFieldId'] ];
 		}
 
 		// Review email.
 		$review_email = '';
 
-		if ( isset( $form['pronamicReviewEmailFieldId'] ) && isset( $lead[ $form['pronamicReviewEmailFieldId'] ] ) ) {
-			$review_email = $lead[ $form['pronamicReviewEmailFieldId'] ];
+		if ( isset( $form['pronamicReviewEmailFieldId'] ) && isset( $entry[ $form['pronamicReviewEmailFieldId'] ] ) ) {
+			$review_email = $entry[ $form['pronamicReviewEmailFieldId'] ];
 		}
 
 		// Review comment.
 		$review_comment = '';
 
-		if ( isset( $form['pronamicReviewCommentFieldId'] ) && isset( $lead[ $form['pronamicReviewCommentFieldId'] ] ) ) {
-			$review_comment = $lead[ $form['pronamicReviewCommentFieldId'] ];
+		if ( isset( $form['pronamicReviewCommentFieldId'] ) && isset( $entry[ $form['pronamicReviewCommentFieldId'] ] ) ) {
+			$review_comment = $entry[ $form['pronamicReviewCommentFieldId'] ];
 		}
 
 		$rating_types = \pronamic_get_rating_types();
 
 		$scores = array();
-
-		foreach ( $rating_types as $rating_type => $label ) {
-			$scores[ $rating_type ] = array();
-		}
 
 		foreach ( $form['fields'] as $field ) {
 			// Check field rating type.
@@ -57,20 +53,23 @@
 				continue;
 			}
 
-			// Check scores rating type.
+			// Add score for rating type.
 			$rating_type = $field['pronamicRatingType'];
 
-			if ( ! isset( $scores[ $rating_type ] ) ) {
-				continue;
+			if ( ! \array_key_exists( $rating_type, $scores ) ) {
+				$scores[ $rating_type ] = array();
 			}
 
-			// Add score for rating type.
-			$scores[ $rating_type ][] = \prr_gform_get_score( $lead, $field );
+			$score = \prr_gform_get_score( $entry, $field );
+
+			$scores[ $rating_type ][] = $score;
 		}
 
-		$comment_id = \gform_get_meta( $lead['id'], 'pronamic_review_id' );
+		$review_id = \gform_get_meta( $entry['id'], 'pronamic_review_id' );
 
-		$comment_review = \get_comment( $comment_id );
+		$comment_review = \get_comment( $review_id );
+
+		$post_review = \get_post( $review_id );
 
 		if ( ! empty( $comment_review ) ) :
 			?>
@@ -80,25 +79,43 @@
 				<a href="<?php echo \esc_url( \get_comment_link( $comment_review ) ); ?>"><?php \_e( 'View', 'pronamic_reviews_ratings' ); ?></a>
 			</p>
 
+		<?php elseif ( ! empty( $post_review ) ) :
+			?>
+
+			<p>
+				<a href="<?php echo \esc_url( \get_edit_post_link( $review_id ) ); ?>"><?php \_e( 'Edit', 'pronamic_reviews_ratings' ); ?></a> |
+				<a href="<?php echo \esc_url( \get_permalink( $review_id ) ); ?>"><?php \_e( 'View', 'pronamic_reviews_ratings' ); ?></a>
+			</p>
+
 		<?php else : ?>
 
 			<table>
 				<thead>
 					<tr>
 						<th scope="col" style="text-align: left;"><?php _e( 'Type', 'pronamic_reviews_ratings' ); ?></th>
-						<th scope="col" style="text-align: left;"><?php _e( 'Score', 'pronamic_reviews_ratings' ); ?></th>
+						<th scope="col" style="text-align: left;"><?php _e( 'Rating', 'pronamic_reviews_ratings' ); ?></th>
 					</tr>
 				</thead>
 
 				<tbody>
 
-					<?php foreach ( $rating_types as $rating_type => $label ) : ?>
+					<?php foreach ( $rating_types as $rating_type ) : ?>
+
+						<?php
+
+						$name  = $rating_type['name'];
+						$label = $rating_type['label'];
+
+						if ( ! array_key_exists( $name, $scores ) ) {
+							continue;
+						}
+
+						?>
 
 						<tr>
 							<?php
 
-							$name   = 'scores[' . $rating_type . ']';
-							$values = $scores[ $rating_type ];
+							$values = $scores[ $name ];
 							$sum    = \array_sum( $values );
 							$count  = \count( $values );
 							$value  = $count > 0 ? $sum / $count : '';
@@ -106,7 +123,7 @@
 							?>
 							<td><?php echo \esc_html( $label ); ?></td>
 							<td>
-								<input type="hidden" name="<?php echo \esc_attr( $name ); ?>" value="<?php echo \esc_attr( $value ); ?>" />
+								<input type="hidden" name="<?php echo \esc_attr( 'scores[' . $name . ']' ); ?>" value="<?php echo \esc_attr( $value ); ?>" />
 								<?php echo \esc_html( $value ); ?>
 							</td>
 						</tr>
@@ -116,7 +133,7 @@
 				</tbody>
 			</table>
 
-			<input type="hidden" name="pronamic_review_lead_id" value="<?php echo \esc_attr( $lead['id'] ); ?>" />
+			<input type="hidden" name="pronamic_review_lead_id" value="<?php echo \esc_attr( $entry['id'] ); ?>" />
 
 			<p>
 				<?php _e( 'Post ID', 'pronamic_reviews_ratings' ); ?><br />
@@ -136,6 +153,8 @@
 			</p>
 
 			<?php \submit_button( __( 'Create Review Comment', 'pronamic_reviews_ratings' ), 'secondary', 'pronamic_create_review', false ); ?>
+
+			<?php \submit_button( __( 'Create Review Post', 'pronamic_reviews_ratings' ), 'secondary', 'pronamic_create_review_post', false ); ?>
 
 		<?php endif; ?>
 	</div>

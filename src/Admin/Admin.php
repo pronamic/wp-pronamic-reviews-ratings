@@ -8,8 +8,9 @@
  * @package   Pronamic\WordPress\ReviewsRatings
  */
 
-namespace Pronamic\WordPress\ReviewsRatings;
+namespace Pronamic\WordPress\ReviewsRatings\Admin;
 
+use Pronamic\WordPress\ReviewsRatings\Plugin;
 use WP_Comment;
 
 /**
@@ -28,6 +29,13 @@ class Admin {
 	private $plugin;
 
 	/**
+	 * Admin settings.
+	 *
+	 * @var AdminSettings
+	 */
+	private $admin_settings;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Plugin $plugin Plugin.
@@ -40,6 +48,9 @@ class Admin {
 		\add_action( 'admin_init', array( $this, 'admin_init' ) );
 		\add_action( 'admin_init', array( $this, 'update_db_version' ), 5 );
 		\add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+
+		// Admin settings.
+		$this->admin_settings = new AdminSettings( $plugin );
 	}
 
 	/**
