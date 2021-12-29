@@ -179,20 +179,21 @@ class Admin {
 	public function manage_posts_custom_column( $column, $post_id ) {
 		switch ( $column ) {
 			case 'pronamic_rating':
+				$scores = \apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
+				$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type( $post_id ), $scores );
+
 				$rating_value = \get_post_meta( $post_id, '_pronamic_rating_value', true );
 				$rating_count = \get_post_meta( $post_id, '_pronamic_rating_count', true );
 
 				if ( $rating_count > 0 ) {
-					$score = \round( $rating_value ) / 2;
-
-					for ( $i = 0; $i < 5; $i++ ) {
-						$value = $score - $i;
+					for ( $i = 0; $i < max( $scores ); $i++ ) {
+						$value = $rating_value - $i;
 
 						$class = 'empty';
 
 						if ( $value >= 1 ) {
 							$class = 'filled';
-						} elseif ( 0.5 == $value ) {
+						} elseif ( $value >= 0.5 ) {
 							$class = 'half';
 						}
 
