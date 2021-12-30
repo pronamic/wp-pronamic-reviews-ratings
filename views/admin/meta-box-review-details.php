@@ -10,45 +10,48 @@
 
 use Pronamic\WordPress\ReviewsRatings\Util;
 
-$product_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_product_id', true );
+$object_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
 
-$rating_types = \pronamic_get_rating_types( \get_post_type( $product_post_id ) );
+$rating_types = \pronamic_get_rating_types( \get_post_type( $object_post_id ) );
 
 ?>
 
 <table class="form-table">
 	<tr>
 		<th scope="row">
-			<label for="pronamic-review-product-id">
-				<?php esc_html_e( 'Reviewed product post ID', 'pronamic_reviews_ratings' ); ?>
+			<label for="pronamic-review-object-id">
+				<?php esc_html_e( 'Reviewed object post ID', 'pronamic_reviews_ratings' ); ?>
 			</label>
 		</th>
 		<td>
 			<?php
 
-			$product_post_id = \get_post_meta( get_the_ID(), '_pronamic_review_product_id', true );
+			$object_post_id = \get_post_meta( get_the_ID(), '_pronamic_review_object_post_id', true );
 
 			$atts = array(
-					'id'    => 'pronamic-review-product-id',
-					'name'  => 'pronamic_review_product_id',
+					'id'    => 'pronamic-review-object-id',
+					'name'  => 'pronamic_review_object_post_id',
 					'type'  => 'text',
-					'value' => $product_post_id,
+					'value' => $object_post_id,
 			);
 
 
-			// Edit product post link.
-			$edit_product_post_link = '';
+			// Edit object post link.
+			$edit_post_link = '';
 
-			if ( ! empty( $product_post_id ) ) {
-				$edit_product_post_link = __( 'No product post found with this ID.', 'pronamic_reviews_ratings' );
+			if ( ! empty( $object_post_id ) ) {
+				$edit_post_link = sprintf(
+					__( 'No post found with ID `%d`.', 'pronamic_reviews_ratings' ),
+					$object_post_id
+				);
 
-				$product_post = \get_post( $product_post_id );
+				$object_post = \get_post( $object_post_id );
 
-				if ( $product_post instanceof \WP_Post ) {
-					$edit_product_post_link = \sprintf(
+				if ( $object_post instanceof \WP_Post ) {
+					$edit_post_link = \sprintf(
 						'<a href="%1$s" title="%2$s">%2$s</a>',
-						\get_edit_post_link( $product_post_id ),
-						\get_the_title( $product_post_id )
+						\get_edit_post_link( $object_post_id ),
+						\get_the_title( $object_post_id )
 					);
 				}
 			}
@@ -58,7 +61,7 @@ $rating_types = \pronamic_get_rating_types( \get_post_type( $product_post_id ) )
 				// @codingStandardsIgnoreStart
 				Util::array_to_html_attributes( $atts ),
 				// @codingStandardsIgnoreEn,
-				\wp_kses_post( $edit_product_post_link )
+				\wp_kses_post( $edit_post_link )
 			);
 
 			?>

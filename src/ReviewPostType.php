@@ -128,8 +128,8 @@ class ReviewPostType {
 	 * @return void
 	 */
 	public function save_review_post( $post_id ) {
-		$prev_product_post_id    = \get_post_meta( $post_id, '_pronamic_review_product_id', true );
-		$updated_product_post_id = $prev_product_post_id;
+		$prev_object_post_id    = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
+		$updated_object_post_id = $prev_object_post_id;
 
 		// Save meta box details.
 		if (
@@ -137,15 +137,15 @@ class ReviewPostType {
 				&&
 			\check_admin_referer( 'pronamic_reviews_ratings_save_review', 'pronamic_reviews_ratings_nonce' )
 		) {
-			// Product ID.
-			if ( \filter_has_var( \INPUT_POST, 'pronamic_review_product_id' ) ) {
-				$updated_product_post_id = \filter_input( \INPUT_POST, 'pronamic_review_product_id', \FILTER_VALIDATE_INT );
+			// Object post ID.
+			if ( \filter_has_var( \INPUT_POST, 'pronamic_review_object_post_id' ) ) {
+				$updated_object_post_id = \filter_input( \INPUT_POST, 'pronamic_review_object_post_id', \FILTER_VALIDATE_INT );
 
-				\update_post_meta( $post_id, '_pronamic_review_product_id', $updated_product_post_id );
+				\update_post_meta( $post_id, '_pronamic_review_object_post_id', $updated_object_post_id );
 			}
 
 			// Ratings.
-			$post_type = \get_post_type( $prev_product_post_id );
+			$post_type = \get_post_type( $prev_object_post_id );
 
 			$rating_types = \pronamic_get_rating_types( $post_type );
 
@@ -162,15 +162,15 @@ class ReviewPostType {
 			}
 		}
 
-		// Add category with product ID for filtering in Query Loop block.
-		if ( ! empty( $updated_product_post_id ) ) {
-			\wp_remove_object_terms( $post_id, array( $prev_product_post_id ), 'category' );
+		// Add category with object post ID for filtering in Query Loop block.
+		if ( ! empty( $updated_object_post_id ) ) {
+			\wp_remove_object_terms( $post_id, array( $prev_object_post_id ), 'category' );
 
 			$term = \get_terms(
 				array(
 					'taxonomy'   => 'category',
 					'hide_empty' => false,
-					'slug'       => (string) $updated_product_post_id,
+					'slug'       => (string) $updated_object_post_id,
 				)
 			);
 
@@ -180,10 +180,10 @@ class ReviewPostType {
 
 			if ( empty( $term ) ) {
 				$term = \wp_insert_term(
-					\get_the_title( $updated_product_post_id ),
+					\get_the_title( $updated_object_post_id ),
 					'category',
 					array(
-						'slug' => $updated_product_post_id,
+						'slug' => $updated_object_post_id,
 					)
 				);
 

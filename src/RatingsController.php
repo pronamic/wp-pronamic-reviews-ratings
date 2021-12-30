@@ -37,13 +37,13 @@ class RatingsController {
 		// Actions.
 		\add_action( 'save_post', array( $this, 'update_comments_rating' ) );
 		\add_action( 'save_post_pronamic_review', array( $this, 'update_review_rating_score' ) );
-		\add_action( 'save_post_pronamic_review', array( $this, 'update_product_ratings' ), 15 );
-		\add_action( 'trash_post_pronamic_review', array( $this, 'update_product_ratings' ), 15 );
-		\add_action( 'untrash_post_pronamic_review', array( $this, 'update_product_ratings' ), 15 );
+		\add_action( 'save_post_pronamic_review', array( $this, 'update_object_ratings' ), 15 );
+		\add_action( 'trash_post_pronamic_review', array( $this, 'update_object_ratings' ), 15 );
+		\add_action( 'untrash_post_pronamic_review', array( $this, 'update_object_ratings' ), 15 );
 
 		// Filters.
 		\add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
-		\add_filter( 'the_content', array( $this, 'product_content_ratings' ) );
+		\add_filter( 'the_content', array( $this, 'object_content_ratings' ) );
 	}
 
 	/**
@@ -53,9 +53,9 @@ class RatingsController {
 	 * @return void
 	 */
 	public function update_review_rating_score( $post_id ) {
-		$product_post_id = \get_post_meta( $post_id, '_pronamic_review_product_id', true );
+		$object_post_id = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
 
-		$rating_types = \pronamic_get_rating_types( \get_post_type( $product_post_id ) );
+		$rating_types = \pronamic_get_rating_types( \get_post_type( $object_post_id ) );
 
 		$ratings = array();
 
@@ -102,23 +102,23 @@ class RatingsController {
 	}
 
 	/**
-	 * Update product ratings when a review is saved.
+	 * Update object ratings when a review is saved.
 	 *
 	 * @param int $post_id Post ID.
 	 * @return void
 	 */
-	public function update_product_ratings( $post_id ) {
+	public function update_object_ratings( $post_id ) {
 		global $wpdb;
 
-		// Check product post ID.
-		$product_post_id = \get_post_meta( $post_id, '_pronamic_review_product_id', true );
+		// Check object post ID.
+		$object_post_id = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
 
-		if ( empty( $product_post_id ) ) {
+		if ( empty( $object_post_id ) ) {
 			return;
 		}
 
 		// Check post type support.
-		$post_type = \get_post_type( $product_post_id );
+		$post_type = \get_post_type( $object_post_id );
 
 		if ( ! \post_type_supports( $post_type, 'pronamic_ratings' ) ) {
 			return;
@@ -133,22 +133,22 @@ class RatingsController {
 					SUM( $wpdb->postmeta.meta_value) / COUNT( $wpdb->postmeta.meta_key ) as rating_value
 				FROM $wpdb->postmeta
 					LEFT JOIN $wpdb->posts ON $wpdb->posts.ID = $wpdb->postmeta.post_id
-					LEFT JOIN $wpdb->postmeta AS postmeta_product_id ON postmeta_product_id.post_id = $wpdb->posts.ID
+					LEFT JOIN $wpdb->postmeta AS postmeta_object_id ON postmeta_object_id.post_id = $wpdb->posts.ID
 				WHERE
 					$wpdb->postmeta.meta_key LIKE %s
 						AND
 					$wpdb->posts.post_status = %s
 						AND
-					postmeta_product_id.meta_key = %s
+					postmeta_object_id.meta_key = %s
 						AND
-					postmeta_product_id.meta_value = %d
+					postmeta_object_id.meta_value = %d
 				GROUP BY
 					$wpdb->postmeta.meta_key
 				;",
 			'_pronamic_rating_value_%',
 			'publish',
-			'_pronamic_review_product_id',
-			$product_post_id
+			'_pronamic_review_object_post_id',
+			$object_post_id
 		);
 
 		$results = $wpdb->get_results(
@@ -156,14 +156,14 @@ class RatingsController {
 		);
 
 		if ( empty( $results ) ) {
-			\update_post_meta( $product_post_id, '_pronamic_rating_count', 0 );
-			\update_post_meta( $product_post_id, '_pronamic_rating_value', 0 );
+			\update_post_meta( $object_post_id, '_pronamic_rating_count', 0 );
+			\update_post_meta( $object_post_id, '_pronamic_rating_value', 0 );
 
 			$rating_types = \pronamic_get_rating_types( $post_type );
 
 			foreach ( $rating_types as $type ) {
-				\delete_post_meta( $product_post_id, '_pronamic_rating_count_' . $type['name'] );
-				\delete_post_meta( $product_post_id, '_pronamic_rating_value_' . $type['name'] );
+				\delete_post_meta( $object_post_id, '_pronamic_rating_count_' . $type['name'] );
+				\delete_post_meta( $object_post_id, '_pronamic_rating_value_' . $type['name'] );
 			}
 		} else {
 			$rating_count = 0;
@@ -173,8 +173,8 @@ class RatingsController {
 				$meta_key_value = $result->meta_key;
 				$meta_key_count = \str_replace( '_pronamic_rating_value_', '_pronamic_rating_count_', $result->meta_key );
 
-				\update_post_meta( $product_post_id, $meta_key_value, $result->rating_value );
-				\update_post_meta( $product_post_id, $meta_key_count, $result->rating_count );
+				\update_post_meta( $object_post_id, $meta_key_value, $result->rating_value );
+				\update_post_meta( $object_post_id, $meta_key_count, $result->rating_count );
 
 				$rating_count += $result->rating_count;
 				$rating_value += $result->rating_value;
@@ -182,8 +182,8 @@ class RatingsController {
 
 			$rating_count = $rating_count / count( $results );
 
-			\update_post_meta( $product_post_id, '_pronamic_rating_count', $rating_count );
-			\update_post_meta( $product_post_id, '_pronamic_rating_value', $rating_value / count( $results ) );
+			\update_post_meta( $object_post_id, '_pronamic_rating_count', $rating_count );
+			\update_post_meta( $object_post_id, '_pronamic_rating_value', $rating_value / count( $results ) );
 		}
 
 		// Sync ratings to custom table.
@@ -342,19 +342,19 @@ class RatingsController {
 	}
 
 	/**
-	 * The product ratings content.
+	 * The object ratings content.
 	 *
-	 * @param string $content Product post content.
+	 * @param string $content Object post content.
 	 * @return string
 	 */
-	public function product_content_ratings( $content ) {
+	public function object_content_ratings( $content ) {
 		if ( ! \post_type_supports( \get_post_type(), 'pronamic_ratings' ) ) {
 			return $content;
 		}
 
 		\ob_start();
 
-		require __DIR__ . '/../views/product-ratings.php';
+		require __DIR__ . '/../views/object-ratings.php';
 
 		$ratings_content = \ob_get_clean();
 

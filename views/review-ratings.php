@@ -7,13 +7,13 @@
 
 namespace Pronamic\WordPress\ReviewsRatings;
 
-$product_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_product_id', true );
+$object_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
 
-if ( empty( $product_post_id ) ) {
+if ( empty( $object_post_id ) ) {
 	return;
 }
 
-$post_type = \get_post_type( $product_post_id );
+$post_type = \get_post_type( $object_post_id );
 
 $rating_types = \pronamic_get_rating_types( $post_type );
 

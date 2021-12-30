@@ -143,8 +143,8 @@ class GravityForms {
 
 		// Meta input.
 		$meta_input = array(
-			'_pronamic_review_author'     => \filter_input( \INPUT_POST, 'pronamic_review_name', \FILTER_SANITIZE_STRING ),
-			'_pronamic_review_product_id' => \filter_input( \INPUT_POST, 'pronamic_review_post_id', \FILTER_SANITIZE_STRING ),
+			'_pronamic_review_author'         => \filter_input( \INPUT_POST, 'pronamic_review_name', \FILTER_SANITIZE_STRING ),
+			'_pronamic_review_object_post_id' => \filter_input( \INPUT_POST, 'pronamic_review_post_id', \FILTER_SANITIZE_STRING ),
 		);
 
 		// Ratings.

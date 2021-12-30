@@ -1,6 +1,6 @@
 <?php
 /**
- * Product ratings.
+ * Object ratings.
  *
  * @package Pronamic\WordPress\ReviewsRatings
  */
