@@ -44,6 +44,8 @@ class RatingsController {
 		// Filters.
 		\add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
 		\add_filter( 'the_content', array( $this, 'object_content_ratings' ) );
+		\add_filter( 'render_block_data', array( $this, 'render_query_block_data' ), 10, 2 );
+		\add_filter( 'pre_get_posts', array( $this, 'pre_get_posts_pronamic_review_object' ) );
 	}
 
 	/**
@@ -359,5 +361,90 @@ class RatingsController {
 		$ratings_content = \ob_get_clean();
 
 		return $content . \PHP_EOL . $ratings_content;
+	}
+
+	/**
+	 * Render Query block data.
+	 *
+	 * @param array $parsed_block Parsed block.
+	 * @return array
+	 */
+	public function render_query_block_data( $parsed_block ) {
+		// Check Query block.
+		if ( ! \array_key_exists( 'blockName', $parsed_block ) ) {
+			return $parsed_block;
+		}
+
+		if ( 'core/query' !== $parsed_block['blockName'] ) {
+			return $parsed_block;
+		}
+
+		// Check query post type.
+		if ( ! isset( $parsed_block['attrs']['query']['postType'] ) ) {
+			return $parsed_block;
+		}
+
+		if ( 'pronamic_review' !== $parsed_block['attrs']['query']['postType'] ) {
+			return $parsed_block;
+		}
+
+		// Determine post type ratings support.
+		$object_post_id = \get_the_ID();
+
+		$post_type = \get_post_type( $object_post_id );
+
+		if ( ! \post_type_supports( $post_type, 'pronamic_ratings' ) ) {
+			return $parsed_block;
+		}
+
+		// Set search query.
+		if ( ! \array_key_exists( 'search', $parsed_block['attrs']['query'] ) ) {
+			$parsed_block['attrs']['query']['search'] = '';
+		}
+
+		$parsed_block['attrs']['query']['search'] .= sprintf( '[pronamic_review_object_post_id=%d]', $object_post_id );
+
+		return $parsed_block;
+	}
+
+	/**
+	 * Set meta query from object post ID in search query.
+	 *
+	 * @param \WP_Query $query Query.
+	 * @return void
+	 */
+	public function pre_get_posts_pronamic_review_object( \WP_Query $query ) {
+		// Check search.
+		if ( ! $query->is_search() ) {
+			return;
+		}
+
+		// Check search query.
+		$search = $query->get( 's' );
+
+		$pattern = '/\[pronamic_review_object_post_id=(?<object_post_id>\d+)\]/';
+
+		\preg_match( $pattern, $search, $matches );
+
+		if ( ! \array_key_exists( 'object_post_id', $matches ) ) {
+			return;
+		}
+
+		// Cleanup search query.
+		$query->set( 's', \preg_replace( $pattern, '', $search ) );
+
+		// Add meta query for review object ID.
+		$meta_query = $query->get( 'meta_query' );
+
+		if ( ! \is_array( $meta_query ) ) {
+			$meta_query = array();
+		}
+
+		$meta_query[] = array(
+			'key' => '_pronamic_review_object_post_id',
+			'value' => $matches['object_post_id'],
+		);
+
+		$query->set( 'meta_query', $meta_query );
 	}
 }

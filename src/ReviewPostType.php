@@ -37,9 +37,9 @@ class ReviewPostType {
 		\register_post_type(
 			'pronamic_review',
 			array(
-				'label'                 => __( 'Review', 'pronamic_reviews_ratings' ),
-				'description'           => __( 'Reviews', 'pronamic_reviews_ratings' ),
-				'labels'                => array(
+				'label'               => __( 'Review', 'pronamic_reviews_ratings' ),
+				'description'         => __( 'Reviews', 'pronamic_reviews_ratings' ),
+				'labels'              => array(
 					'name'                  => _x( 'Reviews', 'Post Type General Name', 'pronamic_reviews_ratings' ),
 					'singular_name'         => _x( 'Review', 'Post Type Singular Name', 'pronamic_reviews_ratings' ),
 					'menu_name'             => __( 'Reviews', 'pronamic_reviews_ratings' ),
@@ -68,22 +68,22 @@ class ReviewPostType {
 					'items_list_navigation' => __( 'Reviews list navigation', 'pronamic_reviews_ratings' ),
 					'filter_items_list'     => __( 'Filter reviews list', 'pronamic_reviews_ratings' ),
 				),
-				'supports'              => array( 'title', 'editor', 'thumbnail' ),
-				'taxonomies'            => array( 'category' ),
-				'hierarchical'          => false,
-				'public'                => true,
-				'show_ui'               => true,
-				'show_in_menu'          => true,
-				'menu_position'         => 5,
-				'menu_icon'             => 'dashicons-admin-page',
-				'show_in_admin_bar'     => true,
-				'show_in_nav_menus'     => true,
-				'can_export'            => true,
-				'has_archive'           => true,
-				'exclude_from_search'   => false,
-				'publicly_queryable'    => true,
-				'capability_type'       => 'page',
-				'show_in_rest'          => true,
+				'supports'            => array( 'title', 'editor', 'thumbnail' ),
+				'taxonomies'          => array(),
+				'hierarchical'        => false,
+				'public'              => true,
+				'show_ui'             => true,
+				'show_in_menu'        => true,
+				'menu_position'       => 5,
+				'menu_icon'           => 'dashicons-admin-page',
+				'show_in_admin_bar'   => true,
+				'show_in_nav_menus'   => true,
+				'can_export'          => true,
+				'has_archive'         => true,
+				'exclude_from_search' => false,
+				'publicly_queryable'  => true,
+				'capability_type'     => 'page',
+				'show_in_rest'        => true,
 			)
 		);
 	}
@@ -128,24 +128,23 @@ class ReviewPostType {
 	 * @return void
 	 */
 	public function save_review_post( $post_id ) {
-		$prev_object_post_id    = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
-		$updated_object_post_id = $prev_object_post_id;
-
 		// Save meta box details.
 		if (
 			\filter_has_var( \INPUT_POST, 'pronamic_reviews_ratings_nonce' )
 				&&
 			\check_admin_referer( 'pronamic_reviews_ratings_save_review', 'pronamic_reviews_ratings_nonce' )
 		) {
+			$object_post_id = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
+
 			// Object post ID.
 			if ( \filter_has_var( \INPUT_POST, 'pronamic_review_object_post_id' ) ) {
-				$updated_object_post_id = \filter_input( \INPUT_POST, 'pronamic_review_object_post_id', \FILTER_VALIDATE_INT );
+				$object_post_id = \filter_input( \INPUT_POST, 'pronamic_review_object_post_id', \FILTER_VALIDATE_INT );
 
-				\update_post_meta( $post_id, '_pronamic_review_object_post_id', $updated_object_post_id );
+				\update_post_meta( $post_id, '_pronamic_review_object_post_id', $object_post_id );
 			}
 
 			// Ratings.
-			$post_type = \get_post_type( $prev_object_post_id );
+			$post_type = \get_post_type( $object_post_id );
 
 			$rating_types = \pronamic_get_rating_types( $post_type );
 
@@ -159,39 +158,6 @@ class ReviewPostType {
 				}
 
 				\update_post_meta( $post_id, '_pronamic_rating_value_' . $name, $ratings[ $name ] );
-			}
-		}
-
-		// Add category with object post ID for filtering in Query Loop block.
-		if ( ! empty( $updated_object_post_id ) ) {
-			\wp_remove_object_terms( $post_id, array( $prev_object_post_id ), 'category' );
-
-			$term = \get_terms(
-				array(
-					'taxonomy'   => 'category',
-					'hide_empty' => false,
-					'slug'       => (string) $updated_object_post_id,
-				)
-			);
-
-			if ( \is_array( $term ) ) {
-				$term = reset( $term );
-			}
-
-			if ( empty( $term ) ) {
-				$term = \wp_insert_term(
-					\get_the_title( $updated_object_post_id ),
-					'category',
-					array(
-						'slug' => $updated_object_post_id,
-					)
-				);
-
-				$term = \get_term_by( 'id', $term['term_id'] );
-			}
-
-			if ( $term instanceof \WP_Term ) {
-				\wp_set_post_categories( $post_id, array( $term->term_id ), true );
 			}
 		}
 	}
