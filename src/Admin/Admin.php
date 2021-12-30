@@ -186,7 +186,9 @@ class Admin {
 				$rating_count = \get_post_meta( $post_id, '_pronamic_rating_count', true );
 
 				if ( $rating_count > 0 ) {
-					for ( $i = 0; $i < max( $scores ); $i++ ) {
+					$max_score = max( $scores );
+
+					for ( $i = 0; $i < $max_score; $i++ ) {
 						$value = $rating_value - $i;
 
 						$class = 'empty';

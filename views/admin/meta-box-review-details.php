@@ -29,18 +29,18 @@ $rating_types = \pronamic_get_rating_types( \get_post_type( $object_post_id ) );
 			$object_post_id = \get_post_meta( get_the_ID(), '_pronamic_review_object_post_id', true );
 
 			$atts = array(
-					'id'    => 'pronamic-review-object-id',
-					'name'  => 'pronamic_review_object_post_id',
-					'type'  => 'text',
-					'value' => $object_post_id,
+				'id'    => 'pronamic-review-object-id',
+				'name'  => 'pronamic_review_object_post_id',
+				'type'  => 'text',
+				'value' => $object_post_id,
 			);
-
 
 			// Edit object post link.
 			$edit_post_link = '';
 
 			if ( ! empty( $object_post_id ) ) {
 				$edit_post_link = sprintf(
+						/* translators: %d: object post ID */
 					__( 'No post found with ID `%d`.', 'pronamic_reviews_ratings' ),
 					$object_post_id
 				);

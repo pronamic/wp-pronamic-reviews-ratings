@@ -79,8 +79,7 @@
 				<a href="<?php echo \esc_url( \get_comment_link( $comment_review ) ); ?>"><?php \_e( 'View', 'pronamic_reviews_ratings' ); ?></a>
 			</p>
 
-		<?php elseif ( ! empty( $post_review ) ) :
-			?>
+		<?php elseif ( ! empty( $post_review ) ) : ?>
 
 			<p>
 				<a href="<?php echo \esc_url( \get_edit_post_link( $review_id ) ); ?>"><?php \_e( 'Edit', 'pronamic_reviews_ratings' ); ?></a> |

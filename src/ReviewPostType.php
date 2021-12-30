@@ -12,6 +12,13 @@ namespace Pronamic\WordPress\ReviewsRatings;
 
 use Pronamic\WordPress\Pay\Plugin;
 
+/**
+ * Review post type
+ *
+ * @author  Reüel van der Steege
+ * @version 2.0.0
+ * @since   2.0.0
+ */
 class ReviewPostType {
 	/**
 	 * Constructor.

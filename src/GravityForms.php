@@ -37,7 +37,7 @@ class GravityForms {
 		$this->plugin = $plugin;
 
 		// Actions.
-		\add_filter( 'admin_init', array( $this, 'admin_init' ), 0 );
+		\add_action( 'admin_init', array( $this, 'admin_init' ), 0 );
 	}
 
 	/**
@@ -77,7 +77,7 @@ class GravityForms {
 	 *
 	 * @return void
 	 */
-	function gform_editor_js() {
+	public function gform_editor_js() {
 		// Require form editor script.
 		require_once $this->plugin->dir_path . '/admin/gravityforms/form-editor-js.php';
 	}
@@ -89,7 +89,7 @@ class GravityForms {
 	 * @param array $entry Gravity Forms entry.
 	 * @return void
 	 */
-	function gform_entry_detail_sidebar_middle( $form, $entry ) {
+	public function gform_entry_detail_sidebar_middle( $form, $entry ) {
 		// Require entry detail review meta box.
 		require_once $this->plugin->dir_path . '/admin/gravityforms/meta-box-entry-detail-review.php';
 	}
@@ -99,7 +99,7 @@ class GravityForms {
 	 *
 	 * @return void
 	 */
-	function maybe_create_review() {
+	private function maybe_create_review() {
 		// Check create review action.
 		if ( ! \filter_has_var( \INPUT_POST, 'pronamic_create_review' ) ) {
 			return;
@@ -135,7 +135,7 @@ class GravityForms {
 	 *
 	 * @return void
 	 */
-	function maybe_create_review_post() {
+	private function maybe_create_review_post() {
 		// Check create review action.
 		if ( ! \filter_has_var( \INPUT_POST, 'pronamic_create_review_post' ) ) {
 			return;
@@ -179,8 +179,7 @@ class GravityForms {
 				continue;
 			}
 
-			$name  = $rating_type['name'];
-
+			$name   = $rating_type['name'];
 			$values = $scores[ $name ];
 			$sum    = \array_sum( $values );
 			$count  = \count( $values );
@@ -190,7 +189,7 @@ class GravityForms {
 		endforeach;
 
 		// Insert post arguments.
-		$args  = array(
+		$args = array(
 			'post_title'   => \filter_input( \INPUT_POST, 'pronamic_review_title', \FILTER_SANITIZE_STRING ),
 			'post_content' => \filter_input( \INPUT_POST, 'pronamic_review_comment', \FILTER_SANITIZE_STRING ),
 			'meta_input'   => $meta_input,

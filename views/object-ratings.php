@@ -24,13 +24,13 @@ $scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type(),
 <div class="pronamic-review-ratings">
 	<dl>
 
-		<?php foreach ( $rating_types as $type ) : ?>
+		<?php foreach ( $rating_types as $rating_type ) : ?>
 
 			<?php
 
-			$name   = $type['name'];
-			$label  = \array_key_exists( 'label', $type ) && ! empty( $type['label'] ) ? $type['label'] : $type['name'];
-			$rating = \get_post_meta( \get_the_ID(), '_pronamic_rating_value_' . $type['name'], true );
+			$name   = $rating_type['name'];
+			$label  = \array_key_exists( 'label', $rating_type ) && ! empty( $rating_type['label'] ) ? $rating_type['label'] : $rating_type['name'];
+			$rating = \get_post_meta( \get_the_ID(), '_pronamic_rating_value_' . $rating_type['name'], true );
 
 			if ( empty( $rating ) ) {
 				continue;
@@ -45,8 +45,9 @@ $scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type(),
 			<dd class="pronamic-review-ratings__description pronamic-review-ratings__description__<?php echo \esc_attr( $name ); ?>">
 				<?php
 
+				$max_score = max( $scores );
 
-				for ( $i = 0; $i < max( $scores ); $i++ ) {
+				for ( $i = 0; $i < $max_score; $i++ ) {
 					$value = $rating - $i;
 
 					$class = 'empty';
@@ -70,13 +71,13 @@ $scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type(),
 
 		<?php
 
-		$rating_value = \get_post_meta( get_the_ID(), '_pronamic_rating_value', true );
+		$rating_value = \get_post_meta( \get_the_ID(), '_pronamic_rating_value', true );
 
 		if ( ! empty( $rating_value ) ) {
-			printf(
-					'<dt>%s</dt><dd>%s</dd>',
-					__( 'Rating', 'pronamic_review_ratings' ),
-					number_format_i18n( $rating_value, 1 )
+			\printf(
+				'<dt>%s</dt><dd>%s</dd>',
+				\esc_html( __( 'Rating', 'pronamic_review_ratings' ) ),
+				\esc_html( number_format_i18n( $rating_value, 1 ) )
 			);
 		}
 
@@ -84,13 +85,13 @@ $scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type(),
 
 		<?php
 
-		$rating_count = \get_post_meta( get_the_ID(), '_pronamic_rating_count', true );
+		$rating_count = \get_post_meta( \get_the_ID(), '_pronamic_rating_count', true );
 
 		if ( ! empty( $rating_count ) ) {
-			printf(
-					'<dt>%s</dt><dd>%s</dd>',
-					__( 'Number of reviews', 'pronamic_review_ratings' ),
-					number_format_i18n( $rating_count )
+			\printf(
+				'<dt>%s</dt><dd>%s</dd>',
+				\esc_html( __( 'Number of reviews', 'pronamic_review_ratings' ) ),
+				\esc_html( \number_format_i18n( $rating_count ) )
 			);
 		}
 

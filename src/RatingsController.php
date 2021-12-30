@@ -40,12 +40,12 @@ class RatingsController {
 		\add_action( 'save_post_pronamic_review', array( $this, 'update_object_ratings' ), 15 );
 		\add_action( 'trash_post_pronamic_review', array( $this, 'update_object_ratings' ), 15 );
 		\add_action( 'untrash_post_pronamic_review', array( $this, 'update_object_ratings' ), 15 );
+		\add_action( 'pre_get_posts', array( $this, 'pre_get_posts_pronamic_review_object' ) );
 
 		// Filters.
 		\add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
 		\add_filter( 'the_content', array( $this, 'object_content_ratings' ) );
 		\add_filter( 'render_block_data', array( $this, 'render_query_block_data' ), 10, 2 );
-		\add_filter( 'pre_get_posts', array( $this, 'pre_get_posts_pronamic_review_object' ) );
 	}
 
 	/**
@@ -127,8 +127,9 @@ class RatingsController {
 		}
 
 		// Update post.
-		$query = $wpdb->prepare(
-			"
+		$results = $wpdb->get_results(
+			$wpdb->prepare(
+				"
 				SELECT
 					$wpdb->postmeta.meta_key,
 					COUNT( $wpdb->postmeta.meta_key ) as rating_count,
@@ -147,14 +148,11 @@ class RatingsController {
 				GROUP BY
 					$wpdb->postmeta.meta_key
 				;",
-			'_pronamic_rating_value_%',
-			'publish',
-			'_pronamic_review_object_post_id',
-			$object_post_id
-		);
-
-		$results = $wpdb->get_results(
-			$query
+				'_pronamic_rating_value_%',
+				'publish',
+				'_pronamic_review_object_post_id',
+				$object_post_id
+			)
 		);
 
 		if ( empty( $results ) ) {
@@ -188,8 +186,11 @@ class RatingsController {
 			\update_post_meta( $object_post_id, '_pronamic_rating_value', $rating_value / count( $results ) );
 		}
 
-		// Sync ratings to custom table.
-		//$this->sync_rating_to_table( $post_id );
+		/*
+		 * Sync ratings to custom table.
+		 *
+		 * $this->sync_rating_to_table( $post_id );
+		 */
 	}
 
 	/**
@@ -260,7 +261,7 @@ class RatingsController {
 	 * @param int $post_id Post ID.
 	 * @return int|string|null
 	 */
-	function sync_rating_to_table( $post_id ) {
+	public function sync_rating_to_table( $post_id ) {
 		// Sync locations.
 		global $wpdb;
 
@@ -300,7 +301,7 @@ class RatingsController {
 	 * @link http://codex.wordpress.org/WordPress_Query_Vars
 	 * @link http://codex.wordpress.org/Custom_Queries
 	 */
-	function posts_clauses( $pieces, $query ) {
+	public function posts_clauses( $pieces, $query ) {
 		global $wpdb;
 
 		// Fields.
@@ -441,7 +442,7 @@ class RatingsController {
 		}
 
 		$meta_query[] = array(
-			'key' => '_pronamic_review_object_post_id',
+			'key'   => '_pronamic_review_object_post_id',
 			'value' => $matches['object_post_id'],
 		);
 
