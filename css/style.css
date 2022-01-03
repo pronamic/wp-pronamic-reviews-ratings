@@ -1,0 +1,19 @@
+.pronamic-reviews {
+  list-style: none;
+  padding: 0;
+}
+.pronamic-reviews .pronamic-reviews__review {
+  display: flex;
+}
+.pronamic-reviews .pronamic-reviews__review > div {
+  padding: 1em;
+}
+.pronamic-reviews .pronamic-reviews__review .pronamic-reviews__review__thumbnail {
+  flex-basis: 33.33%;
+}
+.pronamic-reviews .pronamic-reviews__review .pronamic-reviews__review__content {
+  flex-basis: 66.66%;
+  flex-grow: 1;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -4,26 +4,6 @@ module.exports = function( grunt ) {
 		// Package
 		pkg: grunt.file.readJSON( 'package.json' ),
 		
-		// PHPLint
-		phplint: {
-			options: {
-				phpArgs: {
-					'-lf': null
-				}
-			},
-			all: [ '**/*.php' ]
-		},
-		
-		// PHP Code Sniffer
-		phpcs: {
-		    application: {
-		        dir: [ '**/*.php' ]
-		    },
-		    options: {
-		        standard: 'project.ruleset.xml'
-		    }
-		},
-
 		// MakePOT
 		makepot: {
 			target: {
@@ -36,11 +16,8 @@ module.exports = function( grunt ) {
 		}
 	} );
 
-	grunt.loadNpmTasks( 'grunt-phplint' );
-	grunt.loadNpmTasks( 'grunt-phpcs' );
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
 
-	// Default task(s).
-	grunt.registerTask( 'default', [ 'phplint', 'phpcs' ] );
+	// Tasks.
 	grunt.registerTask( 'pot', [ 'makepot' ] );
 };

@@ -87,8 +87,7 @@ class Plugin {
 		$this->ratings_controller = new RatingsController( $this );
 
 		new CommentsController( $this );
-
-		// Gravity Forms support.
+		new Shortcodes( $this );
 		new GravityForms( $this );
 
 		// Admin.
@@ -155,6 +154,23 @@ class Plugin {
 	 */
 	public function plugins_loaded() {
 		\load_plugin_textdomain( 'pronamic_reviews_ratings', false, \dirname( \plugin_basename( $this->file ) ) . '/languages/' );
+	}
+
+	/**
+	 * Get plugin version.
+	 *
+	 * @return string|null
+	 */
+	public function get_version() {
+		$version = null;
+
+		$data = \get_plugin_data( $this->file );
+
+		if ( \array_key_exists( 'Version', $data ) && ! empty( $data['Version'] ) ) {
+			$version = (string) $data['Version'];
+		}
+
+		return $version;
 	}
 
 	/**
