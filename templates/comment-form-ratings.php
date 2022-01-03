@@ -11,6 +11,7 @@
 $types = \pronamic_get_rating_types( \get_post_type() );
 
 $scores = \apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
+$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type(), $scores );
 
 ?>
 <div class="pronamic-comment-ratings">
