@@ -141,19 +141,19 @@ class ReviewPostType {
 				&&
 			\check_admin_referer( 'pronamic_reviews_ratings_save_review', 'pronamic_reviews_ratings_nonce' )
 		) {
-			$object_post_id = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
-
 			// Object post ID.
 			if ( \filter_has_var( \INPUT_POST, 'pronamic_review_object_post_id' ) ) {
 				$object_post_id = \filter_input( \INPUT_POST, 'pronamic_review_object_post_id', \FILTER_VALIDATE_INT );
 
-				\update_post_meta( $post_id, '_pronamic_review_object_post_id', $object_post_id );
+				if ( empty( $object_post_id ) ) {
+					\delete_post_meta( $post_id, '_pronamic_review_object_post_id' );
+				} else {
+					\update_post_meta( $post_id, '_pronamic_review_object_post_id', $object_post_id );
+				}
 			}
 
 			// Ratings.
-			$post_type = \get_post_type( $object_post_id );
-
-			$rating_types = \pronamic_get_rating_types( $post_type );
+			$rating_types = Util::get_review_rating_types( $post_id );
 
 			$ratings = \filter_input( \INPUT_POST, 'pronamic_review_rating', \FILTER_DEFAULT, \FILTER_REQUIRE_ARRAY );
 
@@ -164,7 +164,11 @@ class ReviewPostType {
 					continue;
 				}
 
-				\update_post_meta( $post_id, '_pronamic_rating_value_' . $name, $ratings[ $name ] );
+				if ( empty( $ratings[ $name ] ) ) {
+					\delete_post_meta( $post_id, '_pronamic_rating_value_' . $name );
+				} else {
+					\update_post_meta( $post_id, '_pronamic_rating_value_' . $name, $ratings[ $name ] );
+				}
 			}
 		}
 	}

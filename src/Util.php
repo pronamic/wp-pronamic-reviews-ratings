@@ -44,4 +44,24 @@ class Util {
 
 		return $html;
 	}
+
+	/**
+	 * Get rating types in use for a review.
+	 *
+	 * @param int|false $post_id Post ID.
+	 * @return array<string, mixed>
+	 */
+	public static function get_review_rating_types( $post_id ) {
+		$object_post_id = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
+
+		// Return global rating types if object post ID is empty.
+		if ( empty( $object_post_id ) ) {
+			return \pronamic_get_rating_types( 'global' );
+		}
+
+		// Return rating types for post type.
+		$type = \get_post_type( $object_post_id );
+
+		return \pronamic_get_rating_types( $type );
+	}
 }

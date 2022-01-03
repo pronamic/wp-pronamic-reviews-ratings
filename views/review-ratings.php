@@ -7,22 +7,20 @@
 
 namespace Pronamic\WordPress\ReviewsRatings;
 
-$object_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
-
-if ( empty( $object_post_id ) ) {
-	return;
-}
-
-$object_post_type = \get_post_type( $object_post_id );
-
-$rating_types = \pronamic_get_rating_types( $object_post_type );
+$rating_types = Util::get_review_rating_types( \get_the_ID() );
 
 if ( empty( $rating_types ) ) {
 	return;
 }
 
 $scores = \apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
-$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . $object_post_type, $scores );
+
+// Scores for object post type.
+$object_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
+
+if ( ! empty( $object_post_id ) ) {
+	$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type( $object_post_id ), $scores );
+}
 
 ?>
 <div class="pronamic-review-ratings">

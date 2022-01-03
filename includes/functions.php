@@ -38,7 +38,7 @@ function pronamic_register_rating_type( $name, $args ) {
  * Get rating types.
  *
  * @param string|null $type (Post) type to get rating types for.
- * @return array
+ * @return array<string, mixed>
  */
 function pronamic_get_rating_types( $type = null ) {
 	$rating_types = pronamic_reviews_ratings()->get_rating_types();

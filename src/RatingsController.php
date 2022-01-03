@@ -55,9 +55,7 @@ class RatingsController {
 	 * @return void
 	 */
 	public function update_review_rating_score( $post_id ) {
-		$object_post_id = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
-
-		$rating_types = \pronamic_get_rating_types( \get_post_type( $object_post_id ) );
+		$rating_types = Util::get_review_rating_types( $post_id );
 
 		$ratings = array();
 

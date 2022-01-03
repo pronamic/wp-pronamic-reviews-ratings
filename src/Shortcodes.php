@@ -49,8 +49,9 @@ class Shortcodes {
 		$args = \wp_parse_args(
 			$args,
 			array(
-				'object_post_id' => null,
 				'count'          => 5,
+				'global'         => false,
+				'object_post_id' => null,
 			)
 		);
 
@@ -69,6 +70,15 @@ class Shortcodes {
 				array(
 					'key'   => '_pronamic_review_object_post_id',
 					'value' => $args['object_post_id'],
+				),
+			);
+		}
+
+		if ( 'true' === $args['global'] ) {
+			$query['meta_query'] = array(
+				array(
+					'key'     => '_pronamic_review_object_post_id',
+					'compare' => 'NOT EXISTS',
 				),
 			);
 		}

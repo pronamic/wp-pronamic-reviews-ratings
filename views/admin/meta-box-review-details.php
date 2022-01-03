@@ -10,9 +10,7 @@
 
 use Pronamic\WordPress\ReviewsRatings\Util;
 
-$object_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
-
-$rating_types = \pronamic_get_rating_types( \get_post_type( $object_post_id ) );
+$rating_types = Util::get_review_rating_types( \get_the_ID() );
 
 ?>
 
