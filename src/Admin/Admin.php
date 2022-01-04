@@ -72,6 +72,10 @@ class Admin {
 			\add_action( 'manage_' . $post_type . '_posts_custom_column', array( $this, 'manage_posts_custom_column' ), 10, 2 );
 			\add_action( 'manage_' . $screen_id . '_sortable_columns', array( $this, 'post_sortable_columns' ), 10 );
 		}
+
+		\add_filter( 'manage_pronamic_review_posts_columns', array( $this, 'manage_posts_columns' ), 10, 1 );
+		\add_action( 'manage_pronamic_review_posts_custom_column', array( $this, 'manage_posts_custom_column' ), 10, 2 );
+		\add_action( 'manage_pronamic_review_sortable_columns', array( $this, 'post_sortable_columns' ), 10 );
 	}
 
 	/**
@@ -180,12 +184,23 @@ class Admin {
 		switch ( $column ) {
 			case 'pronamic_rating':
 				$scores = \apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
-				$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type( $post_id ), $scores );
 
 				$rating_value = \get_post_meta( $post_id, '_pronamic_rating_value', true );
-				$rating_count = \get_post_meta( $post_id, '_pronamic_rating_count', true );
+				$rating_count = (int) \get_post_meta( $post_id, '_pronamic_rating_count', true );
 
-				if ( $rating_count > 0 ) {
+				if ( 'pronamic_review' === \get_post_type( $post_id ) ) {
+					$rating_value = \get_post_meta( $post_id, '_pronamic_rating', true );
+					$rating_count = 1;
+				}
+
+				// Filter ratings score by post type.
+				$object_post_id = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
+
+				$object_post_type = \get_post_type( empty( $object_post_id ) ? $post_id : $object_post_id );
+
+				$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . $object_post_type, $scores );
+
+				if ( \is_numeric( $rating_value ) && $rating_count > 0 ) {
 					$max_score = max( $scores );
 
 					for ( $i = 0; $i < $max_score; $i++ ) {
