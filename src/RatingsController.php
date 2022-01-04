@@ -396,12 +396,14 @@ class RatingsController {
 			return $parsed_block;
 		}
 
-		// Set search query.
-		if ( ! \array_key_exists( 'search', $parsed_block['attrs']['query'] ) ) {
-			$parsed_block['attrs']['query']['search'] = '';
+		// Update `pronamic-reviews-for:self` in search query to use current object post ID.
+		if ( \array_key_exists( 'search', $parsed_block['attrs']['query'] ) ) {
+			$parsed_block['attrs']['query']['search'] = \str_replace(
+				'pronamic-reviews-for:self',
+				\sprintf( 'pronamic-reviews-for:%d', $object_post_id ),
+				$parsed_block['attrs']['query']['search']
+			);
 		}
-
-		$parsed_block['attrs']['query']['search'] .= sprintf( '[pronamic_review_object_post_id=%d]', $object_post_id );
 
 		return $parsed_block;
 	}
@@ -418,32 +420,52 @@ class RatingsController {
 			return;
 		}
 
-		// Check search query.
+		// Determine object post ID from search query.
 		$search = $query->get( 's' );
 
-		$pattern = '/\[pronamic_review_object_post_id=(?<object_post_id>\d+)\]/';
+		$keywords = explode( ' ', $search );
 
-		\preg_match( $pattern, $search, $matches );
+		$object_post_id = null;
 
-		if ( ! \array_key_exists( 'object_post_id', $matches ) ) {
+		foreach ( $keywords as $keyword ) {
+			// Check keyword filter.
+			if ( 'pronamic-reviews-for:' !== \substr( $keyword, 0, 21 ) ) {
+				continue;
+			}
+
+			// Get object post ID from keyword filter.
+			$explode = explode( ':', $keyword );
+
+			if ( isset( $explode[1] ) && ! empty( $explode[1] ) ) {
+				$object_post_id = $explode[1];
+			}
+
+			break;
+		}
+
+		if ( null === $object_post_id ) {
 			return;
 		}
 
 		// Cleanup search query.
-		$query->set( 's', \preg_replace( $pattern, '', $search ) );
-
-		// Add meta query for review object ID.
-		$meta_query = $query->get( 'meta_query' );
-
-		if ( ! \is_array( $meta_query ) ) {
-			$meta_query = array();
+		if ( isset( $keyword ) ) {
+			$query->set( 's', \str_replace( $keyword, '', $search ) );
 		}
 
-		$meta_query[] = array(
-			'key'   => '_pronamic_review_object_post_id',
-			'value' => $matches['object_post_id'],
-		);
+		// Add meta query for review object ID.
+		if ( \is_numeric( $object_post_id ) ) {
+			$meta_query = $query->get( 'meta_query' );
 
-		$query->set( 'meta_query', $meta_query );
+			if ( ! \is_array( $meta_query ) ) {
+				$meta_query = array();
+			}
+
+			$meta_query[] = array(
+				'key'   => '_pronamic_review_object_post_id',
+				'value' => $object_post_id,
+			);
+
+			$query->set( 'meta_query', $meta_query );
+		}
 	}
 }
