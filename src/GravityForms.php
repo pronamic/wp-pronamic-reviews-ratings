@@ -38,6 +38,7 @@ class GravityForms {
 
 		// Actions.
 		\add_action( 'admin_init', array( $this, 'admin_init' ), 0 );
+		\add_action( 'gform_advancedpostcreation_post_after_creation', array( $this, 'update_review_rating_score' ) );
 	}
 
 	/**
@@ -207,5 +208,15 @@ class GravityForms {
 		\wp_safe_redirect( $url );
 
 		exit;
+	}
+
+	/**
+	 * Update review rating score after post creation.
+	 *
+	 * @param int $review_post_id Review post ID.
+	 * @return void
+	 */
+	public function update_review_rating_score( $review_post_id ) {
+		$this->plugin->ratings_controller->update_review_rating_score( $review_post_id );
 	}
 }

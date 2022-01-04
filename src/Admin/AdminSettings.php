@@ -273,7 +273,7 @@ class AdminSettings {
 						}
 
 						\printf(
-							'<code>_pronamic_rating_</code><input %s />',
+							'<code>_pronamic_rating_value_</code><input %s />',
 							Util::array_to_html_attributes( $atts )
 						);
 
