@@ -77,7 +77,7 @@ $scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type(),
 			\printf(
 				'<dt>%s</dt><dd>%s</dd>',
 				\esc_html( __( 'Rating', 'pronamic_review_ratings' ) ),
-				\esc_html( number_format_i18n( $rating_value, 1 ) )
+				\esc_html( Util::format_rating( $rating_value ) )
 			);
 		}
 
@@ -85,13 +85,13 @@ $scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type(),
 
 		<?php
 
-		$rating_count = \get_post_meta( \get_the_ID(), '_pronamic_rating_count', true );
+		$rating_count = (int) \get_post_meta( \get_the_ID(), '_pronamic_rating_count', true );
 
 		if ( ! empty( $rating_count ) ) {
 			\printf(
 				'<dt>%s</dt><dd>%s</dd>',
 				\esc_html( __( 'Number of reviews', 'pronamic_review_ratings' ) ),
-				\esc_html( \number_format_i18n( $rating_count ) )
+				\esc_html( $rating_count )
 			);
 		}
 

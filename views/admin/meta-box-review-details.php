@@ -116,7 +116,7 @@ $rating_types = Util::get_review_rating_types( \get_the_ID() );
 			if ( empty( $rating ) ) {
 				echo '&mdash;';
 			} else {
-				echo number_format_i18n( $rating, 1 );
+				echo Util::format_rating( $rating );
 			}
 
 			?>

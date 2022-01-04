@@ -79,7 +79,7 @@ if ( ! empty( $object_post_id ) ) {
 			\printf(
 				'<dt>%s</dt><dd>%s</dd>',
 				\esc_html( __( 'Rating', 'pronamic_review_ratings' ) ),
-				\esc_html( \number_format_i18n( $rating, 1 ) )
+				\esc_html( Util::format_rating( $rating ) )
 			);
 		}
 

@@ -64,4 +64,21 @@ class Util {
 
 		return \pronamic_get_rating_types( $type );
 	}
+
+	/**
+	 * Format rating, without decimals if possible.
+	 *
+	 * @param string|int|float $rating Rating.
+	 * @return string
+	 */
+	public static function format_rating( $rating ) {
+		$decimals_zero = \number_format_i18n( $rating, 0 );
+		$decimals_one  = \number_format_i18n( $rating, 1 );
+
+		if ( \number_format_i18n( $decimals_zero, 1 ) === $decimals_one ) {
+			return $decimals_zero;
+		}
+
+		return $decimals_one;
+	}
 }
