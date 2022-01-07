@@ -38,8 +38,8 @@ $rating_types = Util::get_review_rating_types( \get_the_ID() );
 
 			if ( ! empty( $object_post_id ) ) {
 				$edit_post_link = sprintf(
-						/* translators: %d: object post ID */
-					__( 'No post found with ID `%d`.', 'pronamic_reviews_ratings' ),
+					/* translators: %d: object post ID */
+					__( 'No post found with ID <code>%d</code>.', 'pronamic_reviews_ratings' ),
 					$object_post_id
 				);
 

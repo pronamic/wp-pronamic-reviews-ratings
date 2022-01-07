@@ -76,7 +76,7 @@ $scores = Util::get_post_type_ratings_scores( \get_post_type() );
 		if ( ! empty( $rating_value ) ) {
 			\printf(
 				'<dt>%s</dt><dd>%s</dd>',
-				\esc_html( __( 'Rating', 'pronamic_review_ratings' ) ),
+				\esc_html( __( 'Rating', 'pronamic_reviews_ratings' ) ),
 				\esc_html( Util::format_rating( $rating_value ) )
 			);
 		}
@@ -90,7 +90,7 @@ $scores = Util::get_post_type_ratings_scores( \get_post_type() );
 		if ( ! empty( $rating_count ) ) {
 			\printf(
 				'<dt>%s</dt><dd>%s</dd>',
-				\esc_html( __( 'Number of reviews', 'pronamic_review_ratings' ) ),
+				\esc_html( __( 'Number of reviews', 'pronamic_reviews_ratings' ) ),
 				\esc_html( $rating_count )
 			);
 		}

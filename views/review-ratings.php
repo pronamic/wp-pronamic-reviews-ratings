@@ -84,7 +84,7 @@ $scores = Util::get_post_type_ratings_scores( $post_type );
 		if ( ! empty( $rating ) ) {
 			\printf(
 				'<dt>%s</dt><dd>%s</dd>',
-				\esc_html( __( 'Rating', 'pronamic_review_ratings' ) ),
+				\esc_html( __( 'Rating', 'pronamic_reviews_ratings' ) ),
 				\esc_html( Util::format_rating( $rating ) )
 			);
 		}

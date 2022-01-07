@@ -3,105 +3,29 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pronamic Reviews and Ratings\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/pronamic-reviews-"
-"ratings\n"
-"POT-Creation-Date: 2014-04-23 07:51:09+00:00\n"
-"PO-Revision-Date: 2014-04-23 09:51+0100\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/"
+"pronamic_reviews_ratings\n"
+"POT-Creation-Date: 2022-01-05T16:19:46+00:00\n"
+"PO-Revision-Date: 2022-01-05 17:18+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: admin/comment-meta-box-ratings.php:9
-msgid "Rating"
-msgstr "Rating"
-
-#: examples/comment-review-rating-microdata.php:10
-msgid "Comment %d"
-msgstr "Reactie %d"
-
-#: includes/gravityforms.php:14
-msgid "Rating Type"
-msgstr "Ratingtype"
-
-#: includes/gravityforms.php:29
-msgid "Is Review Post ID"
-msgstr "Is review bericht ID"
-
-#: includes/gravityforms.php:36
-msgid "Is Review Name"
-msgstr "Is review naam"
-
-#: includes/gravityforms.php:43
-msgid "Is Review E-mail"
-msgstr "Is review e-mailadres"
-
-#: includes/gravityforms.php:50
-msgid "Is Review Comment"
-msgstr "Is review reactie"
-
-#: includes/gravityforms.php:118
-msgid "Review & Ratings"
-msgstr "Review & ratings"
-
-#: includes/gravityforms.php:168
-msgid "Edit"
-msgstr "Bewerken"
-
-#: includes/gravityforms.php:169
-msgid "View"
-msgstr "Bekijk"
-
-#: includes/gravityforms.php:177
-msgid "Type"
-msgstr "Type"
-
-#: includes/gravityforms.php:178
-msgid "Score"
-msgstr "Score"
-
-#: includes/gravityforms.php:212
-msgid "Post ID"
-msgstr "Bericht ID"
-
-#: includes/gravityforms.php:216
-msgid "Name"
-msgstr "Naam"
-
-#: includes/gravityforms.php:220
-msgid "E-Mail"
-msgstr "E-mailadres"
-
-#: includes/gravityforms.php:224
-msgid "Comment"
-msgstr "Reactie"
-
-#: includes/gravityforms.php:228
-msgid "Create Review Comment"
-msgstr "Maak review reactie"
-
-#: pronamic-reviews-ratings.php:119
-msgid "Ratings"
-msgstr "Ratings"
-
-#: pronamic-reviews-ratings.php:162
-msgid "<strong>ERROR</strong>: please fill in the rating fields."
-msgstr "<strong>MISLUKT</strong>: vul de beoordeling velden in."
-
-#. Plugin Name of the plugin/theme
+#. Plugin Name of the plugin
 msgid "Pronamic Reviews and Ratings"
 msgstr "Pronamic Reviews and Ratings"
 
-#. Plugin URI of the plugin/theme
-msgid "http://www.happywp.com/plugins/pronamic-reviews-ratings/"
-msgstr "http://www.happywp.com/plugins/pronamic-reviews-ratings/"
+#. Plugin URI of the plugin
+msgid "https://www.happywp.com/plugins/pronamic-reviews-ratings/"
+msgstr "https://www.happywp.com/plugins/pronamic-reviews-ratings/"
 
-#. Description of the plugin/theme
+#. Description of the plugin
 msgid ""
 "The Pronamic Reviews Ratings plugin for WordPress is a powerful, extendable "
 "reviews and ratings plugin."
@@ -109,16 +33,300 @@ msgstr ""
 "De Pronamic Reviews Ratings plugin voor WordPress is een krachtige, "
 "uitbreidbare reviews en ratings plugin."
 
-#. Author of the plugin/theme
+#. Author of the plugin
 msgid "Pronamic"
 msgstr "Pronamic"
 
-#. Author URI of the plugin/theme
-msgid "http://www.pronamic.eu/"
-msgstr "http://www.pronamic.nl/"
+#. Author URI of the plugin
+msgid "https://www.pronamic.eu/"
+msgstr "https://www.pronamic.nl/"
 
-#~ msgid "Create Review"
-#~ msgstr "Maak review"
+#: admin/comment-meta-box-ratings.php:17
+#: admin/gravityforms/meta-box-entry-detail-review.php:95
+#: src/Admin/Admin.php:148 views/object-ratings.php:79
+#: views/review-ratings.php:87
+msgid "Rating"
+msgstr "Beoordeling"
+
+#: admin/gravityforms/field-advanced-settings.php:14
+msgid "Rating Type"
+msgstr "Beoordelingstype"
+
+#: admin/gravityforms/field-advanced-settings.php:29
+msgid "Is Review Post ID"
+msgstr "Is review bericht ID"
+
+#: admin/gravityforms/field-advanced-settings.php:36
+msgid "Is Review Name"
+msgstr "Is review naam"
+
+#: admin/gravityforms/field-advanced-settings.php:43
+msgid "Is Review E-mail"
+msgstr "Is review e-mailadres"
+
+#: admin/gravityforms/field-advanced-settings.php:50
+msgid "Is Review Comment"
+msgstr "Is review reactie"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:13
+msgid "Review & Ratings"
+msgstr "Review & ratings"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:78
+#: admin/gravityforms/meta-box-entry-detail-review.php:85
+msgid "Edit"
+msgstr "Bewerken"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:79
+#: admin/gravityforms/meta-box-entry-detail-review.php:86
+msgid "View"
+msgstr "Bekijk"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:94
+msgid "Type"
+msgstr "Type"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:138
+msgid "Post ID"
+msgstr "Bericht ID"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:142
+#: src/Admin/AdminSettings.php:220
+msgid "Name"
+msgstr "Naam"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:146
+msgid "E-Mail"
+msgstr "E-mailadres"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:150
+msgid "Comment"
+msgstr "Reactie"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:154
+msgid "Create Review Comment"
+msgstr "Maak review reactie"
+
+#: admin/gravityforms/meta-box-entry-detail-review.php:156
+msgid "Create Review Post"
+msgstr "Maak review"
+
+#: src/Admin/Admin.php:122
+msgid "Ratings"
+msgstr "Ratings"
+
+#: src/Admin/AdminSettings.php:57
+msgid "General"
+msgstr "Algemeen"
+
+#: src/Admin/AdminSettings.php:65
+msgid "Rating Types"
+msgstr "Beoordelingstypen"
+
+#: src/Admin/AdminSettings.php:82 src/Admin/AdminSettings.php:83
+#: src/ReviewPostType.php:48 src/ReviewPostType.php:52
+msgid "Reviews"
+msgstr "Reviews"
+
+#: src/Admin/AdminSettings.php:221
+msgid "Label"
+msgstr "Label"
+
+#: src/Admin/AdminSettings.php:222
+msgid "Restrict to Post Type"
+msgstr "Beperk tot berichttype"
+
+#: src/Admin/AdminSettings.php:294
+msgid "New rating type…"
+msgstr "Nieuw beoordelingstype..."
+
+#: src/CommentsController.php:79
+msgid "<strong>ERROR</strong>: please fill in the rating fields."
+msgstr "<strong>MISLUKT</strong>: vul de beoordeling velden in."
+
+#: src/Plugin.php:212
+msgid "Name is required to register a rating type. "
+msgstr "Naam is vereist om een beoordelingstype te registreren."
+
+#: src/ReviewPostType.php:47 src/ReviewPostType.php:53
+msgid "Review"
+msgstr "Review"
+
+#: src/ReviewPostType.php:50
+msgctxt "Post Type General Name"
+msgid "Reviews"
+msgstr "Reviews"
+
+#: src/ReviewPostType.php:51
+msgctxt "Post Type Singular Name"
+msgid "Review"
+msgstr "Review"
+
+#: src/ReviewPostType.php:54
+msgid "Review Archives"
+msgstr "Reviews Archief"
+
+#: src/ReviewPostType.php:55
+msgid "Review Attributes"
+msgstr "Review eigenschappen"
+
+#: src/ReviewPostType.php:56
+msgid "Parent Review:"
+msgstr "Bovenliggende review:"
+
+#: src/ReviewPostType.php:57
+msgid "All Reviews"
+msgstr "Alle reviews"
+
+#: src/ReviewPostType.php:58
+msgid "Add New Review"
+msgstr "Nieuwe review toevoegen"
+
+#: src/ReviewPostType.php:59
+msgid "Add New"
+msgstr "Nieuwe toevoegen"
+
+#: src/ReviewPostType.php:60
+msgid "New Review"
+msgstr "Nieuwe review"
+
+#: src/ReviewPostType.php:61
+msgid "Edit Review"
+msgstr "Bewerk review"
+
+#: src/ReviewPostType.php:62
+msgid "Update Review"
+msgstr "Review bijwerken"
+
+#: src/ReviewPostType.php:63
+msgid "View Review"
+msgstr "Bekijk review"
+
+#: src/ReviewPostType.php:64
+msgid "View Reviews"
+msgstr "Bekijk reviews"
+
+#: src/ReviewPostType.php:65
+msgid "Search Review"
+msgstr "Zoek review"
+
+#: src/ReviewPostType.php:66
+msgid "Not found"
+msgstr "Niet gevonden"
+
+#: src/ReviewPostType.php:67
+msgid "Not found in Trash"
+msgstr "Niet gevonden in prullenbak"
+
+#: src/ReviewPostType.php:68
+msgid "Featured Image"
+msgstr "Uitgelichte afbeelding"
+
+#: src/ReviewPostType.php:69
+msgid "Set featured image"
+msgstr "Uitgelichte afbeelding instellen"
+
+#: src/ReviewPostType.php:70
+msgid "Remove featured image"
+msgstr "Verwijder uitgelichte afbeelding"
+
+#: src/ReviewPostType.php:71
+msgid "Use as featured image"
+msgstr "Gebruik als uitgelichte afbeelding"
+
+#: src/ReviewPostType.php:72
+msgid "Insert into review"
+msgstr "Invoegen in review"
+
+#: src/ReviewPostType.php:73
+msgid "Uploaded to this review"
+msgstr "Geüpload naar deze review"
+
+#: src/ReviewPostType.php:74
+msgid "Reviews list"
+msgstr "Reviews lijst"
+
+#: src/ReviewPostType.php:75
+msgid "Reviews list navigation"
+msgstr "Reviews lijst navigatie"
+
+#: src/ReviewPostType.php:76
+msgid "Filter reviews list"
+msgstr "Filter reviews lijst"
+
+#. translators: %d: number of ratings
+#: src/Shortcodes.php:64
+msgid "%d rating"
+msgid_plural "%d ratings"
+msgstr[0] "%d beoordeling"
+msgstr[1] "%d beoordelingen"
+
+#: views/admin/meta-box-review-details.php:21
+msgid "Reviewed object post ID"
+msgstr "Beoordeeld object post ID"
+
+#. translators: %d: object post ID
+#: views/admin/meta-box-review-details.php:42
+msgid "No post found with ID <code>%d</code>."
+msgstr "Geen bericht gevonden met ID <code>%d</code> ."
+
+#: views/admin/meta-box-review-details.php:71
+msgid "Author"
+msgstr "Auteur"
+
+#: views/object-ratings.php:93
+#, fuzzy
+msgid "Number of reviews"
+msgstr "Invoegen in review"
+
+#~ msgid "Products"
+#~ msgstr "Producten"
+
+#, fuzzy
+#~ msgctxt "Post Type General Name"
+#~ msgid "Products"
+#~ msgstr "Producten"
+
+#, fuzzy
+#~ msgctxt "Post Type Singular Name"
+#~ msgid "Product"
+#~ msgstr "Product"
+
+#, fuzzy
+#~ msgid "Parent Item:"
+#~ msgstr "Bovenliggende categorie:"
+
+#, fuzzy
+#~ msgid "Edit Item"
+#~ msgstr "Categorie bewerken"
+
+#, fuzzy
+#~ msgid "Update Item"
+#~ msgstr "Categorie bijwerken"
+
+#, fuzzy
+#~ msgid "View Item"
+#~ msgstr "Bekijk"
+
+#, fuzzy
+#~ msgid "Search Item"
+#~ msgstr "Categorieën zoeken"
+
+#, fuzzy
+#~ msgctxt "Post Type General Name"
+#~ msgid "Services"
+#~ msgstr "Voorzieningen"
+
+#, fuzzy
+#~ msgctxt "Post Type Singular Name"
+#~ msgid "Service"
+#~ msgstr "Voorziening"
+
+#~ msgid "Comment %d"
+#~ msgstr "Reactie %d"
+
+#~ msgid "Score"
+#~ msgstr "Score"
 
 #~ msgid "Wat kost doodgaan?"
 #~ msgstr "Wat kost doodgaan?"
@@ -183,17 +391,11 @@ msgstr "http://www.pronamic.nl/"
 #~ msgid "HTML"
 #~ msgstr "HTML"
 
-#~ msgid "Products"
-#~ msgstr "Producten"
-
 #~ msgid "Section"
 #~ msgstr "Sectie"
 
 #~ msgid "&mdash; Select Section &mdash;"
 #~ msgstr "&mdash; Selecteer sectie &mdash;"
-
-#~ msgid "Product"
-#~ msgstr "Product"
 
 #~ msgid "&mdash; Select Product &mdash;"
 #~ msgstr "&mdash; Selecteer product &mdash;"
@@ -435,12 +637,6 @@ msgstr "http://www.pronamic.nl/"
 #~ msgid "Parent Product:"
 #~ msgstr "Bovenliggend product:"
 
-#~ msgid "No products found."
-#~ msgstr "Geen producten gevonden."
-
-#~ msgid "No products found in Trash."
-#~ msgstr "Geen producten gevonden in prullenbak."
-
 #~ msgid "Wish List Sections"
 #~ msgstr "Wensenlijst secties"
 
@@ -564,23 +760,8 @@ msgstr "http://www.pronamic.nl/"
 #~ msgid "Category"
 #~ msgstr "Categorie"
 
-#~ msgid "Search Categories"
-#~ msgstr "Categorieën zoeken"
-
-#~ msgid "All Categories"
-#~ msgstr "Alle categorieën"
-
 #~ msgid "Parent Category"
 #~ msgstr "Bovenliggende categorie"
-
-#~ msgid "Parent Category:"
-#~ msgstr "Bovenliggende categorie:"
-
-#~ msgid "Edit Category"
-#~ msgstr "Categorie bewerken"
-
-#~ msgid "Update Category"
-#~ msgstr "Categorie bijwerken"
 
 #~ msgid "Add New Category"
 #~ msgstr "Nieuwe categorie toevoegen"
@@ -651,9 +832,6 @@ msgstr "http://www.pronamic.nl/"
 #~ msgid "Properties"
 #~ msgstr "Eigenschappen"
 
-#~ msgid "Service"
-#~ msgstr "Voorziening"
-
 #~ msgid "Certification Mark"
 #~ msgstr "Keurmerk"
 
@@ -699,9 +877,6 @@ msgstr "http://www.pronamic.nl/"
 #~ msgid "Are you sure you want to cancel this upload?"
 #~ msgstr "Weet je zeker dat je deze upload wilt annuleren?"
 
-#~ msgid "Remove file"
-#~ msgstr "Verwijder bestand"
-
 #~ msgid "You can not upload any more files."
 #~ msgstr "Je kunt niet meer bestanden uploaden."
 
@@ -713,9 +888,6 @@ msgstr "http://www.pronamic.nl/"
 
 #~ msgid "Description"
 #~ msgstr "Beschrijving"
-
-#~ msgid "Services"
-#~ msgstr "Voorzieningen"
 
 #~ msgid "Spoken Languages"
 #~ msgstr "Gesproken talen"
@@ -833,10 +1005,6 @@ msgstr "http://www.pronamic.nl/"
 #~ msgctxt "add new on admin bar"
 #~ msgid "Mortician Input"
 #~ msgstr "Uitvaartverzorger input"
-
-#~ msgctxt "mortician"
-#~ msgid "Add New"
-#~ msgstr "Nieuwe uitvaartverzorger"
 
 #~ msgctxt "slug"
 #~ msgid "morticians"
