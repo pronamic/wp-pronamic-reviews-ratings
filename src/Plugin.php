@@ -69,8 +69,9 @@ class Plugin {
 	 * @return void
 	 */
 	public function __construct( $file ) {
-		$this->file     = $file;
-		$this->dir_path = \plugin_dir_path( $file );
+		$this->file         = $file;
+		$this->dir_path     = \plugin_dir_path( $file );
+		$this->rating_types = array();
 
 		// Tables.
 		\pronamic_ratings_register_table( 'pronamic_post_ratings' );
