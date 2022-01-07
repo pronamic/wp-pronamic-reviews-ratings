@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name: Pronamic Reviews and Ratings
- * Plugin URI: http://www.happywp.com/plugins/pronamic-reviews-ratings/
+ * Plugin URI: https://www.happywp.com/plugins/pronamic-reviews-ratings/
  * Description: The Pronamic Reviews Ratings plugin for WordPress is a powerful, extendable reviews and ratings plugin.
  *
  * Version: 1.0.0
  * Requires at least: 3.0
  *
  * Author: Pronamic
- * Author URI: http://www.pronamic.eu/
+ * Author URI: https://www.pronamic.eu/
  *
  * Text Domain: pronamic_reviews_ratings
  * Domain Path: /languages/

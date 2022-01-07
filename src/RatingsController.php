@@ -289,8 +289,8 @@ class RatingsController {
 	 * @param array     $pieces Query pieces.
 	 * @param \WP_Query $query  WordPress query.
 	 * @return array
-	 * @link http://codex.wordpress.org/WordPress_Query_Vars
-	 * @link http://codex.wordpress.org/Custom_Queries
+	 * @link https://codex.wordpress.org/WordPress_Query_Vars
+	 * @link https://codex.wordpress.org/Custom_Queries
 	 */
 	public function posts_clauses( $pieces, $query ) {
 		global $wpdb;

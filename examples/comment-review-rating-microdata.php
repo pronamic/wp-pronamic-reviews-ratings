@@ -11,13 +11,13 @@
 /*
  * Comment with microdata.
  *
- * @link http://schema.org/Review
- * @link http://schema.org/Rating
+ * @link https://schema.org/Review
+ * @link https://schema.org/Rating
  * @link https://github.com/WordPress/WordPress/blob/3.8.2/wp-includes/comment-template.php#L1742
  */
 ?>
 <li <?php \comment_class(); ?> id="li-comment-<?php \comment_ID(); ?>">
-	<div itemprop="review" itemscope itemtype="http://schema.org/Review">
+	<div itemprop="review" itemscope itemtype="https://schema.org/Review">
 		<span itemprop="name">
 			<?php
 
@@ -33,7 +33,7 @@
 
 		<meta itemprop="datePublished" content="<?php \comment_date( 'Y-m-d' ); ?>" /><?php \comment_date(); ?>
 
-		<div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+		<div itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
 			<meta itemprop="worstRating" content="1" />
 			<span itemprop="ratingValue"><?php echo \esc_html( \get_comment_meta( \get_comment_ID(), '_pronamic_rating_value', true ) ); ?></span>/
 			<span itemprop="bestRating">10</span> stars

@@ -112,8 +112,8 @@ class Admin {
 	 * Add meta boxes.
 	 *
 	 * @link https://github.com/WordPress/WordPress/blob/3.8.2/wp-admin/edit-form-comment.php#L130
-	 * @link http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
-	 * @link http://shibashake.com/wordpress-theme/add-a-metabox-to-the-edit-comments-screen
+	 * @link https://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
+	 * @link https://shibashake.com/wordpress-theme/add-a-metabox-to-the-edit-comments-screen
 	 * @return void
 	 */
 	public function add_meta_boxes() {
