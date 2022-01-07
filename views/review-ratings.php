@@ -16,17 +16,17 @@ if ( empty( $rating_types ) ) {
 // Scores.
 $object_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
 
-$post_type = null;
+$object_post_type = null;
 
 if ( ! empty( $object_post_id ) ) {
-	$post_type = \get_post_type( $object_post_id );
+	$object_post_type = \get_post_type( $object_post_id );
 
-	if ( false === $post_type ) {
-		$post_type = null;
+	if ( false === $object_post_type ) {
+		$object_post_type = null;
 	}
 }
 
-$scores = Util::get_post_type_ratings_scores( $post_type );
+$scores = Util::get_post_type_ratings_scores( $object_post_type );
 
 ?>
 <div class="pronamic-review-ratings">

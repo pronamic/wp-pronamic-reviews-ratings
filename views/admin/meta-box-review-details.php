@@ -97,20 +97,20 @@ $rating_types = Util::get_review_rating_types( \get_the_ID() );
 	<?php
 
 	// Scores.
-	$object_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
+	$object_post_id = (int) \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
 
-	$post_type = empty( $object_post_id ) ? null : \get_post_type( $object_post_id );
+	$object_post_type = empty( $object_post_id ) ? null : \get_post_type( $object_post_id );
 
-	$scores = Util::get_post_type_ratings_scores( $post_type );
+	$scores = Util::get_post_type_ratings_scores( $object_post_type );
 
 	?>
 
-	<?php foreach ( $rating_types as $type ) : ?>
+	<?php foreach ( $rating_types as $rating_type ) : ?>
 
 		<?php
 
-		$name = $type['name'];
-		$label = \array_key_exists( 'label', $type ) && ! empty( $type['label'] ) ? $type['label'] : $type['name'];
+		$name  = $rating_type['name'];
+		$label = \array_key_exists( 'label', $rating_type ) && ! empty( $rating_type['label'] ) ? $rating_type['label'] : $rating_type['name'];
 
 		?>
 

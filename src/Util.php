@@ -68,7 +68,7 @@ class Util {
 	/**
 	 * Get scores.
 	 *
-	 * @param string|null $post_type Optional post type to get scores for.
+	 * @param string|bool|null $post_type Optional post type to get scores for.
 	 * @return array
 	 */
 	public static function get_post_type_ratings_scores( $post_type = null ) {
