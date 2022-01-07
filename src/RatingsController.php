@@ -44,7 +44,6 @@ class RatingsController {
 
 		// Filters.
 		\add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
-		\add_filter( 'render_block_data', array( $this, 'render_query_block_data' ), 10, 2 );
 	}
 
 	/**
@@ -335,52 +334,6 @@ class RatingsController {
 	}
 
 	/**
-	 * Render Query block data.
-	 *
-	 * @param array $parsed_block Parsed block.
-	 * @return array
-	 */
-	public function render_query_block_data( $parsed_block ) {
-		// Check Query block.
-		if ( ! \array_key_exists( 'blockName', $parsed_block ) ) {
-			return $parsed_block;
-		}
-
-		if ( 'core/query' !== $parsed_block['blockName'] ) {
-			return $parsed_block;
-		}
-
-		// Check query post type.
-		if ( ! isset( $parsed_block['attrs']['query']['postType'] ) ) {
-			return $parsed_block;
-		}
-
-		if ( 'pronamic_review' !== $parsed_block['attrs']['query']['postType'] ) {
-			return $parsed_block;
-		}
-
-		// Determine post type ratings support.
-		$object_post_id = \get_the_ID();
-
-		$post_type = \get_post_type( $object_post_id );
-
-		if ( ! \post_type_supports( $post_type, 'pronamic_ratings' ) ) {
-			return $parsed_block;
-		}
-
-		// Update `pronamic-reviews-for:self` in search query to use current object post ID.
-		if ( \array_key_exists( 'search', $parsed_block['attrs']['query'] ) ) {
-			$parsed_block['attrs']['query']['search'] = \str_replace(
-				'pronamic-reviews-for:self',
-				\sprintf( 'pronamic-reviews-for:%d', $object_post_id ),
-				$parsed_block['attrs']['query']['search']
-			);
-		}
-
-		return $parsed_block;
-	}
-
-	/**
 	 * Set meta query from object post ID in search query.
 	 *
 	 * @param \WP_Query $query Query.
@@ -399,20 +352,26 @@ class RatingsController {
 
 		$object_post_id = null;
 
-		foreach ( $keywords as $keyword ) {
-			// Check keyword filter.
-			if ( 'pronamic-reviews-for:' !== \substr( $keyword, 0, 21 ) ) {
-				continue;
+		if ( \in_array( 'pronamic-reviews-for-post', $keywords ) ) {
+			$keyword = 'pronamic-reviews-for-post';
+
+			$object_post_id = \get_the_ID();
+		} else {
+			foreach ( $keywords as $keyword ) {
+				// Check keyword filter.
+				if ( 'pronamic-reviews-for-post-id:' !== \substr( $keyword, 0, 29 ) ) {
+					continue;
+				}
+
+				// Get object post ID from keyword filter.
+				$explode = explode( ':', $keyword );
+
+				if ( isset( $explode[1] ) && ! empty( $explode[1] ) ) {
+					$object_post_id = $explode[1];
+				}
+
+				break;
 			}
-
-			// Get object post ID from keyword filter.
-			$explode = explode( ':', $keyword );
-
-			if ( isset( $explode[1] ) && ! empty( $explode[1] ) ) {
-				$object_post_id = $explode[1];
-			}
-
-			break;
 		}
 
 		if ( null === $object_post_id ) {
