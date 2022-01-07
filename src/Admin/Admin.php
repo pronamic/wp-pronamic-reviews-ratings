@@ -11,6 +11,7 @@
 namespace Pronamic\WordPress\ReviewsRatings\Admin;
 
 use Pronamic\WordPress\ReviewsRatings\Plugin;
+use Pronamic\WordPress\ReviewsRatings\Util;
 use WP_Comment;
 
 /**
@@ -183,8 +184,6 @@ class Admin {
 	public function manage_posts_custom_column( $column, $post_id ) {
 		switch ( $column ) {
 			case 'pronamic_rating':
-				$scores = \apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
-
 				$rating_value = \get_post_meta( $post_id, '_pronamic_rating_value', true );
 				$rating_count = (int) \get_post_meta( $post_id, '_pronamic_rating_count', true );
 
@@ -193,12 +192,12 @@ class Admin {
 					$rating_count = 1;
 				}
 
-				// Filter ratings score by post type.
+				// Scores.
 				$object_post_id = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
 
-				$object_post_type = \get_post_type( empty( $object_post_id ) ? $post_id : $object_post_id );
+				$post_type = \get_post_type( empty( $object_post_id ) ? $post_id : $object_post_id );
 
-				$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . $object_post_type, $scores );
+				$scores = Util::get_post_type_ratings_scores( $post_type );
 
 				if ( \is_numeric( $rating_value ) && $rating_count > 0 ) {
 					$max_score = max( $scores );

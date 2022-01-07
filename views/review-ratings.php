@@ -13,14 +13,20 @@ if ( empty( $rating_types ) ) {
 	return;
 }
 
-$scores = \apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
-
-// Scores for object post type.
+// Scores.
 $object_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
 
+$post_type = null;
+
 if ( ! empty( $object_post_id ) ) {
-	$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type( $object_post_id ), $scores );
+	$post_type = \get_post_type( $object_post_id );
+
+	if ( false === $post_type ) {
+		$post_type = null;
+	}
 }
+
+$scores = Util::get_post_type_ratings_scores( $post_type );
 
 ?>
 <div class="pronamic-review-ratings">

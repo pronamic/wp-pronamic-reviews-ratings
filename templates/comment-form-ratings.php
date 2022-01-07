@@ -8,10 +8,11 @@
  * @package   Pronamic\WordPress\ReviewsRatings
  */
 
+use Pronamic\WordPress\ReviewsRatings\Util;
+
 $types = \pronamic_get_rating_types( \get_post_type() );
 
-$scores = \apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
-$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type(), $scores );
+$scores = Util::get_post_type_ratings_scores( \get_post_type() );
 
 ?>
 <div class="pronamic-comment-ratings">

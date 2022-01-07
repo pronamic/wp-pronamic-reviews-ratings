@@ -17,8 +17,8 @@ if ( empty( $rating_types ) ) {
 	return;
 }
 
-$scores = \apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
-$scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . \get_post_type(), $scores );
+// Scores.
+$scores = Util::get_post_type_ratings_scores( \get_post_type() );
 
 ?>
 <div class="pronamic-review-ratings">
