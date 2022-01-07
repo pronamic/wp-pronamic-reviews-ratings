@@ -86,6 +86,7 @@ class Plugin {
 		// Controllers.
 		$this->ratings_controller = new RatingsController( $this );
 
+		new Blocks( $this );
 		new CommentsController( $this );
 		new Shortcodes( $this );
 		new GravityForms( $this );

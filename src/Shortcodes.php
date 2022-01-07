@@ -35,7 +35,96 @@ class Shortcodes {
 		$this->plugin = $plugin;
 
 		// Shortcodes.
+		\add_shortcode( 'pronamic_rating_value', array( $this, 'pronamic_rating_value' ) );
+		\add_shortcode( 'pronamic_rating_count', array( $this, 'pronamic_rating_count' ) );
+		\add_shortcode( 'pronamic_rating_stars', array( $this, 'pronamic_rating_stars' ) );
+		\add_shortcode( 'pronamic_ratings', array( $this, 'pronamic_ratings' ) );
 		\add_shortcode( 'pronamic_reviews', array( $this, 'pronamic_reviews' ) );
+	}
+
+	/**
+	 * Shortcode `pronamic_rating_value`.
+	 *
+	 * @return string
+	 */
+	public function pronamic_rating_value() {
+		$value = \get_post_meta( \get_the_ID(), '_pronamic_rating_value', true );
+
+		return empty( $value ) ? '' : Util::format_rating( $value );
+	}
+
+	/**
+	 * Shortcode `pronamic_rating_count`.
+	 *
+	 * @return string
+	 */
+	public function pronamic_rating_count() {
+		$count = (int) \get_post_meta( \get_the_ID(), '_pronamic_rating_count', true );
+
+		return \sprintf(
+			/* translators: %d: number of ratings */
+			\_n( '%d rating', '%d ratings', $count, 'pronamic_reviews_ratings' ),
+			$count
+		);
+	}
+
+	/**
+	 * Shortcode `pronamic_rating_stars`.
+	 *
+	 * @return string
+	 */
+	public function pronamic_rating_stars() {
+		$rating = (int) \get_post_meta( \get_the_ID(), '_pronamic_rating_value', true );
+
+		$scores = Util::get_post_type_ratings_scores( \get_post_type() );
+
+		$max_score = max( $scores );
+
+		$html = '';
+
+		for ( $i = 0; $i < $max_score; $i++ ) {
+			$value = $rating - $i;
+
+			$class = 'empty';
+
+			if ( $value >= 1 ) {
+				$class = 'filled';
+			} elseif ( $value >= 0.5 ) {
+				$class = 'half';
+			}
+
+			$html .= \sprintf(
+				'<span class="dashicons dashicons-star-%s"></span>',
+				\esc_attr( $class )
+			);
+		}
+
+		return sprintf(
+			'<span class="pronamic-rating-stars">%s</span>',
+			$html
+		);
+	}
+
+	/**
+	 * Shortcode `pronamic_ratings`.
+	 *
+	 * @param array<mixed> $args Shortcode arguments.
+	 * @return string
+	 */
+	public function pronamic_ratings( $args ) {
+		if ( ! \post_type_supports( \get_post_type(), 'pronamic_ratings' ) ) {
+			return '';
+		}
+
+		\ob_start();
+
+		\wp_enqueue_style( 'dashicons' );
+
+		require __DIR__ . '/../views/object-ratings.php';
+
+		$ratings_content = \ob_get_clean();
+
+		return $ratings_content;
 	}
 
 	/**

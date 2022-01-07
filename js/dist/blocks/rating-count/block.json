@@ -1,0 +1,9 @@
+{
+	"name": "pronamic-reviews-ratings/rating-count",
+	"title": "Rating count",
+	"category": "pronamic-reviews-ratings",
+	"attributes": {},
+	"editorScript": "file:../../index.js",
+	"style": "dashicons",
+	"textdomain": "pronamic_reviews_ratings"
+}

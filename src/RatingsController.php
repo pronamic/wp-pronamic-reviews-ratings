@@ -44,7 +44,6 @@ class RatingsController {
 
 		// Filters.
 		\add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2 );
-		\add_filter( 'the_content', array( $this, 'object_content_ratings' ) );
 		\add_filter( 'render_block_data', array( $this, 'render_query_block_data' ), 10, 2 );
 	}
 
@@ -333,26 +332,6 @@ class RatingsController {
 		$pieces['orderby'] = $orderby;
 
 		return $pieces;
-	}
-
-	/**
-	 * The object ratings content.
-	 *
-	 * @param string $content Object post content.
-	 * @return string
-	 */
-	public function object_content_ratings( $content ) {
-		if ( ! \post_type_supports( \get_post_type(), 'pronamic_ratings' ) ) {
-			return $content;
-		}
-
-		\ob_start();
-
-		require __DIR__ . '/../views/object-ratings.php';
-
-		$ratings_content = \ob_get_clean();
-
-		return $content . \PHP_EOL . $ratings_content;
 	}
 
 	/**

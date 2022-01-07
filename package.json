@@ -25,11 +25,24 @@
   "license": "GPL",
   "homepage": "https://github.com/pronamic/wp-pronamic-reviews-ratings",
   "devDependencies": {
+    "@wordpress/block-editor": "^8.0.13",
+    "@wordpress/blocks": "^11.1.5",
+    "@wordpress/i18n": "^4.2.4",
+    "@wordpress/scripts": "^19.2.2",
+    "@wordpress/server-side-render": "^3.0.17",
+    "eslint": "^8.6.0",
+    "eslint-plugin-json": "^3.1.0",
     "grunt": "~1.4.1",
     "grunt-wp-i18n": "~1.0.3",
-	"sass": "^1.45.2"
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.45.2"
   },
   "scripts": {
-	  "sass": "sass scss:css"
+    "eslint": "eslint . --ext .json --ext .js",
+    "sass": "sass scss:css",
+    "start": "wp-scripts start",
+    "build": "npm-run-all build-*",
+    "build-wp-scripts": "wp-scripts build",
+    "build-blocks-json": "rsync -a --prune-empty-dirs --include '*/' --include 'block.json' --exclude '*' js/src/ js/dist/blocks/"
   }
 }
