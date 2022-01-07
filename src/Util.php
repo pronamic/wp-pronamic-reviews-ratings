@@ -66,6 +66,27 @@ class Util {
 	}
 
 	/**
+	 * Get scores.
+	 *
+	 * @param string|null $post_type Optional post type to get scores for.
+	 * @return array
+	 */
+	public static function get_post_type_ratings_scores( $post_type = null ) {
+		$scores = \apply_filters( 'pronamic_reviews_ratings_scores', range( 1, 10 ) );
+
+		// Scores for object post type.
+		if ( ! empty( $post_type ) ) {
+			$filtered_scores = \apply_filters( 'pronamic_reviews_ratings_scores_' . $post_type, $scores );
+
+			if ( \is_array( $filtered_scores ) ) {
+				$scores = $filtered_scores;
+			}
+		}
+
+		return $scores;
+	}
+
+	/**
 	 * Format rating, without decimals if possible.
 	 *
 	 * @param string|int|float $rating Rating.

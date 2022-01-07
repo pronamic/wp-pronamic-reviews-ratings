@@ -35,11 +35,11 @@ class RatingsController {
 		$this->plugin = $plugin;
 
 		// Actions.
-		\add_action( 'save_post', array( $this, 'update_comments_rating' ) );
+		\add_action( 'save_post', array( $this, 'update_ratings' ) );
 		\add_action( 'save_post_pronamic_review', array( $this, 'update_review_rating_score' ) );
-		\add_action( 'save_post_pronamic_review', array( $this, 'update_object_ratings' ), 15 );
-		\add_action( 'trash_post_pronamic_review', array( $this, 'update_object_ratings' ), 15 );
-		\add_action( 'untrash_post_pronamic_review', array( $this, 'update_object_ratings' ), 15 );
+		\add_action( 'save_post_pronamic_review', array( $this, 'update_review_object_ratings' ), 15 );
+		\add_action( 'trash_post_pronamic_review', array( $this, 'update_review_object_ratings' ), 15 );
+		\add_action( 'untrash_post_pronamic_review', array( $this, 'update_review_object_ratings' ), 15 );
 		\add_action( 'pre_get_posts', array( $this, 'pre_get_posts_pronamic_review_object' ) );
 
 		// Filters.
@@ -107,9 +107,7 @@ class RatingsController {
 	 * @param int $post_id Post ID.
 	 * @return void
 	 */
-	public function update_object_ratings( $post_id ) {
-		global $wpdb;
-
+	public function update_review_object_ratings( $post_id ) {
 		// Check object post ID.
 		$object_post_id = \get_post_meta( $post_id, '_pronamic_review_object_post_id', true );
 
@@ -117,78 +115,7 @@ class RatingsController {
 			return;
 		}
 
-		// Check post type support.
-		$post_type = \get_post_type( $object_post_id );
-
-		if ( ! \post_type_supports( $post_type, 'pronamic_ratings' ) ) {
-			return;
-		}
-
-		// Update post.
-		$results = $wpdb->get_results(
-			$wpdb->prepare(
-				"
-				SELECT
-					$wpdb->postmeta.meta_key,
-					COUNT( $wpdb->postmeta.meta_key ) as rating_count,
-					SUM( $wpdb->postmeta.meta_value) / COUNT( $wpdb->postmeta.meta_key ) as rating_value
-				FROM $wpdb->postmeta
-					LEFT JOIN $wpdb->posts ON $wpdb->posts.ID = $wpdb->postmeta.post_id
-					LEFT JOIN $wpdb->postmeta AS postmeta_object_id ON postmeta_object_id.post_id = $wpdb->posts.ID
-				WHERE
-					$wpdb->postmeta.meta_key LIKE %s
-						AND
-					$wpdb->posts.post_status = %s
-						AND
-					postmeta_object_id.meta_key = %s
-						AND
-					postmeta_object_id.meta_value = %d
-				GROUP BY
-					$wpdb->postmeta.meta_key
-				;",
-				'_pronamic_rating_value_%',
-				'publish',
-				'_pronamic_review_object_post_id',
-				$object_post_id
-			)
-		);
-
-		if ( empty( $results ) ) {
-			\update_post_meta( $object_post_id, '_pronamic_rating_count', 0 );
-			\update_post_meta( $object_post_id, '_pronamic_rating_value', 0 );
-
-			$rating_types = \pronamic_get_rating_types( $post_type );
-
-			foreach ( $rating_types as $type ) {
-				\delete_post_meta( $object_post_id, '_pronamic_rating_count_' . $type['name'] );
-				\delete_post_meta( $object_post_id, '_pronamic_rating_value_' . $type['name'] );
-			}
-		} else {
-			$rating_count = 0;
-			$rating_value = 0;
-
-			foreach ( $results as $result ) {
-				$meta_key_value = $result->meta_key;
-				$meta_key_count = \str_replace( '_pronamic_rating_value_', '_pronamic_rating_count_', $result->meta_key );
-
-				\update_post_meta( $object_post_id, $meta_key_value, $result->rating_value );
-				\update_post_meta( $object_post_id, $meta_key_count, $result->rating_count );
-
-				$rating_count += $result->rating_count;
-				$rating_value += $result->rating_value;
-			}
-
-			$rating_count = $rating_count / count( $results );
-
-			\update_post_meta( $object_post_id, '_pronamic_rating_count', $rating_count );
-			\update_post_meta( $object_post_id, '_pronamic_rating_value', $rating_value / count( $results ) );
-		}
-
-		/*
-		 * Sync ratings to custom table.
-		 *
-		 * $this->sync_rating_to_table( $post_id );
-		 */
+		$this->update_ratings( $object_post_id );
 	}
 
 	/**
@@ -197,7 +124,7 @@ class RatingsController {
 	 * @param int $post_id Post ID.
 	 * @return void
 	 */
-	public function update_comments_rating( $post_id ) {
+	public function update_ratings( $post_id ) {
 		global $wpdb;
 
 		// Check post type support.
@@ -208,7 +135,7 @@ class RatingsController {
 		}
 
 		// Update post.
-		$results = $wpdb->get_results(
+		$results_comments = $wpdb->get_results(
 			$wpdb->prepare(
 				"
 			SELECT
@@ -236,18 +163,84 @@ class RatingsController {
 			)
 		);
 
+		// Update post.
+		$results_reviews = $wpdb->get_results(
+			$wpdb->prepare(
+				"
+				SELECT
+					$wpdb->postmeta.meta_key,
+					COUNT( $wpdb->postmeta.meta_key ) as rating_count,
+					SUM( $wpdb->postmeta.meta_value) / COUNT( $wpdb->postmeta.meta_key ) as rating_value
+				FROM $wpdb->postmeta
+					LEFT JOIN $wpdb->posts ON $wpdb->posts.ID = $wpdb->postmeta.post_id
+					LEFT JOIN $wpdb->postmeta AS postmeta_object_id ON postmeta_object_id.post_id = $wpdb->posts.ID
+				WHERE
+					$wpdb->postmeta.meta_key LIKE %s
+						AND
+					$wpdb->posts.post_status = %s
+						AND
+					postmeta_object_id.meta_key = %s
+						AND
+					postmeta_object_id.meta_value = %d
+				GROUP BY
+					$wpdb->postmeta.meta_key
+				;",
+				'_pronamic_rating_value_%',
+				'publish',
+				'_pronamic_review_object_post_id',
+				$post_id
+			)
+		);
+
+		$results = array();
+
+		foreach ( $results_comments as $result ) {
+			if ( ! \array_key_exists( $result->meta_key, $results ) ) {
+				$results[ $result->meta_key ] = $result;
+			} else {
+				$results[ $result->meta_key ]->rating_value += $result->rating_value;
+				$results[ $result->meta_key ]->rating_count += $result->rating_count;
+			}
+		}
+
+		foreach ( $results_reviews as $result ) {
+			if ( ! \array_key_exists( $result->meta_key, $results ) ) {
+				$results[ $result->meta_key ] = $result;
+			} else {
+				$results[ $result->meta_key ]->rating_value += $result->rating_value;
+				$results[ $result->meta_key ]->rating_count += $result->rating_count;
+			}
+		}
+
+		$rating_count = 0;
+		$rating_value = 0;
+
 		if ( empty( $results ) ) {
-			\update_post_meta( $post_id, '_pronamic_rating_value', 0 );
-			\update_post_meta( $post_id, '_pronamic_rating_count', 0 );
+			// Delete ratings per type.
+			$rating_types = \pronamic_get_rating_types( $post_type );
+
+			foreach ( $rating_types as $type ) {
+				\delete_post_meta( $post_id, '_pronamic_rating_count_' . $type['name'] );
+				\delete_post_meta( $post_id, '_pronamic_rating_value_' . $type['name'] );
+			}
 		} else {
 			foreach ( $results as $result ) {
 				$meta_key_value = $result->meta_key;
-				$meta_key_count = str_replace( '_pronamic_rating_value', '_pronamic_rating_count', $meta_key_value );
+				$meta_key_count = \str_replace( '_pronamic_rating_value_', '_pronamic_rating_count_', $result->meta_key );
 
-				\update_post_meta( $post_id, $meta_key_value, $result->rating_value );
+				\update_post_meta( $post_id, $meta_key_value, round( $result->rating_value, 2 ) );
 				\update_post_meta( $post_id, $meta_key_count, $result->rating_count );
+
+				$rating_count += $result->rating_count;
+				$rating_value += $result->rating_value;
 			}
+
+			$rating_count = $rating_count / count( $results );
+			$rating_value = \round( $rating_value / count( $results ), 2 );
 		}
+
+		\update_post_meta( $post_id, '_pronamic_rating_count', $rating_count );
+		\update_post_meta( $post_id, '_pronamic_rating_value', $rating_value );
 
 		// Sync ratings to custom table.
 		$this->sync_rating_to_table( $post_id );

@@ -167,7 +167,7 @@ class ReviewPostType {
 				if ( empty( $ratings[ $name ] ) ) {
 					\delete_post_meta( $post_id, '_pronamic_rating_value_' . $name );
 				} else {
-					\update_post_meta( $post_id, '_pronamic_rating_value_' . $name, $ratings[ $name ] );
+					\update_post_meta( $post_id, '_pronamic_rating_value_' . $name, round( $ratings[ $name ], 2 ) );
 				}
 			}
 		}
