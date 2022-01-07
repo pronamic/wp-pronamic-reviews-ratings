@@ -65,6 +65,45 @@ $rating_types = Util::get_review_rating_types( \get_the_ID() );
 			?>
 		</td>
 	</tr>
+	<tr>
+		<th scope="row">
+			<label for="pronamic-review-author">
+				<?php esc_html_e( 'Author', 'pronamic_reviews_ratings' ); ?>
+			</label>
+		</th>
+		<td>
+			<?php
+
+			$author = \get_post_meta( \get_the_ID(), '_pronamic_review_author', true );
+
+			$atts = array(
+					'id'    => 'pronamic-review-author',
+					'name'  => 'pronamic_review_author',
+					'type'  => 'text',
+					'value' => $author,
+			);
+
+			\printf(
+					'<input %s />',
+					// @codingStandardsIgnoreStart
+					Util::array_to_html_attributes( $atts )
+			// @codingStandardsIgnoreEnd
+			);
+
+			?>
+		</td>
+	</tr>
+
+	<?php
+
+	// Scores.
+	$object_post_id = \get_post_meta( \get_the_ID(), '_pronamic_review_object_post_id', true );
+
+	$post_type = empty( $object_post_id ) ? null : \get_post_type( $object_post_id );
+
+	$scores = Util::get_post_type_ratings_scores( $post_type );
+
+	?>
 
 	<?php foreach ( $rating_types as $type ) : ?>
 
@@ -87,8 +126,10 @@ $rating_types = Util::get_review_rating_types( \get_the_ID() );
 				$atts = array(
 					'id'    => \sprintf( 'pronamic-review-rating-%s', $name ),
 					'name'  => \sprintf( 'pronamic_review_rating[%s]', $name ),
-					'type'  => 'text',
-					'value' => \get_post_meta( get_the_ID(), '_pronamic_rating_value_' . $name, true ),
+					'type'  => 'number',
+					'value' => \get_post_meta( \get_the_ID(), '_pronamic_rating_value_' . $name, true ),
+					'min'   => min( $scores ),
+					'max'   => max( $scores ),
 				);
 
 				\printf(
