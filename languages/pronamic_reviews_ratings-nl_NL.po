@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/"
 "pronamic_reviews_ratings\n"
 "POT-Creation-Date: 2022-01-05T16:19:46+00:00\n"
-"PO-Revision-Date: 2022-01-05 17:18+0100\n"
+"PO-Revision-Date: 2022-01-07 14:55+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl\n"
@@ -275,9 +275,8 @@ msgid "Author"
 msgstr "Auteur"
 
 #: views/object-ratings.php:93
-#, fuzzy
 msgid "Number of reviews"
-msgstr "Invoegen in review"
+msgstr "Aantal beoordelingen"
 
 #~ msgid "Products"
 #~ msgstr "Producten"
