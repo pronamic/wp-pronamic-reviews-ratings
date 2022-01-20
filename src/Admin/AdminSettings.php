@@ -364,6 +364,12 @@ class AdminSettings {
 		}
 	}
 
+	/**
+	 * Filter rating types option on update.
+	 *
+	 * @param array[] $value Rating types update value.
+	 * @return array
+	 */
 	public function pre_update_types( $value ) {
 		if ( ! is_array( $value ) ) {
 			$value = array();
