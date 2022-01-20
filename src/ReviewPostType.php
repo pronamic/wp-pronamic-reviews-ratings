@@ -91,6 +91,12 @@ class ReviewPostType {
 				'publicly_queryable'  => true,
 				'capability_type'     => 'page',
 				'show_in_rest'        => true,
+				'rewrite'             => array(
+					'slug' => \get_option(
+						'pronamic_reviews_rewrite_slug',
+						\_x( 'reviews', 'Rewrite slug', 'pronamic_reviews_ratings' )
+					),
+				),
 			)
 		);
 	}

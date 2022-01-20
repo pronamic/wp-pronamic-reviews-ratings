@@ -139,6 +139,15 @@ class Plugin {
 	 * @return void
 	 */
 	public function register_settings() {
+		// Rewrite slug setting.
+		register_setting(
+			'pronamic_reviews_ratings',
+			'pronamic_reviews_rewrite_slug',
+			array(
+				'type' => 'string',
+			)
+		);
+
 		// Rating types setting.
 		register_setting(
 			'pronamic_reviews_ratings',

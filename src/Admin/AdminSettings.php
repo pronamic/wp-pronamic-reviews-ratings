@@ -40,6 +40,7 @@ class AdminSettings {
 		// Actions.
 		\add_action( 'admin_init', array( $this, 'admin_init' ) );
 		\add_action( 'admin_menu', array( $this, 'add_options_page' ) );
+		\add_action( 'updated_option', array( $this, 'maybe_updated_rewrite_slug' ), 10, 1 );
 
 		// Filters.
 		\add_filter( 'pre_update_option_pronamic_reviews_ratings_types', array( $this, 'pre_update_types' ), 10 );
@@ -59,7 +60,19 @@ class AdminSettings {
 			'pronamic-reviews-ratings'
 		);
 
-		// Settings field.
+		// Settings fields.
+		\add_settings_field(
+			'pronamic_reviews_rewrite_slug',
+			__( 'Reviews URL slug', 'pronamic_reviews_ratings' ),
+			array( $this, 'input_element' ),
+			'pronamic-reviews-ratings',
+			'pronamic_reviews_ratings',
+			array(
+				'label_for'   => 'pronamic_reviews_rewrite_slug',
+				'placeholder' => \_x( 'reviews', 'Rewrite slug', 'pronamic_reviews_ratings' ),
+			)
+		);
+
 		\add_settings_field(
 			'pronamic_reviews_ratings_types',
 			__( 'Rating Types', 'pronamic_reviews_ratings' ),
@@ -122,6 +135,7 @@ class AdminSettings {
 			'classes'     => 'regular-text',
 			'description' => '',
 			'options'     => null,
+			'placeholder' => null,
 		);
 
 		$args = \wp_parse_args( $args, $defaults );
@@ -164,7 +178,8 @@ class AdminSettings {
 
 				break;
 			case 'text':
-				$atts['value'] = $value;
+				$atts['placeholder'] = $args['placeholder'];
+				$atts['value']       = $value;
 
 				\printf(
 					'<input %s />',
@@ -432,5 +447,30 @@ class AdminSettings {
 				\esc_html( $args['description'] )
 			);
 		}
+	}
+
+	/**
+	 * Flush rewrite rules on updating rewrite slug option.
+	 *
+	 * @param string $option Updated option name.
+	 * @return void
+	 */
+	public function maybe_updated_rewrite_slug( $option ) {
+		if ( 'pronamic_reviews_rewrite_slug' !== $option ) {
+			return;
+		}
+
+		$review_post_type = \get_post_type_object( 'pronamic_review' );
+
+		$review_post_type->rewrite = array(
+			'slug' => \get_option(
+				'pronamic_reviews_rewrite_slug',
+				\_x( 'reviews', 'Rewrite slug', 'pronamic_reviews_ratings' )
+			)
+		);
+
+		$review_post_type->add_rewrite_rules();
+
+		\flush_rewrite_rules();
 	}
 }
