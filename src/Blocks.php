@@ -90,6 +90,30 @@ class Blocks {
 	 * @return void
 	 */
 	public function register_block_types() {
+		// Block review author.
+		\register_block_type(
+			$this->plugin->dir_path . 'js/dist/blocks/review-author',
+			array(
+				'uses_context'    => array(
+					'postId',
+				),
+				'render_callback' => function ( $attributes, $content, $block ) {
+					if ( ! array_key_exists( 'postId', $block->context ) ) {
+						return '';
+					}
+
+					$post_id = $block->context['postId'];
+
+					$value = \get_post_meta( $post_id, '_pronamic_review_author', true );
+
+					return sprintf(
+						'<span class="pronamic-review-author">%s</span>',
+						\esc_html( $value )
+					);
+				},
+			)
+		);
+
 		// Block rating value.
 		\register_block_type(
 			$this->plugin->dir_path . 'js/dist/blocks/rating-value',

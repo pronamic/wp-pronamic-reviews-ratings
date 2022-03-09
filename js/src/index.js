@@ -6,6 +6,7 @@ import { registerBlockType } from '@wordpress/blocks';
 /**
  * Internal dependencies.
  */
+import * as ReviewAuthor from './review-author';
 import * as ReviewsRatingsValue from './rating-value';
 import * as ReviewsRatingsCount from './rating-count';
 import * as ReviewsRatingsStars from './rating-stars';
@@ -29,6 +30,7 @@ const registerBlock = ( block ) => {
 
 // Register blocks.
 [
+	ReviewAuthor,
 	ReviewsRatingsValue,
 	ReviewsRatingsCount,
 	ReviewsRatingsStars,
