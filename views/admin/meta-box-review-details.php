@@ -84,10 +84,10 @@ $rating_types = Util::get_review_rating_types( \get_the_ID() );
 			);
 
 			\printf(
-					'<input %s />',
-					// @codingStandardsIgnoreStart
-					Util::array_to_html_attributes( $atts )
-			// @codingStandardsIgnoreEnd
+				'<input %s />',
+				// @codingStandardsIgnoreStart
+				Util::array_to_html_attributes( $atts )
+				// @codingStandardsIgnoreEnd
 			);
 
 			?>

@@ -158,6 +158,17 @@ class ReviewPostType {
 				}
 			}
 
+			// Author.
+			if ( \filter_has_var( \INPUT_POST, 'pronamic_review_author' ) ) {
+				$author = \filter_input( \INPUT_POST, 'pronamic_review_author', \FILTER_SANITIZE_STRING );
+
+				if ( empty( $author ) ) {
+					\delete_post_meta( $post_id, '_pronamic_review_author' );
+				} else {
+					\update_post_meta( $post_id, '_pronamic_review_author', $author );
+				}
+			}
+
 			// Ratings.
 			$rating_types = Util::get_review_rating_types( $post_id );
 
