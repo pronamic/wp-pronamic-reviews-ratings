@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Pronamic Reviews and Ratings\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/"
 "pronamic_reviews_ratings\n"
-"POT-Creation-Date: 2022-01-05T16:19:46+00:00\n"
-"PO-Revision-Date: 2022-01-07 14:55+0100\n"
+"POT-Creation-Date: 2022-01-20T10:02:01+00:00\n"
+"PO-Revision-Date: 2022-01-20 11:03+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl\n"
@@ -91,7 +91,7 @@ msgid "Post ID"
 msgstr "Bericht ID"
 
 #: admin/gravityforms/meta-box-entry-detail-review.php:142
-#: src/Admin/AdminSettings.php:220
+#: src/Admin/AdminSettings.php:235
 msgid "Name"
 msgstr "Naam"
 
@@ -111,40 +111,61 @@ msgstr "Maak review reactie"
 msgid "Create Review Post"
 msgstr "Maak review"
 
-#: src/Admin/Admin.php:122
+#: src/Admin/Admin.php:122 js/dist/index.js:1 js/src/ratings/index.js:19
 msgid "Ratings"
 msgstr "Ratings"
 
-#: src/Admin/AdminSettings.php:57
+#: src/Admin/AdminSettings.php:58
 msgid "General"
 msgstr "Algemeen"
 
-#: src/Admin/AdminSettings.php:65
+#: src/Admin/AdminSettings.php:66
+msgid "Reviews URL slug"
+msgstr "Reviews URL slug"
+
+#: src/Admin/AdminSettings.php:72 src/Admin/AdminSettings.php:468
+#: src/ReviewPostType.php:97
+msgctxt "Rewrite slug"
+msgid "reviews"
+msgstr "beoordelingen"
+
+#: src/Admin/AdminSettings.php:78
 msgid "Rating Types"
 msgstr "Beoordelingstypen"
 
-#: src/Admin/AdminSettings.php:82 src/Admin/AdminSettings.php:83
+#: src/Admin/AdminSettings.php:95 src/Admin/AdminSettings.php:96
 #: src/ReviewPostType.php:48 src/ReviewPostType.php:52
 msgid "Reviews"
 msgstr "Reviews"
 
-#: src/Admin/AdminSettings.php:221
+#: src/Admin/AdminSettings.php:236
 msgid "Label"
 msgstr "Label"
 
-#: src/Admin/AdminSettings.php:222
+#: src/Admin/AdminSettings.php:237
 msgid "Restrict to Post Type"
 msgstr "Beperk tot berichttype"
 
-#: src/Admin/AdminSettings.php:294
+#: src/Admin/AdminSettings.php:309
 msgid "New rating type…"
-msgstr "Nieuw beoordelingstype..."
+msgstr "Nieuw beoordelingstype…"
+
+#: src/Blocks.php:80
+msgid "Pronamic Reviews & Ratings"
+msgstr "Pronamic Reviews & Ratings"
+
+#. translators: %d: number of ratings
+#: src/Blocks.php:138 src/Shortcodes.php:66
+msgid "%d rating"
+msgid_plural "%d ratings"
+msgstr[0] "%d beoordeling"
+msgstr[1] "%d beoordelingen"
 
 #: src/CommentsController.php:79
 msgid "<strong>ERROR</strong>: please fill in the rating fields."
 msgstr "<strong>MISLUKT</strong>: vul de beoordeling velden in."
 
-#: src/Plugin.php:212
+#: src/Plugin.php:223
 msgid "Name is required to register a rating type. "
 msgstr "Naam is vereist om een beoordelingstype te registreren."
 
@@ -254,13 +275,6 @@ msgstr "Reviews lijst navigatie"
 msgid "Filter reviews list"
 msgstr "Filter reviews lijst"
 
-#. translators: %d: number of ratings
-#: src/Shortcodes.php:64
-msgid "%d rating"
-msgid_plural "%d ratings"
-msgstr[0] "%d beoordeling"
-msgstr[1] "%d beoordelingen"
-
 #: views/admin/meta-box-review-details.php:21
 msgid "Reviewed object post ID"
 msgstr "Beoordeeld object post ID"
@@ -278,6 +292,54 @@ msgstr "Auteur"
 msgid "Number of reviews"
 msgstr "Aantal beoordelingen"
 
+#: js/dist/index.js:1 js/src/rating-value/index.js:19
+msgid "Rating value"
+msgstr "Beoordelingscijfer"
+
+#: js/dist/index.js:1 js/src/rating-value/index.js:20
+msgid "Displays rating value."
+msgstr "Toont beoordelingscijfer."
+
+#: js/dist/index.js:1 js/src/rating-count/index.js:19
+msgid "Rating count"
+msgstr "Aantal beoordelingen"
+
+#: js/dist/index.js:1 js/src/rating-count/index.js:20
+msgid "Displays rating count."
+msgstr "Toont aantal beoordelingen."
+
+#: js/dist/index.js:1 js/src/rating-stars/index.js:19
+msgid "Rating stars"
+msgstr "Beoordeling sterren."
+
+#: js/dist/index.js:1 js/src/rating-stars/index.js:20
+msgid "Displays rating stars."
+msgstr "Toont beoordeling sterren."
+
+#: js/dist/index.js:1 js/src/ratings/index.js:20
+msgid "Displays ratings."
+msgstr "Toont beoordelingen."
+
+#: js/dist/blocks/rating-count/block.json js/src/rating-count/block.json
+msgctxt "block title"
+msgid "Rating count"
+msgstr "Aantal beoordelingen"
+
+#: js/dist/blocks/rating-stars/block.json js/src/rating-stars/block.json
+msgctxt "block title"
+msgid "Rating stars"
+msgstr "Beoordeling sterren."
+
+#: js/dist/blocks/rating-value/block.json js/src/rating-value/block.json
+msgctxt "block title"
+msgid "Rating value"
+msgstr "Beoordelingscijfer"
+
+#: js/dist/blocks/ratings/block.json js/src/ratings/block.json
+msgctxt "block title"
+msgid "Ratings"
+msgstr "Beoordelingen"
+
 #~ msgid "Products"
 #~ msgstr "Producten"
 
@@ -292,8 +354,32 @@ msgstr "Aantal beoordelingen"
 #~ msgstr "Product"
 
 #, fuzzy
+#~ msgid "Product"
+#~ msgstr "Product"
+
+#, fuzzy
+#~ msgid "Item Archives"
+#~ msgstr "Reviews Archief"
+
+#, fuzzy
+#~ msgid "Item Attributes"
+#~ msgstr "Review eigenschappen"
+
+#, fuzzy
 #~ msgid "Parent Item:"
 #~ msgstr "Bovenliggende categorie:"
+
+#, fuzzy
+#~ msgid "All Items"
+#~ msgstr "Alle eigenschappen"
+
+#, fuzzy
+#~ msgid "Add New Item"
+#~ msgstr "Nieuwe toevoegen"
+
+#, fuzzy
+#~ msgid "New Item"
+#~ msgstr "Bekijk"
 
 #, fuzzy
 #~ msgid "Edit Item"
@@ -308,8 +394,36 @@ msgstr "Aantal beoordelingen"
 #~ msgstr "Bekijk"
 
 #, fuzzy
+#~ msgid "View Items"
+#~ msgstr "Bekijk"
+
+#, fuzzy
 #~ msgid "Search Item"
 #~ msgstr "Categorieën zoeken"
+
+#, fuzzy
+#~ msgid "Insert into item"
+#~ msgstr "Invoegen in review"
+
+#, fuzzy
+#~ msgid "Uploaded to this item"
+#~ msgstr "Geüpload naar deze review"
+
+#, fuzzy
+#~ msgid "Items list"
+#~ msgstr "Reviews lijst"
+
+#, fuzzy
+#~ msgid "Items list navigation"
+#~ msgstr "Reviews lijst navigatie"
+
+#, fuzzy
+#~ msgid "Filter items list"
+#~ msgstr "Filter reviews lijst"
+
+#, fuzzy
+#~ msgid "Services"
+#~ msgstr "Voorzieningen"
 
 #, fuzzy
 #~ msgctxt "Post Type General Name"
@@ -318,6 +432,10 @@ msgstr "Aantal beoordelingen"
 
 #, fuzzy
 #~ msgctxt "Post Type Singular Name"
+#~ msgid "Service"
+#~ msgstr "Voorziening"
+
+#, fuzzy
 #~ msgid "Service"
 #~ msgstr "Voorziening"
 
@@ -806,9 +924,6 @@ msgstr "Aantal beoordelingen"
 
 #~ msgid "Search Properties"
 #~ msgstr "Eigenschappen zoeken"
-
-#~ msgid "All Properties"
-#~ msgstr "Alle eigenschappen"
 
 #~ msgid "Parent Property"
 #~ msgstr "Bovenliggende eigenschap"

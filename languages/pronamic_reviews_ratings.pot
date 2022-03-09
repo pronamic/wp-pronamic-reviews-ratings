@@ -2,14 +2,14 @@
 # This file is distributed under the GPL.
 msgid ""
 msgstr ""
-"Project-Id-Version: Pronamic Reviews and Ratings 1.0.0\n"
+"Project-Id-Version: Pronamic Reviews and Ratings 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/pronamic_reviews_ratings\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-05T16:20:24+00:00\n"
+"POT-Creation-Date: 2022-01-20T10:02:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: pronamic_reviews_ratings\n"
@@ -85,7 +85,7 @@ msgid "Post ID"
 msgstr ""
 
 #: admin/gravityforms/meta-box-entry-detail-review.php:142
-#: src/Admin/AdminSettings.php:220
+#: src/Admin/AdminSettings.php:235
 msgid "Name"
 msgstr ""
 
@@ -106,41 +106,66 @@ msgid "Create Review Post"
 msgstr ""
 
 #: src/Admin/Admin.php:122
+#: js/dist/index.js:1
+#: js/src/ratings/index.js:19
 msgid "Ratings"
 msgstr ""
 
-#: src/Admin/AdminSettings.php:57
+#: src/Admin/AdminSettings.php:58
 msgid "General"
 msgstr ""
 
-#: src/Admin/AdminSettings.php:65
+#: src/Admin/AdminSettings.php:66
+msgid "Reviews URL slug"
+msgstr ""
+
+#: src/Admin/AdminSettings.php:72
+#: src/Admin/AdminSettings.php:468
+#: src/ReviewPostType.php:97
+msgctxt "Rewrite slug"
+msgid "reviews"
+msgstr ""
+
+#: src/Admin/AdminSettings.php:78
 msgid "Rating Types"
 msgstr ""
 
-#: src/Admin/AdminSettings.php:82
-#: src/Admin/AdminSettings.php:83
+#: src/Admin/AdminSettings.php:95
+#: src/Admin/AdminSettings.php:96
 #: src/ReviewPostType.php:48
 #: src/ReviewPostType.php:52
 msgid "Reviews"
 msgstr ""
 
-#: src/Admin/AdminSettings.php:221
+#: src/Admin/AdminSettings.php:236
 msgid "Label"
 msgstr ""
 
-#: src/Admin/AdminSettings.php:222
+#: src/Admin/AdminSettings.php:237
 msgid "Restrict to Post Type"
 msgstr ""
 
-#: src/Admin/AdminSettings.php:294
+#: src/Admin/AdminSettings.php:309
 msgid "New rating type…"
 msgstr ""
+
+#: src/Blocks.php:80
+msgid "Pronamic Reviews & Ratings"
+msgstr ""
+
+#. translators: %d: number of ratings
+#: src/Blocks.php:138
+#: src/Shortcodes.php:66
+msgid "%d rating"
+msgid_plural "%d ratings"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/CommentsController.php:79
 msgid "<strong>ERROR</strong>: please fill in the rating fields."
 msgstr ""
 
-#: src/Plugin.php:212
+#: src/Plugin.php:223
 msgid "Name is required to register a rating type. "
 msgstr ""
 
@@ -251,13 +276,6 @@ msgstr ""
 msgid "Filter reviews list"
 msgstr ""
 
-#. translators: %d: number of ratings
-#: src/Shortcodes.php:64
-msgid "%d rating"
-msgid_plural "%d ratings"
-msgstr[0] ""
-msgstr[1] ""
-
 #: views/admin/meta-box-review-details.php:21
 msgid "Reviewed object post ID"
 msgstr ""
@@ -273,4 +291,63 @@ msgstr ""
 
 #: views/object-ratings.php:93
 msgid "Number of reviews"
+msgstr ""
+
+#: js/dist/index.js:1
+#: js/src/rating-value/index.js:19
+msgid "Rating value"
+msgstr ""
+
+#: js/dist/index.js:1
+#: js/src/rating-value/index.js:20
+msgid "Displays rating value."
+msgstr ""
+
+#: js/dist/index.js:1
+#: js/src/rating-count/index.js:19
+msgid "Rating count"
+msgstr ""
+
+#: js/dist/index.js:1
+#: js/src/rating-count/index.js:20
+msgid "Displays rating count."
+msgstr ""
+
+#: js/dist/index.js:1
+#: js/src/rating-stars/index.js:19
+msgid "Rating stars"
+msgstr ""
+
+#: js/dist/index.js:1
+#: js/src/rating-stars/index.js:20
+msgid "Displays rating stars."
+msgstr ""
+
+#: js/dist/index.js:1
+#: js/src/ratings/index.js:20
+msgid "Displays ratings."
+msgstr ""
+
+#: js/dist/blocks/rating-count/block.json
+#: js/src/rating-count/block.json
+msgctxt "block title"
+msgid "Rating count"
+msgstr ""
+
+#: js/dist/blocks/rating-stars/block.json
+#: js/src/rating-stars/block.json
+msgctxt "block title"
+msgid "Rating stars"
+msgstr ""
+
+#: js/dist/blocks/rating-value/block.json
+#: js/src/rating-value/block.json
+msgctxt "block title"
+msgid "Rating value"
+msgstr ""
+
+#: js/dist/blocks/ratings/block.json
+#: js/src/ratings/block.json
+msgctxt "block title"
+msgid "Ratings"
 msgstr ""
