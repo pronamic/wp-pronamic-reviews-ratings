@@ -1,0 +1,9 @@
+{
+	"name": "pronamic-reviews-ratings/rating-reviewed-object-title",
+	"title": "Rating reviewed object title",
+	"category": "pronamic-reviews-ratings",
+    "attributes": {},
+	"editorScript": "file:../../index.js",
+	"style": "dashicons",
+	"textdomain": "pronamic_reviews_ratings"
+}

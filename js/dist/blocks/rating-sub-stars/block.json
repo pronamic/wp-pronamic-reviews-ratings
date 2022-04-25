@@ -1,9 +1,9 @@
 {
-	"name": "pronamic-reviews-ratings/review-author",
-	"title": "Review author",
+	"name": "pronamic-reviews-ratings/rating-sub-stars",
+	"title": "Rating stars",
 	"category": "pronamic-reviews-ratings",
 	"attributes": {
-        "showText": {
+        "showNumber": {
             "type": "bool",
             "default": false
         }

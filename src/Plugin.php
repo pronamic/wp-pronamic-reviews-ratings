@@ -80,7 +80,8 @@ class Plugin {
 		\add_action( 'init', array( $this, 'init' ), 20 );
 		\add_action( 'init', array( $this, 'register_settings' ) );
 		\add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
-
+		\add_action( 'rest_api_init', array( $this, 'register_endpoints' ) ); 
+		
 		// Review post type.
 		new ReviewPostType();
 
@@ -131,6 +132,25 @@ class Plugin {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Register endpoints.
+	 *
+	 * @return void
+	 */
+	public function register_endpoints() {
+		register_rest_route(
+			'rating-types',
+			'/all',
+			array(
+				'methods'             => 'GET',
+				'callback'            => function() {
+                    return $this->rating_types;
+                },
+				'permission_callback' => '__return_true',
+			) 
+		);
 	}
 
 	/**

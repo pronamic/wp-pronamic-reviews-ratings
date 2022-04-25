@@ -2,7 +2,24 @@
 	"name": "pronamic-reviews-ratings/rating-stars",
 	"title": "Rating stars",
 	"category": "pronamic-reviews-ratings",
-	"attributes": {},
+	"attributes": {
+        "showNumber": {
+            "type": "bool",
+            "default": false
+        },
+        "showText": {
+            "type": "bool",
+            "default": false
+        },
+        "displayText": {
+            "type": "string",
+            "default": "Overall rating"
+        },
+        "ratingType": {
+            "type": "string",
+            "default": "Overall rating"
+        }
+    },
 	"editorScript": "file:../../index.js",
 	"style": "dashicons",
 	"textdomain": "pronamic_reviews_ratings"

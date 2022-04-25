@@ -2,7 +2,12 @@
 	"name": "pronamic-reviews-ratings/review-author",
 	"title": "Review author",
 	"category": "pronamic-reviews-ratings",
-	"attributes": {},
+	"attributes": {
+        "showText": {
+            "type": "bool",
+            "default": false
+        }
+    },
 	"editorScript": "file:../../index.js",
 	"style": "dashicons",
 	"textdomain": "pronamic_reviews_ratings"
