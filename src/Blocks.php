@@ -212,37 +212,27 @@ class Blocks {
 					$rating = 0;
 					$scores = 10;
 					$max_score = $scores;
+					
+					$post_id = $block->context['postId'];
 
-					if ( 'Overall rating' == $attributes['ratingType'] ) {
-						if ( get_post_type() == 'pronamic_review' ) {
-							$post_id = $block->context['postId'];
-							$rating = (int) \get_post_meta( $post_id, '_pronamic_rating', true );
-
-							$scores = Util::get_post_type_ratings_scores( \get_post_type( $post_id ) );
-
-							$max_score = max( $scores );
-						} else {
-							$post_data = get_post();
-							if ( property_exists( $post_data, 'rating_value' ) ) {
-								$rating = $post_data->rating_value;
-							}
-						}
-					} else {
-						global $wpdb;
-
-						$ratings = $wpdb->get_results( $wpdb->prepare( "SELECT meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", '_pronamic_rating_value_' . $attributes['ratingType'] ) );
+					if ( get_post_type() == 'pronamic_review' ) {
+						$rating_extension = ( 'Overall rating' != $attributes['ratingType'] ) ? '_value_' . $attributes['ratingType'] : '';
+						$ratings = \get_post_meta( $post_id, '_pronamic_rating' . $rating_extension, false );
 
 						foreach ( $ratings as $selected_rating ) {
-							$rating += $selected_rating->meta_value;
+							$rating += $selected_rating;
 						}
 
 						$rating = ( 0 == $rating ) ? 0 : $rating / count( $ratings );
+					} else {
+						$rating_extension = ( 'Overall rating' != $attributes['ratingType'] ) ? '_' . $attributes['ratingType'] : '';
+						$rating = \get_post_meta( $post_id, '_pronamic_rating_value' . $rating_extension, true );
 					}
 
 					$html = '';
 
 					for ( $i = 0; $i < $max_score; $i++ ) {
-						$value = $rating - $i;
+						$value = (float)$rating - $i;
 
 						$class = 'empty';
 
@@ -264,7 +254,7 @@ class Blocks {
 
 					$show_text = sprintf(
 						'<span class="rating-text"> %s </span>',
-						( $attributes['showText'] ) ? $attributes['displayText'] : __( 'Overall rating', 'pronamic_reviews_ratings' )
+						( $attributes['showText'] ) ? $attributes['displayText'] : ''
 					);
 
 					$show_number = sprintf(

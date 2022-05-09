@@ -4,7 +4,7 @@
  * Plugin URI: https://www.happywp.com/plugins/pronamic-reviews-ratings/
  * Description: The Pronamic Reviews Ratings plugin for WordPress is a powerful, extendable reviews and ratings plugin.
  *
- * Version: 2.0.0-alpha
+ * Version: 2.0.1-alpha
  * Requires at least: 3.0
  *
  * Author: Pronamic
