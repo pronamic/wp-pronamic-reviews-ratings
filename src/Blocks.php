@@ -35,7 +35,7 @@ class Blocks {
 		$this->plugin = $plugin;
 
 		// Actions.
-		\add_action( 'init', array( $this, 'register_script' ) );
+		\add_action( 'admin_init', array( $this, 'register_script' ) );
 		\add_action( 'init', array( $this, 'register_block_types' ) );
 
 		// Filters.
