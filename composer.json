@@ -18,6 +18,13 @@
             "email": "info@pronamic.nl"
         }
     ],
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "roots/wordpress-core-installer": true,
+            "bamarni/composer-bin-plugin": true
+        }
+    },
     "require-dev": {
         "pronamic/wp-coding-standards": "^1.0",
         "bamarni/composer-bin-plugin": "^1.4",

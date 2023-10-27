@@ -64,11 +64,16 @@ class Blocks {
 			'pronamic_reviews_ratings',
 			__DIR__ . '/../languages'
 		);
-        
-        wp_localize_script( 'pronamic-pay-reviews-ratings-blocks', 'rest_prefix', array(
-            'prefix' => rest_get_url_prefix(),
-        ) );
-        wp_enqueue_script( 'pronamic-pay-reviews-ratings-blocks' );
+
+		\wp_localize_script(
+			'pronamic-pay-reviews-ratings-blocks',
+			'rest_prefix',
+			[
+				'prefix' => \rest_get_url_prefix(),
+			]
+		);
+
+		\wp_enqueue_script( 'pronamic-pay-reviews-ratings-blocks' );
 	}
 
 	/**
@@ -115,12 +120,26 @@ class Blocks {
 
 					$post_id = $block->context['postId'];
 
-					$value = \get_post_meta( $post_id, '_pronamic_review_author', true );
+					$author = (string) \get_post_meta( $post_id, '_pronamic_review_author', true );
 
-					return sprintf(
-						'%s<span class="pronamic-review-author">%s</span>',
-						( $attributes['showText'] ) ? '<span>' . __( 'Review by ', 'pronamic_reviews_ratings' ) . '</span>' : '',
-						\esc_html( $value )
+					if ( '' === trim( $author ) ) {
+						$author = \__( 'anonymous', 'pronamic_reviews_ratings' );
+					}
+
+					if ( $attributes['showText'] ) {
+						return \sprintf(
+							'<p>%s</p>',
+							\sprintf(
+								/* translators: %s: review author */
+								\__( 'Review by %s', 'pronamic_reviews_ratings' ),
+								\esc_html( $author )
+							)
+						);
+					}
+
+					return \sprintf(
+						'<p><span class="pronamic-review-author">%s</span></p>',
+						\esc_html( $author )
 					);
 				},
 			)
@@ -212,7 +231,7 @@ class Blocks {
 					$rating = 0;
 					$scores = 10;
 					$max_score = $scores;
-					
+
 					$post_id = $block->context['postId'];
 
 					if ( get_post_type() == 'pronamic_review' ) {
@@ -266,8 +285,8 @@ class Blocks {
 					return sprintf(
 						'<span class="rating">
                             %s <br style="display: none;">
-                            <span class="pronamic-rating-stars"> %s </span> 
-                            %s 
+                            <span class="pronamic-rating-stars"> %s </span>
+                            %s
                         </span>',
 						$show_text,
 						$html,
@@ -325,9 +344,9 @@ class Blocks {
 					}
 
 					$post_id = $block->context['postId'];
-					
+
 					$rating_types = Util::get_review_rating_types( $post_id );
-				
+
 					$html = '';
 
 					foreach ( $rating_types as $rating_type ) {
@@ -348,9 +367,9 @@ class Blocks {
 
 						for ( $i = 0; $i < $max_score; $i++ ) {
 							$value = $rating - $i;
-	
+
 							$class = 'empty';
-	
+
 							if ( $value >= 1 ) {
 								$class = 'filled';
 							} elseif ( $value >= 0.5 ) {
@@ -377,8 +396,8 @@ class Blocks {
 						$html .= sprintf(
 							'<span class="rating">
                                 <span class="rating-sub-text"> %s </span> <br style="display: none;">
-                                <span class="pronamic-rating-sub-stars"> %s </span> 
-                                %s 
+                                <span class="pronamic-rating-sub-stars"> %s </span>
+                                %s
                             </span>',
 							$rating_label,
 							$stars,
@@ -396,7 +415,7 @@ class Blocks {
 						);
 					}
 
-					return $html;               
+					return $html;
 				},
 			)
 		);
