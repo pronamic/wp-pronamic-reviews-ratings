@@ -92,7 +92,8 @@ class ReviewPostType {
 				'capability_type'     => 'page',
 				'show_in_rest'        => true,
 				'rewrite'             => array(
-					'slug' => \get_option(
+					'with_front' => false,
+					'slug'       => \get_option(
 						'pronamic_reviews_rewrite_slug',
 						\_x( 'reviews', 'Rewrite slug', 'pronamic_reviews_ratings' )
 					),
