@@ -81,6 +81,10 @@ add_filter( 'pronamic_reviews_ratings_scores', 'prefix_pronamic_reviews_ratings_
 
 ```
 
+## Query Loop block
+
+Add the `pronamic-reviews-for-post` keyword as a search filter parameter to show reviews for the current post.
+
 
 ## Metadata
 
