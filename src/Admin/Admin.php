@@ -50,8 +50,33 @@ class Admin {
 		\add_action( 'admin_init', array( $this, 'update_db_version' ), 5 );
 		\add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 
+		// Admin scripts.
+		\add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+
 		// Admin settings.
 		$this->admin_settings = new AdminSettings( $plugin );
+	}
+
+	/**
+	 * Admin scripts.
+	 *
+	 * @return void
+	 */
+	public function admin_scripts() {
+		\wp_register_script(
+			'select2',
+			\plugin_dir_url( $this->plugin->file ) . 'assets/select2/js/select2.js',
+			array( 'jquery' ),
+			'4.1.0',
+			true
+		);
+
+		\wp_register_style(
+			'select2',
+			\plugin_dir_url( $this->plugin->file ) . 'assets/select2/css/select2.css',
+			array(),
+			'4.1.0',
+		);
 	}
 
 	/**

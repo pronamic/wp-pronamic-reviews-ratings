@@ -12,7 +12,51 @@ use Pronamic\WordPress\ReviewsRatings\Util;
 
 $rating_types = Util::get_review_rating_types( \get_the_ID() );
 
+// Select2
+wp_enqueue_style( 'select2' );
+wp_enqueue_script( 'select2' );
+
+$search_results_rest_endpoint = \rest_url() . 'wp/v2/search/';
+
 ?>
+<script>
+	jQuery( document ).ready(
+		function( $ ) {
+			const reviewOjectField = document.getElementById( 'pronamic-review-object-id' );
+
+			$( reviewOjectField ).select2(
+				{
+					allowClear: true,
+					ajax: {
+						url: '<?php echo esc_url( $search_results_rest_endpoint ); ?>',
+						dataType: 'json',
+						delay: 250,
+						minimumInputLength: 2,
+						data: function( params ) {
+							return {
+								search: params.term,
+								per_page: 20
+							};
+						},
+						processResults: function( data, params ) {
+							return {
+								results: data.map(
+									post => (
+										{
+											id: post.id,
+											text: post.title
+										}
+									)
+								)
+							};
+						},
+						cache: true
+					}
+				}
+			);
+		}
+	);
+</script>
 
 <table class="form-table">
 	<tr>
@@ -26,43 +70,20 @@ $rating_types = Util::get_review_rating_types( \get_the_ID() );
 
 			$object_post_id = \get_post_meta( get_the_ID(), '_pronamic_review_object_post_id', true );
 
-			$atts = array(
-				'id'    => 'pronamic-review-object-id',
-				'name'  => 'pronamic_review_object_post_id',
-				'type'  => 'text',
-				'value' => $object_post_id,
-			);
-
-			// Edit object post link.
-			$edit_post_link = '';
-
-			if ( ! empty( $object_post_id ) ) {
-				$edit_post_link = sprintf(
-					/* translators: %d: object post ID */
-					__( 'No post found with ID <code>%d</code>.', 'pronamic_reviews_ratings' ),
-					$object_post_id
-				);
-
-				$object_post = \get_post( $object_post_id );
-
-				if ( $object_post instanceof \WP_Post ) {
-					$edit_post_link = \sprintf(
-						'<a href="%1$s" title="%2$s">%2$s</a>',
-						\get_edit_post_link( $object_post_id ),
-						\get_the_title( $object_post_id )
-					);
-				}
-			}
-
-			\printf(
-				'<input %s /> %s',
-				// @codingStandardsIgnoreStart
-				Util::array_to_html_attributes( $atts ),
-				// @codingStandardsIgnoreEn,
-				\wp_kses_post( $edit_post_link )
-			);
-
 			?>
+			<select class="regular-text" id="pronamic-review-object-id" name="pronamic_review_object_post_id" data-placeholder="<?php esc_attr_e( 'Select post…', 'pronamic_reviews_ratings' ); ?>">
+				<option value="" <?php echo empty( $object_post_id ) ? 'selected' : ''; ?>>
+					<?php esc_html_e( 'Select a post...', 'pronamic_reviews_ratings' ); ?>
+				</option>
+
+				<?php if ( ! empty( $object_post_id ) ) : ?>
+
+					<option value="<?php echo esc_attr( $object_post_id ); ?>" selected>
+						<?php echo esc_html( get_the_title( $object_post_id ) ); ?>
+					</option>
+
+				<?php endif; ?>
+			</select>
 		</td>
 	</tr>
 	<tr>
@@ -77,10 +98,11 @@ $rating_types = Util::get_review_rating_types( \get_the_ID() );
 			$author = \get_post_meta( \get_the_ID(), '_pronamic_review_author', true );
 
 			$atts = array(
-					'id'    => 'pronamic-review-author',
-					'name'  => 'pronamic_review_author',
-					'type'  => 'text',
-					'value' => $author,
+				'id'    => 'pronamic-review-author',
+				'name'  => 'pronamic_review_author',
+				'type'  => 'text',
+				'value' => $author,
+				'class' => 'regular-text',
 			);
 
 			\printf(

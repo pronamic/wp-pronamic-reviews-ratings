@@ -38,11 +38,15 @@
     "sass": "^1.49.11"
   },
   "scripts": {
+    "copy-scripts": "mkdir -p assets/select2 && cp -r node_modules/select2/dist/* assets/select2",
     "eslint": "eslint . --ext .json --ext .js",
     "sass": "sass scss:css",
     "start": "wp-scripts start",
     "build": "npm-run-all build-*",
     "build-wp-scripts": "wp-scripts build",
     "build-blocks-json": "rsync -a --prune-empty-dirs --include '*/' --include 'block.json' --exclude '*' js/src/ js/dist/blocks/"
+  },
+  "dependencies": {
+    "select2": "^4.1.0-rc.0"
   }
 }
