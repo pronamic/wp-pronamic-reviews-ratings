@@ -200,6 +200,53 @@ class Admin {
 	}
 
 	/**
+	 * Rating stars.
+	 *
+	 * @param int $rating_value The rating value.
+	 * @param int $star_size    Size of a rating star.
+	 * 
+	 * @return string
+	 */
+	public function get_rating_stars( $rating_value, $star_size = 20 ) {
+		if ( ! is_numeric( $rating_value ) ) {
+			return;
+		}
+
+		$percentage = ( $rating_value / 10 ) * 100;
+
+		?>
+		<svg width="<?php echo esc_attr( $star_size * 5 ); ?>" height="<?php echo esc_attr( $star_size ); ?>" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<symbol id="star" width="<?php echo esc_attr( $star_size ); ?>" height="<?php echo esc_attr( $star_size ); ?>" viewBox="0 0 24 24">
+					<path d="M12 0.587036L15.668 8.15504L24 9.30604L17.936 15.134L19.416 23.413L12 19.446L4.583 23.413L6.064 15.134L0 9.30604L8.332 8.15504L12 0.587036Z" fill="currentColor" />
+				</symbol>
+
+				<clipPath id="star-clip">
+					<rect x="0" y="0" width="<?php echo esc_attr( $percentage ); ?>%" height="100%" />
+				</clipPath>
+			</defs>
+
+			<g opacity="0.3">
+				<?php for ( $i = 0; $i < 5; $i++ ) : ?>
+
+					<use xlink:href="#star" x="<?php echo esc_attr(  $i * $star_size ); ?>" y="0" />
+
+				<?php endfor; ?>
+			</g>
+
+			<g clip-path="url(#star-clip)">
+				<?php for ( $i = 0; $i < 5; $i++ ) : ?>
+
+					<use xlink:href="#star" x="<?php echo esc_attr(  $i * $star_size ); ?>" y="0" />
+
+				<?php endfor; ?>
+			</g>
+		</svg>
+
+		<?php
+	}
+
+	/**
 	 * Post custom column.
 	 *
 	 * @param string $column  Column.
@@ -225,24 +272,7 @@ class Admin {
 				$scores = Util::get_post_type_ratings_scores( $post_type );
 
 				if ( \is_numeric( $rating_value ) && $rating_count > 0 ) {
-					$max_score = max( $scores );
-
-					for ( $i = 0; $i < $max_score; $i++ ) {
-						$value = $rating_value - $i;
-
-						$class = 'empty';
-
-						if ( $value >= 1 ) {
-							$class = 'filled';
-						} elseif ( $value >= 0.5 ) {
-							$class = 'half';
-						}
-
-						\printf(
-							'<span class="dashicons dashicons-star-%s"></span>',
-							\esc_attr( $class )
-						);
-					}
+					$this->get_rating_stars( $rating_value );
 				} else {
 					echo '&mdash;';
 				}
